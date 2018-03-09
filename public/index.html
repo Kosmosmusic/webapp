@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="kosmosmusic">
+	<head>
+		<title>KOS.MOS.MUSIC</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta charset="utf-8"/>
+		<meta http-equiv="x-dns-prefetch-control" content="on"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="author" content="rfprod"/>
+		<meta name="description" content="KOS.MOS.MUSIC - Drum and Bass record label."/>
+		<meta name="сopyright" content="rfprod"/>
+		<meta name="keywords" content="drumnbass, drum and bass"/>
+		<link type="image/x-icon" rel="icon" href="/favicon.ico"/>
+		<link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/>
+		<link type="image/x-icon" rel="apple-touch-icon" href="/favicon.ico"/>
+	<!-- vendor stylesheets -->
+		<link rel="stylesheet" href="css/vendor-pack.min.css"/>
+	<!-- Roboto font for angular material -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"/>
+	<!-- app styles -->
+		<link rel="stylesheet" href="css/packed-app.min.css"/>
+		<base href="/">
+	</head>
+	<body ng-cloak layout="column">
+
+		<div data-ng-include src="'app/views/nav.html'"></div>
+
+		<md-content flex>
+			<div ng-view class="view-frame md-body-2" layout="column" layout-fill layout-align="start stretch"></div>
+		</md-content>
+
+	<!-- Soundcloud connect -->
+		<script src="//connect.soundcloud.com/sdk/sdk-3.2.2.js"></script>
+	<!-- Production mode -->
+		<script src="js/vendor-pack.min.js"></script>
+		<script src="js/packed-app.min.js"></script>
+	<!-- Production mode -->
+
+	</body>
+</html>

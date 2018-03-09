@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+public/css/*.min.css
+public/js/*.min.js
+public/js/*.min.js.map
+public/fonts/*.*
+!public/fonts/*.gitkeep
