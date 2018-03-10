@@ -3,7 +3,6 @@
 
 kosmosmusicDirectives.directive('setElementDimensionsOnload', ['$window',
 	function($window){
-		'use strict';
 		return {
 			restrict: 'A',
 			link: (scope, element) => {
@@ -26,7 +25,6 @@ kosmosmusicDirectives.directive('setElementDimensionsOnload', ['$window',
 
 kosmosmusicDirectives.directive('customSoundcloudPlayer', [ 'soundcloudService',
 	function(soundcloudService) {
-		'use strict';
 		return {
 			restrict: 'A',
 			replace: true,
