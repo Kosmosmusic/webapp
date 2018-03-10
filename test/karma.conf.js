@@ -16,10 +16,12 @@ module.exports = function(config){
 		'node_modules/angular-route/angular-route.js',
 		'node_modules/angular-mocks/angular-mocks.js',
 		'node_modules/angular-websocket/dist/angular-websocket.js',
+
+		'node_modules/angular-google-gapi/dist/angular-google-gapi.js',
 		//'public/js/vendor-pack.min.js',
 		'public/app/*.js',
 		//'public/js/packed-app.min.js',
-		'test/client/unit/*.js',
+		'test/client/unit/*.js'
 	],
 
 	frameworks: ['jasmine'],

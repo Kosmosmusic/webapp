@@ -7,10 +7,6 @@ function setBaseUrl(absUrl) {
 	return absUrl.match(new RegExp('http(s)?:\/\/[^/]+'))[0];
 }
 
-var SC = { // SC mock
-	initialize: (options) => true
-};
-
 beforeEach(module('kosmosmusicServices', 'ngResource', 'ngRoute'));
 
 describe('Kosmosmusic services', () => {

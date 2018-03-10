@@ -140,6 +140,8 @@ gulp.task('pack-app-js', () => {
 		.pipe(replace('firebase_storage_bucket', env.FIREBASE_STORAGE_BUCKET))
 		.pipe(replace('firebase_messaging_sender_id', env.FIREBASE_MESSAGING_SENDER_ID))
 		.pipe(replace('privileged_access_firebase_uid', env.PRIVILEGED_ACCESS_FIREBASE_UID))
+		.pipe(replace('google_apis_browser_key', env.GOOGLE_APIS_BROWSER_KEY))
+		.pipe(replace('google_apis_client_id', env.GOOGLE_APIS_CLIENT_ID))
 		.pipe(uglify())
 		.pipe(plumber.stop())
 		.pipe(rename('packed-app.min.js'))
@@ -181,7 +183,9 @@ gulp.task('pack-vendor-js', () => {
 		'./node_modules/angular-resource/angular-resource.js',
 		'./node_modules/angular-route/angular-route.js',
 		'./node_modules/angular-mocks/angular-mocks.js',
-		'./node_modules/angular-websocket/dist/angular-websocket.js'
+		'./node_modules/angular-websocket/dist/angular-websocket.js',
+
+		'./node_modules/angular-google-gapi/dist/angular-google-gapi.js'
 	])
 		.pipe(plumber())
 		.pipe(concat('vendor-pack.js'))

@@ -8,6 +8,7 @@ var kosmosmusic = angular.module('kosmosmusic', [
 	'ngAria',
 	'ngMessages',
 	'ngMaterial',
+	'angular-google-gapi',
 	'kosmosmusicControllers',
 	'kosmosmusicDirectives',
 	'kosmosmusicServices'
@@ -55,8 +56,8 @@ kosmosmusic
 				.dark();
 		}
 	])
-	.run(['$rootScope', '$location', 'firebaseService', 'soundcloudService',
-		($rootScope, $location, firebaseService, soundcloudService) => {
+	.run(['$rootScope', '$location', 'firebaseService', 'soundcloudService', 'googleService',
+		($rootScope, $location, firebaseService, soundcloudService, googleService) => {
 			/*
 			*	initialize firebase
 			*/
@@ -66,6 +67,11 @@ kosmosmusic
 			*	initialize soundcloud
 			*/
 			soundcloudService.init();
+
+			/*
+			*	initialize google
+			*/
+			googleService.init();
 
 			$rootScope.$on('$locationChangeSuccess', (event, next, current) => {
 				console.log('event', event);

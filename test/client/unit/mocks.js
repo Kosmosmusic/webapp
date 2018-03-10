@@ -19,3 +19,11 @@ var firebase = {
 		};
 	}
 };
+
+/*
+*	soundcloud mock
+*/
+
+var SC = {
+	initialize: (options) => true
+};

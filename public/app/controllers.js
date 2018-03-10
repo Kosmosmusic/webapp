@@ -141,13 +141,22 @@ kosmosmusicControllers.controller('mixesController', ['$scope',
 	}
 ]);
 
-kosmosmusicControllers.controller('videosController', ['$scope',
-	function($scope) {
+kosmosmusicControllers.controller('videosController', ['$scope', 'googleService',
+	function($scope, googleService) {
+		$scope.gData = googleService.gData(); // get/set authed user data
+		$scope.channelData = undefined;
 		/*
 		*	lifecycle
 		*/
 		$scope.$on('$viewContentLoaded', () => {
 			console.log('videos view controller loaded');
+			googleService.channel().then(
+				(data) => {
+					$scope.channelData = data;
+					console.log('$scope.channelData', $scope.channelData);
+				},
+				(error) => console.log('error', error)
+			);
 		});
 		$scope.$on('$destroy', () => {
 			console.log('videos view controller destroyed');

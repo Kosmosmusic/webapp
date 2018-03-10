@@ -29,13 +29,11 @@ kosmosmusicServices.factory('regXpatternsService', [ function() {
 *	dynamically set backend base url to be able to deploy on any domain
 */
 function setBaseUrl(absUrl) {
-	// console.log(' >> set base URL. match', absUrl.match(new RegExp('http(s)?://[^/]+'), 'ig'));
 	return absUrl.match(new RegExp('http(s)?://[^/]+'))[0];
 }
 
 kosmosmusicServices.factory('sendEmailService', ['$resource', '$location', function($resource, $location) {
 	const baseUrl = setBaseUrl($location.$$absUrl);
-	// return $resource('https://us-central1-dnbhub-a5d9c.cloudfunctions.net/sendEmail', {}, {
 	return $resource( baseUrl + '/sendEmail', {}, {
 		save: {method: 'POST', params: {}, headers: {'Content-type': 'application/x-www-form-urlencoded'}, isArray: false,
 			interceptor: {
@@ -47,6 +45,10 @@ kosmosmusicServices.factory('sendEmailService', ['$resource', '$location', funct
 		}
 	});
 }]);
+
+/*
+*	TODO: sendDemoOverEmailService factory
+*/
 
 kosmosmusicServices.service('soundcloudService', [function() {
 	const scid = 'soundcloud_client_id';
@@ -64,6 +66,31 @@ kosmosmusicServices.service('soundcloudService', [function() {
 	return service;
 }]);
 
+kosmosmusicServices.service('googleService', ['GApi', 'GAuth', 'GData', function(GApi, GAuth, GData) {
+	/*
+	*	library description reference https://github.com/maximepvrt/angular-google-gapi/
+	*/
+	const part = 'snippet,contentDetails,statistics';
+	const channelId = 'UC2HOUBVyZw9mPM3joMShYKQ';
+	const gcbk = 'google_apis_browser_key';
+	const gcid = 'google_apis_client_id';
+	const gScope = 'https://www.googleapis.com/auth/youtube.readonly';
+	const service = {
+		init: () => {
+			GApi.load('youtube', 'v3').catch((api, version) => console.log('GApi init error:', api, 'version', version));
+			GAuth.setClient(gcid);
+			GAuth.setScope(gScope);
+			GAuth.load();
+		},
+		channel: () => GApi.execute('youtube', 'channels.list', {
+			part: part,
+			id: channelId,
+			key: gcbk
+		}),
+		gData: () => GData
+	};
+	return service;
+}]);
 
 kosmosmusicServices.service('firebaseService', [function() {
 	const service = {
