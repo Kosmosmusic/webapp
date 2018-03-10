@@ -14,6 +14,7 @@
 		"angular": "^1.6.9",
 		"angular-animate": "^1.6.9",
 		"angular-aria": "^1.6.9",
+		"angular-google-gapi": "^1.0.1",
 		"angular-material": "^1.1.7",
 		"angular-messages": "^1.6.9",
 		"angular-mocks": "^1.6.9",
