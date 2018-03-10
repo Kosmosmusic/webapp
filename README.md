@@ -15,6 +15,8 @@ FIREBASE_PROJECT_ID=firebase_project_id
 FIREBASE_STORAGE_BUCKET=firebase_storeage_bucket
 FIREBASE_MESSAGING_SENDER_ID=firebase_messaging_sender_id
 PRIVILEGED_ACCESS_FIREBASE_UID=privileged_access_firebase_uid
+GOOGLE_APIS_BROWSER_KEY=google_apis_browser_key
+GOOGLE_APIS_CLIENT_ID=google_apis_client_id
 ```
 
 alternatively a script `set-env.sh` can guide you through the process of setting environment variables, use it like
