@@ -82,12 +82,12 @@ kosmosmusicServices.service('googleService', ['GApi', 'GAuth', 'GData', function
 			GAuth.setScope(gScope);
 			GAuth.load();
 		},
+		gData: () => GData,
 		channel: () => GApi.execute('youtube', 'channels.list', {
 			part: part,
 			id: channelId,
 			key: gcbk
-		}),
-		gData: () => GData
+		})
 	};
 	return service;
 }]);

@@ -8,7 +8,7 @@ kosmosmusicControllers.controller('navController', ['$rootScope', '$scope', '$do
 			index: {
 				name: 'KOS.MOS.MUSIC',
 				title: 'KOS.MOS.MUSIC index',
-				icon: 'fa fa-fire',
+				icon: 'fa fa-home',
 				href: 'index'
 			},
 			releases: {
@@ -141,21 +141,27 @@ kosmosmusicControllers.controller('mixesController', ['$scope',
 	}
 ]);
 
-kosmosmusicControllers.controller('videosController', ['$scope', 'googleService',
-	function($scope, googleService) {
+kosmosmusicControllers.controller('videosController', ['$scope', '$sce', '$window', 'googleService',
+	function($scope, $sce, $window, googleService) {
 		$scope.gData = googleService.gData(); // get/set authed user data
 		$scope.channelData = undefined;
+		$scope.uploads = undefined;
+		$scope.playlistSrc = undefined;
 		/*
 		*	lifecycle
 		*/
 		$scope.$on('$viewContentLoaded', () => {
 			console.log('videos view controller loaded');
 			googleService.channel().then(
-				(data) => {
-					$scope.channelData = data;
-					console.log('$scope.channelData', $scope.channelData);
+				(channelData) => {
+					$scope.channelData = channelData;
+					// console.log('$scope.channelData', $scope.channelData);
+					$scope.uploads = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+					// console.log('$scope.uploads', $scope.uploads);
+					$scope.playlistSrc = $sce.trustAsResourceUrl('https://www.youtube.com/embed/?listType=playlist&list=' + $scope.uploads + '&enablejsapi=1&origin=' + $window.location.origin);
+					// console.log('$scope.playlistSrc', $scope.playlistSrc);
 				},
-				(error) => console.log('error', error)
+				(channelError) => console.log('channel error:', channelError)
 			);
 		});
 		$scope.$on('$destroy', () => {
@@ -180,12 +186,12 @@ kosmosmusicControllers.controller('contactController', ['$scope', '$mdDialog', '
 			$scope.hideInstructions = true;
 		};
 		$scope.instructions = {
-			intro: 'Use this contact form for any enquiries correlating with Drum\'n\'Bass Hub activities, for example:',
+			intro: 'Use this contact form for any enquiries correlating with KOS.MOS.MUSIC activities, e.g.:',
 			list: [
-				'make an info support request - have a blog post for your upcoming release;',
-				'make a collaboration or hire request - work with us in the context of audio production from scratch or remixing;',
-				'make a licencing request - use music, published by Dnbhub, for your needs;',
-				'make any other request - did we miss something?'
+				'make a booking request - book artists representing KOS.MOS.MUSIC for your event;',
+				'make a collaboration or hire request - work with us in the context of audio production from scratch, remixing, or mastering;',
+				'make a licencing request - use music produced by KOS.MOS.MUSIC for your project needs;',
+				'make an arbitrary request - did we miss something?'
 			]
 		};
 		$scope.resetForm = () => {

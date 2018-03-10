@@ -37,7 +37,7 @@ describe('Kosmosmusic controllers', () => {
 				index: {
 					name: 'KOS.MOS.MUSIC',
 					title: 'KOS.MOS.MUSIC index',
-					icon: 'fa fa-fire',
+					icon: 'fa fa-home',
 					href: 'index'
 				},
 				releases: {
@@ -113,6 +113,63 @@ describe('Kosmosmusic controllers', () => {
 
 	});
 
+	describe('masteringController', () => {
+		let scope, ctrl;
+
+		beforeEach(inject(($rootScope, $controller) => {
+			scope = $rootScope.$new();
+			ctrl = $controller('masteringController', { $scope: scope });
+		}));
+
+		it('should be defined', () => {
+			expect(ctrl).toBeDefined();
+		});
+
+	});
+
+	describe('mixesController', () => {
+		let scope, ctrl;
+
+		beforeEach(inject(($rootScope, $controller) => {
+			scope = $rootScope.$new();
+			ctrl = $controller('mixesController', { $scope: scope });
+		}));
+
+		it('should be defined', () => {
+			expect(ctrl).toBeDefined();
+		});
+
+	});
+
+	describe('videosController', () => {
+		let scope, sce, win, googleService, ctrl;
+
+		beforeEach(inject(($rootScope, $controller, _$sce_, _$window_, _googleService_) => {
+			scope = $rootScope.$new();
+			sce = _$sce_;
+			win = _$window_;
+			googleService = _googleService_;
+			ctrl = $controller('videosController', { $scope: scope, $sce: sce, window: win, googleService: googleService });
+		}));
+
+		it('should be defined', () => {
+			expect(ctrl).toBeDefined();
+		});
+
+		it('should have variables and methods defined', () => {
+			expect(scope.gData).toEqual(jasmine.objectContaining({
+				getUserId: jasmine.any(Function),
+				setUserId: jasmine.any(Function),
+				isLogin: jasmine.any(Function),
+				getUser: jasmine.any(Function)
+			}));
+			expect(scope.hasOwnProperty('channelData')).toBeTruthy();
+			expect(scope.hasOwnProperty('uploads')).toBeTruthy();
+			expect(scope.hasOwnProperty('playlistSrc')).toBeTruthy();
+		});
+
+	});
+
 	describe('contactController', () => {
 		let scope, ctrl, location, timeout, regXpatternsService, sendEmailService;
 
@@ -172,9 +229,10 @@ describe('Kosmosmusic controllers', () => {
 		});
 
 		it('should have variables and methods defined', () => {
-			expect(scope.dnbhubDetails).toEqual(jasmine.objectContaining({}));
+			expect(scope.details).toEqual(jasmine.objectContaining({}));
 			expect(scope.firebase).toEqual(firebaseService);
 			expect(scope.updateDetails).toEqual(jasmine.any(Function));
+			expect(scope.showContactDialog).toEqual(jasmine.any(Function));
 		});
 
 	});
