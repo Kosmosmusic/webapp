@@ -70,7 +70,7 @@ kosmosmusicServices.service('googleService', ['GApi', 'GAuth', 'GData', function
 	/*
 	*	library description reference https://github.com/maximepvrt/angular-google-gapi/
 	*/
-	const part = 'snippet,contentDetails,statistics';
+	const part = 'snippet,contentDetails,statistics,topicDetails,status,brandingSettings,invideoPromotion,contentOwnerDetails';
 	const channelId = 'UC2HOUBVyZw9mPM3joMShYKQ';
 	const gcbk = 'google_apis_browser_key';
 	const gcid = 'google_apis_client_id';
