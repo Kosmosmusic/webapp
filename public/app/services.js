@@ -61,7 +61,7 @@ kosmosmusicServices.service('soundcloudService', [function() {
 		init: () => {
 			return SC.initialize(options);
 		},
-		id: scid
+		getLinkWithId: (href) => href + '?client_id=' + scid
 	};
 	return service;
 }]);

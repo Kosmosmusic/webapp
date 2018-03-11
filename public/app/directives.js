@@ -31,7 +31,7 @@ kosmosmusicDirectives.directive('customSoundcloudPlayer', [ 'soundcloudService',
 			templateUrl: 'app/views/custom-soundcloud-player.html',
 			link: (scope, element) => {
 				scope.selectedTrack;
-				scope.scID = soundcloudService.id;
+				scope.sc = soundcloudService;
 				scope.selectTrack = (index) => {
 					scope.selectedTrack = index;
 				};
