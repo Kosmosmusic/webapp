@@ -1,43 +1,26 @@
 'use strict';
 
-const gulp = require('gulp'),
-	runSequence = require('run-sequence'),
-	gutil = require('gulp-util'),
-	concat = require('gulp-concat'),
-	rename = require('gulp-rename'),
-	eslint = require('gulp-eslint'),
-	plumber = require('gulp-plumber'),
-	uglify = require('gulp-uglify'),
-	replace = require('gulp-replace'),
-	mocha = require('gulp-mocha'),
-	karmaServer = require('karma').Server,
-	sass = require('gulp-sass'),
-	babel = require('gulp-babel'),
-	sourcemaps = require('gulp-sourcemaps'),
-	cssnano = require('gulp-cssnano'),
-	autoprefixer = require('gulp-autoprefixer'),
-	del = require('del'),
-	spawn = require('child_process').spawn,
-	exec = require('child_process').exec;
-let node, protractor;
+const gulp = require('gulp');
+const runSequence = require('run-sequence');
+const gutil = require('gulp-util');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
+const eslint = require('gulp-eslint');
+const plumber = require('gulp-plumber');
+const uglify = require('gulp-uglify');
+const replace = require('gulp-replace');
+const mocha = require('gulp-mocha');
+const karmaServer = require('karma').Server;
+const sass = require('gulp-sass');
+const babel = require('gulp-babel');
+const sourcemaps = require('gulp-sourcemaps');
+const cssnano = require('gulp-cssnano');
+const autoprefixer = require('gulp-autoprefixer');
+const del = require('del');
+const spawn = require('child_process').spawn;
 
-function killProcessByName(name) {
-	exec('pgrep ' + name, (error, stdout, stderr) => {
-		if (error) throw error;
-		if (stderr) console.log('stderr: ', stderr);
-		if (stdout) {
-			//console.log('killing running processes: ', stdout);
-			var runningProcessesIDs = stdout.match(/\d+/);
-			runningProcessesIDs.forEach((id) => {
-				exec('kill -9 ' + id, (error, stdout, stderr) => {
-					if (error) throw error;
-					if (stderr) console.log('stdout: ', stdout);
-					if (stdout) console.log('stderr: ', stderr);
-				});
-			});
-		}
-	});
-}
+let node;
+let protractor;
 
 gulp.task('server', () => {
 	if (node) node.kill();
@@ -56,12 +39,11 @@ gulp.task('server-test', () => {
 });
 
 let karmaSRV;
-gulp.task('client-unit-test', () => {
+gulp.task('client-unit-test-single-run', (done) => {
 	if (!karmaSRV) {
 		karmaSRV = new karmaServer({
 			configFile: require('path').resolve('test/karma.conf.js'),
-			autoWatch: true,
-			singleRun: false
+			singleRun: true
 		});
 
 		karmaSRV.on('browser_error', (browser, err) => {
@@ -76,6 +58,8 @@ gulp.task('client-unit-test', () => {
 			} else {
 				console.log('=====\nKarma > Complete With No Failures\n=====\n', results);
 			}
+
+			done();
 		});
 
 		karmaSRV.start();
@@ -84,38 +68,9 @@ gulp.task('client-unit-test', () => {
 	}
 });
 
-gulp.task('client-unit-test-single-run', (done) => {
-	const server = new karmaServer({
-		configFile: require('path').resolve('test/karma.conf.js'),
-		singleRun: true
-	});
-
-	server.on('browser_error', (browser, err) => {
-		console.log('=====\nKarma > Run Failed\n=====\n', err);
-		throw err;
-	});
-
-	server.on('run_complete', (browsers, results) => {
-		if (results.failed) {
-			// throw new Error('=====\nKarma > Tests Failed\n=====\n', results);
-			console.log('=====\nKarma > Tests Failed\n=====\n', results);
-		} else {
-			console.log('=====\nKarma > Complete With No Failures\n=====\n', results);
-		}
-
-		done();
-	});
-
-	server.start();
-});
-
 gulp.task('client-e2e-test', () => {
 	if (protractor) protractor.kill();
 	protractor = spawn('npm', ['run', 'protractor'], {stdio: 'inherit'});
-});
-
-gulp.task('unit-tests', (done) => {
-	runSequence('server-test', 'client-unit-test-single-run', done);
 });
 
 gulp.task('clean-build', () => { // clean old files before a new build
@@ -167,8 +122,6 @@ gulp.task('pack-vendor-js', () => {
 	return gulp.src([
 		/*
 		*	add third party js files here
-		*
-		*	sequence is essential
 		*/
 		'./node_modules/jquery/dist/jquery.js',
 
@@ -195,7 +148,7 @@ gulp.task('pack-vendor-js', () => {
 		.pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('pack-vendor-css', () => { // packs vendor css files
+gulp.task('pack-vendor-css', () => {
 	return gulp.src([
 		/*
 		*	add third party css files here
@@ -214,7 +167,7 @@ gulp.task('pack-vendor-css', () => { // packs vendor css files
 		.pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('move-vendor-fonts', () => { // move vendor font files
+gulp.task('move-vendor-fonts', () => {
 	return gulp.src([
 		/*
 		*	add third party fonts here
@@ -230,16 +183,12 @@ gulp.task('lint', () => { // uses ignore list from .eslintignore
 		.pipe(eslint.format());
 });
 
-gulp.task('watch-and-lint', () => {
-	gulp.watch(['./public/*.js', './public/app/components/**', './public/app/views/**', './*.js', './.eslintignore', './.eslintrc.json'], ['lint']); // watch files to be linted or eslint config files and lint on change
-});
-
 gulp.task('watch', () => {
 	gulp.watch(['./server.js', './app/**/*.js'], ['server']); // watch server changes and restart server
 	gulp.watch(['./public/*.js', './public/app/**/*.js', './*.js', './.eslintignore', './.eslintrc.json'], ['lint']); // watch files to be linted or eslint config files and lint on change
 	gulp.watch('./public/app/scss/*.scss', ['pack-app-css']); // watch app css changes, pack css, minify and put in respective folder
-	gulp.watch('./public/app/**/*.js', ['pack-app-js', 'client-unit-test']); // watch app js changes, pack js, minify and put in respective folder
-	gulp.watch(['./test/client/unit/*.js', './test/karma.conf.js'], ['client-unit-test']); //watch unit test changes and run tests
+	gulp.watch('./public/app/**/*.js', ['pack-app-js', 'client-unit-test-single-run']); // watch app js changes, pack js, minify and put in respective folder
+	gulp.watch(['./test/client/unit/*.js', './test/karma.conf.js'], ['client-unit-test-single-run']); //watch unit test changes and run tests
 	gulp.watch(['./test/client/e2e/**', './test/protractor.conf.js'], ['client-e2e-test']); // watch client e2e test or protractor config changes and run tests
 	gulp.watch(['./server.js', './test/server/test.js'], ['server-test']); // watch server changes and run tests
 });
@@ -249,7 +198,7 @@ gulp.task('build', (done) => {
 });
 
 gulp.task('test', (done) => {
-	runSequence('unit-tests', 'client-e2e-test', done);
+	runSequence('server-test', 'client-unit-test-single-run', 'client-e2e-test', done);
 });
 
 gulp.task('default', (done) => {
@@ -284,10 +233,6 @@ gulp.task('bump-version-prerelease', () => {
 		.pipe(gulp.dest('./'));
 });
 
-process.on('exit', function() {
-	if (node) node.kill();
-});
-
-process.on('SIGINT', function() {
-	killProcessByName('gulp');
+process.on('exit', function(code) {
+	console.log(`PROCESS EXITED WITH CODE ${code}`);
 });
