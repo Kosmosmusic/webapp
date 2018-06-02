@@ -1,66 +1,130 @@
+const testUtils = require('./test-utils');
+const headlessChromeFlags = testUtils.karmaHeadlessChromeFlags();
+
 module.exports = function(config){
-  config.set({
-	  
-	basePath : '../',
-	
-	files : [
-		'node_modules/jquery/dist/jquery.js',
+	config.set({
 
-		'node_modules/angular/angular.js',
-		'node_modules/angular-sanitize/angular-sanitize.js',
-		'node_modules/angular-aria/angular-aria.js',
-		'node_modules/angular-messages/angular-messages.js',
-		'node_modules/angular-animate/angular-animate.js',
-		'node_modules/angular-material/angular-material.js',
-		'node_modules/angular-resource/angular-resource.js',
-		'node_modules/angular-route/angular-route.js',
-		'node_modules/angular-mocks/angular-mocks.js',
-		'node_modules/angular-websocket/dist/angular-websocket.js',
+		basePath : '../',
+		
+		files : [
+			'node_modules/jquery/dist/jquery.js',
 
-		'node_modules/angular-google-gapi/dist/angular-google-gapi.js',
-		//'public/js/vendor-pack.min.js',
-		'public/app/*.js',
-		//'public/js/packed-app.min.js',
-		'test/client/unit/*.js'
-	],
+			'node_modules/firebase/firebase.js',
 
-	frameworks: ['jasmine'],
+			'node_modules/angular-google-gapi/dist/angular-google-gapi.js',
 
-	customLaunchers: {
-		/*
-		*	this custom launcher requires setting env var CHROME_BIN=chromium-browser
-		*	possible options for env var value depending on what you have installed:
-		*	chromium-browser, chromium, google-chrome
-		*/
-		ChromeHeadless: {
-			base: 'Chrome',
-			flags: [
-				'--headless',
-				'--disable-gpu',
-				// Without a remote debugging port Chrome exits immediately
-				'--remote-debugging-port=9222'
+			'node_modules/core-js/client/shim.js',
+			'node_modules/reflect-metadata/Reflect.js',
+
+			'node_modules/zone.js/dist/zone.js',
+			'node_modules/zone.js/dist/long-stack-trace-zone.js',
+			'node_modules/zone.js/dist/proxy.js',
+			'node_modules/zone.js/dist/sync-test.js',
+			'node_modules/zone.js/dist/jasmine-patch.js',
+			'node_modules/zone.js/dist/async-test.js',
+			'node_modules/zone.js/dist/fake-async-test.js',
+
+			'node_modules/moment/min/moment-with-locales.min.js',
+
+			'node_modules/systemjs/dist/system.src.js',
+			{ pattern: 'node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css' },
+
+			{ pattern: 'systemjs.config.js', included: false, watched: false },
+			{ pattern: 'systemjs.karma.config.js', included: false, watched: false },
+			{ pattern: 'systemjs.config.extras.js', included: false, watched: false },
+			
+			'node_modules/hammerjs/hammer.js',
+			{ pattern: 'node_modules/@angular/**', included: false, watched: false },
+			{ pattern: 'node_modules/rxjs/**', included: false, watched: false },
+
+			{ pattern: 'node_modules/tslib/**', included: false, watched: false },
+			{ pattern: 'node_modules/traceur/**', included: false, watched: false },
+
+			'test/karma.test-shim.js',
+			{ pattern: 'test/client/**', included: false, watched: false },
+
+			{ pattern: 'public/app/**', included: false, watched: false },
+
+			{ pattern: 'public/service-worker.js', included: false, watched: false },
+
+			{ pattern: 'public/webfonts/**', included: false, watched: false },
+
+			{ pattern: 'public/img/**', included: false, watched: false },
+		],
+
+		proxies: {
+			'/service-worker.js': '/base/public/service-worker.js',
+			'/public/webfonts/': '/base/public/webfonts/',
+			'/public/img/': '/base/public/img/'
+		},
+
+		// exclude: [],
+
+		frameworks: ['jasmine'],
+
+		browserNoActivityTimeout: 20000,
+		browserDisconnectTimeout: 20000,
+		customLaunchers: {
+			/*
+			*	this custom launcher requires setting env var CHROME_BIN=chromium-browser
+			*	possible options for env var value depending on what you have installed:
+			*	chromium-browser, chromium, google-chrome
+			*/
+			ChromeHeadless: {
+				base: 'Chrome',
+				flags: headlessChromeFlags
+			}
+		},
+		browsers: ['ChromeHeadless'],
+		
+		plugins: [
+			'karma-redirect-preprocessor',
+			'karma-chrome-launcher',
+			'karma-html-reporter',
+			'karma-sourcemap-loader',
+			'karma-coverage',
+			'karma-jasmine'
+		],
+
+		preprocessors: {
+			'public/**/*.html': ['redirect'],
+			'public/app/**/!(*.spec).js': ['coverage'],
+			'public/app/**/*.js': ['sourcemap']
+		},
+
+		redirectPreprocessor: {
+			// stripPrefix: '',
+			// stripSuffix: '',
+			// prependPrefix: ''
+		},
+
+		reporters: ['progress', 'coverage', 'html'],
+		coverageReporter: {
+			dir: 'logs/',
+			reporters: [
+				{ type: 'json', subdir: 'coverage'}
 			]
-		}
-	},
-	browsers: ['ChromeHeadless'],
-	// browsers : ['Chrome'],
-	plugins : [
-		'karma-chrome-launcher',
-		'karma-jasmine'
-	],
+		},
+		htmlReporter: {
+			outputDir: 'logs/unit',
+			templatePath: null,
+			focusOnFailures: true,
+			namedFiles: false,
+			pageTitle: 'Ng2NS Client Unit Tests',
+			urlFriendlyName: true,
+			reportName: 'client'
+		},
 
-	browserNoActivityTimeout: 20000,
+		failOnEmptyTestSuite: false, // overrides the error, warn instead - by default returns error if there're no tests defined
 
-	failOnEmptyTestSuite: false, // overrides the error, warn instead - by default returns error if there're no tests defined
+		hostname: process.env.IP,
+		port: process.env.PORT,
+		runnerPort: 0,
 
-	hostname: process.env.IP,
-	port: process.env.PORT,
-	runnerPort: 0,
+		autoWatch: true,
+		singleRun: true,
+		logLevel: config.LOG_DEBUG,
+		colors: true
 
-	autoWatch: false,
-	singleRun: true,
-	logLevel: config.LOG_DEBUG,
-	colors: true
-
-  });
+	});
 };

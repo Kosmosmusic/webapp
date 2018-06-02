@@ -1,5 +1,4 @@
 node_modules/**
-public/fonts/**
 *.ico
 *.svg
 *.css
@@ -7,4 +6,4 @@ public/fonts/**
 *.html
 *.min.js
 *.json
-*.php
+*.md
