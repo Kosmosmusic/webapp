@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Inject, HostBinding } from '@angular/core';
 import { MatIconRegistry, DateAdapter } from '@angular/material';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { EventEmitterService } from './services/event-emitter.service';
 import { TranslateService } from './modules/translate/index';
@@ -9,11 +8,8 @@ import { CustomServiceWorkerService } from './services/custom-service-worker.ser
 declare let $: JQueryStatic;
 
 @Component({
-	selector: 'root',
-	templateUrl: '/app/views/app.html',
-	animations: [
-		trigger('empty', [])
-	]
+	selector: 'app',
+	templateUrl: '/app/views/app.html'
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -39,7 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	public showSpinner: boolean = false;
-
 	/**
 	 * Shows spinner.
 	 */
@@ -53,15 +48,16 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.showSpinner = false;
 	}
 
+	public sidenavOpened: boolean = false;
+
 	private supportedLanguages: any[] = [
 		{ key: 'en', name: 'English' },
 		{ key: 'ru', name: 'Russian' }
 	];
-
 	/**
 	 * Checks if selected one is a current language.
 	 */
-	private isCurrentLanguage(key: string): boolean {		
+	private isCurrentLanguage(key: string): boolean {
 		return key === this.translate.currentLanguage;
 	}
 	/**

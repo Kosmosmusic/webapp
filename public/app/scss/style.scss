@@ -1,7 +1,4 @@
 $black: #000000;
-$white: #ffffff;
-
-$boxPadding: 0.5em;
 
 /* required in case of self hosting of material-design-icons */
 	@font-face {
@@ -53,20 +50,37 @@ $boxPadding: 0.5em;
 /* required in case of self hosting of material-design-icons */
 
 html {
-	height: 100vh;
+	display: block;
+	height: 100%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 }
+
 body {
 	display: block;
-	height: auto!important;
+	height: 100%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	color: $black;
-	font-size: 1.75em;
-	overflow-x: hidden;
+
+	app {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+
+		mat-sidenav {
+			width: 40vw;
+
+			mat-grid-tile {
+				&:hover {
+					cursor: pointer;
+					border: 1px dotted $black;
+				}
+			}
+		}
+	}
 
 /*
 *	DOM elements general
@@ -74,7 +88,6 @@ body {
 	a {
 		text-decoration: none;
 		&:hover, &:focus {
-			outline: none;
 			text-decoration: none;
 		}
 		&:hover {cursor: pointer}
@@ -108,7 +121,6 @@ body {
 		justify-content: center;
 		width: 100vw;
 		height: 100vh;
-		color: $white;
 		text-align: center;
 		z-index: 1000;
 		background: rgba(0, 0, 0, 0.15);
@@ -117,19 +129,5 @@ body {
 			width: 20vh;
 			height: auto!important;
 		}
-	}
-
-	root {
-		min-height: 100vh;
-		height: 100%;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-	}
-
-	app-nav {
-		width: 100vw;
-		height: auto!important;
-		flex: 0 1 auto;
 	}
 }

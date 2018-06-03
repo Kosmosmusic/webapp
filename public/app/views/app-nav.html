@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" fxFlex="0 1 auto">
 	<span fxLayout="row" fxLayoutAlign="start stretch">
 		<button mat-icon-button (click)="toggleSidenav()">
-			<img fxFlex src="/favicon.ico" alt="{{ 'title' | translate }}" title="{{ 'title' | translate  }}" />
+			<img fxFlex src="/img/kosmos_circle.svg" alt="{{ 'title' | translate }}" title="{{ 'title' | translate  }}" />
 		</button>
 	</span>
 	<span fxFlex="1 1 auto"></span>
@@ -26,13 +26,13 @@
 			<i class="fas fa-info"></i> {{ 'about' | translate }}
 		</button>
 		<button mat-button [matMenuTriggerFor]="languageMenu" [fxHide.xs]="true" [fxHide.sm]="true">
-			<i class="fas fa-globe"></i> {{ 'language' | translate }}
+			<i class="fas fa-globe"></i> {{ 'language.title' | translate }}
 		</button>
 		<mat-menu #languageMenu="matMenu" [fxHide.xs]="true" [fxHide.sm]="true">
-			<button mat-menu-item *ngFor="let lang of supportedLanguages" [ngClass]="{selected: isLanguageSelected(lang.key)}" (click)="selectLanguage(lang.key)">{{lang.name}}</button>
+			<button mat-menu-item *ngFor="let lang of supportedLanguages" [ngClass]="{selected: isLanguageSelected(lang.key)}" (click)="selectLanguage(lang.key)">{{ 'language.' + lang.key | translate}}</button>
 		</mat-menu>
 
-		<button mat-button [matMenuTriggerFor]="mobileMenu" [fxHide.md]="true" [fxHide.lg]="true">
+		<button mat-icon-button [matMenuTriggerFor]="mobileMenu" [fxHide.md]="true" [fxHide.lg]="true">
 			<i class="fas fa-ellipsis-v"></i>
 		</button>
 		<mat-menu #mobileMenu="matMenu" [fxHide.md]="true" [fxHide.lg]="true">

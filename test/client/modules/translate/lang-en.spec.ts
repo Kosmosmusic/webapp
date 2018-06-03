@@ -14,7 +14,12 @@ describe('TranslateService dictionary: lang-en', () => {
 			mastering: 'Mastering',
 			mixes: 'Mixes',
 			videos: 'Videos',
-			about: 'About'
+			about: 'About',
+			language: {
+				title: 'Language',
+				en: 'English',
+				ru: 'Russian'
+			}
 		}));
 
 	});

@@ -21,6 +21,7 @@ import { CustomMaterialModule } from './modules/custom-material.module';
 
 import { AppComponent } from './app.component';
 import { AppNavComponent } from './components/app-nav.component';
+import { AppIndexComponent } from './components/app-index.component';
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
@@ -30,7 +31,7 @@ import { CustomHttpHandlersService } from './services/custom-http-handlers.servi
 import { EventEmitterService } from './services/event-emitter.service';
 
 @NgModule({
-	declarations: [ AppComponent, TranslatePipe, AppNavComponent ],
+	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
 								],

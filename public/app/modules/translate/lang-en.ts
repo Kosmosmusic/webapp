@@ -7,5 +7,10 @@ export const LANG_EN_TRANSLATIONS = {
 	mastering: 'Mastering',
 	mixes: 'Mixes',
 	videos: 'Videos',
-	about: 'About'
+	about: 'About',
+	language: {
+		title: 'Language',
+		en: 'English',
+		ru: 'Russian'
+	}
 };

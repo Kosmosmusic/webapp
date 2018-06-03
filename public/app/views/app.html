@@ -2,9 +2,9 @@
 	<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </span>
 
-<app-nav></app-nav>
+<app-nav fxFlex="0 1 auto"></app-nav>
 
-<mat-sidenav-container fxFlex="1 100%">
+<mat-sidenav-container fxFlex="1 1 auto">
 	<mat-sidenav #appSidenav mode="over" [(opened)]="sidenavOpened">
 		<mat-grid-list cols="3" rowHeight="1:1">
 			<mat-grid-tile (click)="activateSomething()">
@@ -12,7 +12,7 @@
 			</mat-grid-tile>
 		</mat-grid-list>
 	</mat-sidenav>
-	<mat-sidenav-content>
+	<mat-sidenav-content fxLayout="row" fxLayoutAlign="start stretch">
 
 		<router-outlet></router-outlet>
 

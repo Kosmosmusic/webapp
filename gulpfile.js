@@ -337,7 +337,7 @@ gulp.task('sass-autoprefix-minify-css', () => {
 		}))
 		.pipe(cssnano())
 		.pipe(plumber.stop())
-		.pipe(rename('bundle.min.css'))
+		.pipe(rename('packed-app.min.css'))
 		.pipe(gulp.dest('./public/css'));
 });
 
