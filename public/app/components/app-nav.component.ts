@@ -25,7 +25,7 @@ export class AppNavComponent implements OnInit, OnDestroy {
 
 	private subscriptions: any[] = [];
 
-	public navButtonsState: boolean[] = [false, false, false, false, false];
+	public navButtonsState: boolean[] = [false, false, false, false, false, false];
 
 	public supportedLanguages: any[] = [
 		{ key: 'en', name: 'English' },

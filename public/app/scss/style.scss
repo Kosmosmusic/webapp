@@ -40,8 +40,60 @@ $black: #000000;
 			cursor: default;
 		}
 	}
+	.material-icons-fab { // font-awesome brands
+		font-size: 20px;  /* Preferred icon size */
+		display: inline-block;
+		line-height: 1;
+		text-align: center;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normal;
+		white-space: nowrap;
+		direction: ltr;
+
+		/* Support for all WebKit browsers. */
+		-webkit-font-smoothing: antialiased;
+		/* Support for Safari and Chrome. */
+		text-rendering: optimizeLegibility;
+
+		/* Support for Firefox. */
+		-moz-osx-font-smoothing: grayscale;
+
+		/* Support for IE. */
+		font-feature-settings: 'liga';
+
+		&:hover {
+			cursor: default;
+		}
+	}
+	.material-icons-fas { // font-awesome solid
+		font-size: 20px;  /* Preferred icon size */
+		display: inline-block;
+		line-height: 1;
+		text-align: center;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normal;
+		white-space: nowrap;
+		direction: ltr;
+
+		/* Support for all WebKit browsers. */
+		-webkit-font-smoothing: antialiased;
+		/* Support for Safari and Chrome. */
+		text-rendering: optimizeLegibility;
+
+		/* Support for Firefox. */
+		-moz-osx-font-smoothing: grayscale;
+
+		/* Support for IE. */
+		font-feature-settings: 'liga';
+
+		&:hover {
+			cursor: default;
+		}
+	}
 	button {
-		.material-icons {
+		.material-icons, .material-icons-fas, .material-icons-fab {
 			&:hover {
 				cursor: pointer;
 			}

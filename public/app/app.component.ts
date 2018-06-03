@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ElementRef, Inject, HostBinding } from '@angular/core';
 import { MatIconRegistry, DateAdapter } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { EventEmitterService } from './services/event-emitter.service';
 import { TranslateService } from './modules/translate/index';
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		private el: ElementRef,
 		private matIconRegistry: MatIconRegistry,
 		private dateAdapter: DateAdapter<any>,
+		private domSanitizer: DomSanitizer,
 		private emitter: EventEmitterService,
 		private translate: TranslateService,
 		private serviceWorker: CustomServiceWorkerService,
@@ -133,6 +135,11 @@ export class AppComponent implements OnInit, OnDestroy {
 		*	icons reference: https://fontawesome.com/icons/
 		*/
 		this.matIconRegistry.registerFontClassAlias('fontawesome-all');
+
+		/*
+		* add svgs
+		*/
+		this.matIconRegistry.addSvgIcon('logo', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_circle.svg'));
 
 	}
 
