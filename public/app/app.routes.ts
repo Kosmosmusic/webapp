@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 import { AppIndexComponent } from './components/app-index.component';
 import { AppReleasesComponent } from './components/app-releases.component';
+import { AppMasteringComponent } from './components/app-mastering.component';
 
 export const APP_ROUTES: Routes = [
 	{ path: 'index', component: AppIndexComponent },
 	{ path: 'releases', component: AppReleasesComponent },
-	{ path: 'mastering', component: AppIndexComponent },
+	{ path: 'mastering', component: AppMasteringComponent },
 	{ path: 'mixes', component: AppIndexComponent },
 	{ path: 'videos', component: AppIndexComponent },
 	{ path: 'about', component: AppIndexComponent },

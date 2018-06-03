@@ -143,8 +143,8 @@ body {
 		}
 	}
 
-	app-releases {
-		width: 100%;
+	app-releases, app-mastering {
+		flex: 1 1 auto;
 	}
 
 /*
