@@ -18,7 +18,6 @@ const systemjsBuilder = require('gulp-systemjs-builder');
 const hashsum = require('gulp-hashsum');
 const crypto = require('crypto');
 const fs = require('fs');
-const del = require('del');
 const spawn = require('child_process').spawn;
 
 let node;
@@ -35,19 +34,6 @@ gulp.task('hashsum', () => {
 	return gulp.src(['./public/*', '!./public/SHA1SUMS.json', './public/app/views/**', './public/css/**', './public/webfonts/**', './public/img/**', './public/js/**'])
 		.pipe(hashsum({ filename: 'public/SHA1SUMS.json', hash: 'sha1', json: true }));
 });
-
-function setBuildHash(env, done) {
-	fs.readFile('./public/SHA1SUMS.json', (err, data) => {
-		if (err) throw err;
-		const hash = crypto.createHmac('sha256', data.toString()).digest('hex');
-		console.log('BUILD_HASH', hash);
-		fs.writeFile('./public/hashsum.json', `{ hashsum: ${hash} }`, (err) => {
-			if (err) throw err;
-			console.log('# > hashsum.json was updated');
-			done();
-		});
-	});
-}
 
 gulp.task('set-build-hash', (done) => {
 	fs.readFile('./public/SHA1SUMS.json', (err, data) => {
@@ -88,6 +74,125 @@ gulp.task('tsc', (done) => {
 			done();
 		}
 	});
+});
+
+/*
+* Documentation
+*/
+
+const logsIndexHTML = `
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				height: 100%;
+				margin: 0;
+				padding: 0 1em;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-items: flex-start;
+				align-content: flex-start;
+				justify-content: stretch;
+			}
+			.flex-100 {
+				flex: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.flex-item {
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+				border: 1px rgba(0, 0, 0, 0.3) dotted;
+			}
+			a {
+				text-transform: uppercase;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 class="flex-100">KOS.MOS.MUSIC Reports and Documentation Index</h1>
+
+		<h2 class="flex-100">Reports</h2>
+
+			<span class="flex-item">
+				<h3 class="flex-100">Client Unit</h3>
+				<a class="flex-item" href="unit/client/index.html" target=_blank>Spec</a>
+				<a class="flex-item" href="coverage/html-report/index.html" target=_blank>Coverage</a>
+			</span>
+
+			<span class="flex-item">
+				<h3 class="flex-100">Client E2E</h3>
+				<a class="flex-item" href="e2e/report/index.html" target=_blank>Spec</a>
+			</span>
+
+			<h2 class="flex-100">Documentation</h2>
+
+			<span class="flex-item">
+				<h3 class="flex-100">JsDoc</h3>
+				<a class="flex-item" href="jsdoc/index.html" target=_blank>JsDoc</a>
+			</span>
+
+			<span class="flex-item">
+				<h3 class="flex-100">TypeDoc</h3>
+				<a class="flex-item" href="typedoc/index.html" target=_blank>TypeDoc</a>
+			</span>
+	</body>
+</html>
+`;
+gulp.task('generate-logs-index', (done) => {
+	fs.writeFile('./logs/index.html', logsIndexHTML, (err) => {
+		if (err) throw err;
+		console.log('# > LOGS index.html > was created');
+		done();
+	});
+});
+
+gulp.task('jsdoc', () => {
+	const jsdoc = require('gulp-jsdoc3');
+	const config = require('./jsdoc.json');
+	const source = ['./server.js', './gulpfile.js', './public/app/service-worker.js', './test/*.js', './systemjs*.js'];
+	return gulp.src(['README.md'].concat(source), {read: false})
+		.pipe(jsdoc(config));
+});
+
+gulp.task('typedoc', () => {
+	const typedoc = require('gulp-typedoc');
+	const config = {
+		// typescript options (see typescript docs)
+		allowSyntheticDefaultImports: true,
+		alwaysStrict: true,
+		importHelpers: true,
+		emitDecoratorMetadata: true,
+		esModuleInterop: true,
+		experimentalDecorators: true,
+		module: 'commonjs',
+		moduleResolution: 'node',
+		noImplicitAny: false,
+		removeComments: true,
+		sourceMap: true,
+		suppressImplicitAnyIndexErrors: true,
+		target: 'es2017',
+		// output options (see typedoc docs: http://typedoc.org/api/index.html)
+		readme: './README.md',
+		out: './logs/typedoc',
+		json: './logs/typedoc/typedoc-output.json',
+		// typedoc options (see typedoc docs: http://typedoc.org/api/index.html)
+		name: 'KOS.MOS.MUSIC Client',
+		theme: 'default',
+		//plugins: [], // set to none to use no plugins, omit to use all
+		includeDeclarations: false,
+		ignoreCompilerErrors: true,
+		version: true
+	};
+	return gulp.src(['./public/app/**/*.ts'], {read: false})
+		.pipe(typedoc(config));
 });
 
 /*

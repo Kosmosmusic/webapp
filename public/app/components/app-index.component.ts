@@ -3,8 +3,6 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/co
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 
-declare let d3: any;
-
 @Component({
 	selector: 'app-index',
 	templateUrl: '/app/views/app-index.html',
@@ -26,17 +24,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	/*
 	private getPublicData(): Promise<void> {
 		const def = new CustomDeferredService<void>();
-		this.publicDataService.getData().subscribe(
-			(data: any[]) => {
-				this.nvd3.clearElement();
-				this.appUsageData = data;
-				def.resolve();
-			},
-			(error: any) => null, // service catches error
-			() => {
-				console.log('getPublicData done');
-			}
-		);
+		// TODO add logic here
 		return def.promise;
 	}
 	*/

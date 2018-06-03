@@ -28,3 +28,4 @@ public/css/*.min.css
 public/webfonts/*.*
 !public/webfonts/*.gitkeep
 public/SHA1SUMS.json
+public/hashsum.json

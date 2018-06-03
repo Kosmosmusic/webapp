@@ -1,16 +1,13 @@
 import { Routes } from '@angular/router';
-import { AuthGuardGeneral } from './services/auth-guard-general.service';
-import { AnonimousGuard } from './services/anonimous-guard.service';
-import { DashboardIntroComponent } from './components/dashboard-intro.component';
-import { DashboardLoginComponent } from './components/dashboard-login.component';
-import { DashboardDetailsComponent } from './components/dashboard-details.component';
-import { DashboardMapComponent } from './components/dashboard-map.component';
+import { AppIndexComponent } from './components/app-index.component';
 
 export const APP_ROUTES: Routes = [
-	{path: 'intro', component: DashboardIntroComponent},
-	{path: 'login', component: DashboardLoginComponent, canActivate: [AnonimousGuard]},
-	{path: 'data', component: DashboardDetailsComponent, canActivate: [AuthGuardGeneral]},
-	{path: 'map', component: DashboardMapComponent, canActivate: [AuthGuardGeneral]},
-	{path: '', redirectTo: 'intro', pathMatch: 'full'},
-	{path: '**', redirectTo: 'intro'}
+	{ path: 'index', component: AppIndexComponent },
+	{ path: 'releases', component: AppIndexComponent },
+	{ path: 'mastering', component: AppIndexComponent },
+	{ path: 'mixes', component: AppIndexComponent },
+	{ path: 'videos', component: AppIndexComponent },
+	{ path: 'about', component: AppIndexComponent },
+	{ path: '', redirectTo: 'index', pathMatch: 'full'},
+	{ path: '**', redirectTo: 'index' }
 ];
