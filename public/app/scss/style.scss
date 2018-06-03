@@ -121,6 +121,9 @@ body {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
+		align-items: stretch;
+		align-content: stretch;
+		justify-content: flex-start;
 
 		mat-sidenav {
 			width: 40vw;
@@ -132,6 +135,16 @@ body {
 				}
 			}
 		}
+
+		// overrider mat drawer styling
+		.mat-drawer-content {
+			height: auto!important;
+			overflow-y: auto;
+		}
+	}
+
+	app-releases {
+		width: 100%;
 	}
 
 /*

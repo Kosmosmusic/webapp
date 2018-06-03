@@ -4,7 +4,7 @@
 
 <app-nav fxFlex="0 1 auto"></app-nav>
 
-<mat-sidenav-container fxFlex="1 1 auto">
+<mat-sidenav-container fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start stretch">
 	<mat-sidenav #appSidenav mode="over" [(opened)]="sidenavOpened">
 		<mat-grid-list cols="3" rowHeight="1:1">
 			<mat-grid-tile (click)="activateSomething()">
@@ -12,35 +12,37 @@
 			</mat-grid-tile>
 		</mat-grid-list>
 	</mat-sidenav>
-	<mat-sidenav-content fxLayout="row" fxLayoutAlign="start stretch">
+	<mat-sidenav-content fxFlex="100" fxLayout="row" fxLayoutAlign="start stretch">
 
 		<router-outlet></router-outlet>
 
 	</mat-sidenav-content>
 </mat-sidenav-container>
 
-<mat-toolbar color="primary" fxFlex="0 1 auto">
-	<button mat-icon-button (click)="appSidenav.toggle()">
-		<mat-icon class="material-icons" title="open sidenav" *ngIf="!sidenavOpened">flip_to_front</mat-icon>
-		<mat-icon class="material-icons" title="open sidenav" *ngIf="sidenavOpened">flip_to_back</mat-icon>
-	</button>
-	<span fxFlex="1 1 auto"></span>
-	<button mat-button [fxHide.xs]="true" [fxHide.sm]="true">
-		<mat-icon class="material-icons">touch_app</mat-icon> Action 1
-	</button>
-	<button mat-button [fxHide.xs]="true" [fxHide.sm]="true">
-		<mat-icon class="material-icons">touch_app</mat-icon> Action 2
-	</button>
-
-	<button mat-icon-button [matMenuTriggerFor]="mobileMenuBottom" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
-		<mat-icon class="material-icons">reorder</mat-icon>
-	</button>
-	<mat-menu #mobileMenuBottom="matMenu" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
-		<a mat-menu-item>
+<span fxFlex="0 1 auto">
+	<mat-toolbar color="primary">
+		<button mat-icon-button (click)="appSidenav.toggle()">
+			<mat-icon class="material-icons" title="open sidenav" *ngIf="!sidenavOpened">flip_to_front</mat-icon>
+			<mat-icon class="material-icons" title="open sidenav" *ngIf="sidenavOpened">flip_to_back</mat-icon>
+		</button>
+		<span fxFlex="1 1 auto"></span>
+		<button mat-button [fxHide.xs]="true" [fxHide.sm]="true">
 			<mat-icon class="material-icons">touch_app</mat-icon> Action 1
-		</a>
-		<a mat-menu-item>
+		</button>
+		<button mat-button [fxHide.xs]="true" [fxHide.sm]="true">
 			<mat-icon class="material-icons">touch_app</mat-icon> Action 2
-		</a>
-	</mat-menu>
-</mat-toolbar>
+		</button>
+
+		<button mat-icon-button [matMenuTriggerFor]="mobileMenuBottom" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
+			<mat-icon class="material-icons">reorder</mat-icon>
+		</button>
+		<mat-menu #mobileMenuBottom="matMenu" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
+			<a mat-menu-item>
+				<mat-icon class="material-icons">touch_app</mat-icon> Action 1
+			</a>
+			<a mat-menu-item>
+				<mat-icon class="material-icons">touch_app</mat-icon> Action 2
+			</a>
+		</mat-menu>
+	</mat-toolbar>
+</span>
