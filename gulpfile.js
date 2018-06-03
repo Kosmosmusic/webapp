@@ -278,9 +278,7 @@ gulp.task('pack-vendor-js', () => {
 
 		'./node_modules/jquery/dist/jquery.js',
 
-		'./node_modules/firebase/firebase.js',
-
-		'./node_modules/angular-google-gapi/dist/angular-google-gapi.js'
+		'./node_modules/firebase/firebase.js'
 	])
 		.pipe(plumber())
 		.pipe(concat('vendor-pack.js'))

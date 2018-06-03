@@ -24,6 +24,8 @@ import { AppNavComponent } from './components/app-nav.component';
 import { AppIndexComponent } from './components/app-index.component';
 import { AppReleasesComponent } from './components/app-releases.component';
 import { AppMasteringComponent } from './components/app-mastering.component';
+import { AppMixesComponent } from './components/app-mixes.component';
+import { AppVideosComponent } from './components/app-videos.component';
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
@@ -32,16 +34,19 @@ import { CustomDeferredService } from './services/custom-deferred.service';
 import { CustomHttpHandlersService } from './services/custom-http-handlers.service';
 import { EventEmitterService } from './services/event-emitter.service';
 
+import { GoogleApiService } from './services/google-api.service';
+
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
-									AppMasteringComponent
+									AppMasteringComponent, AppMixesComponent, AppVideosComponent
 								],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
 								],
 	providers 	: [ {provide: APP_BASE_HREF, useValue: '/'}, {provide: LocationStrategy, useClass: PathLocationStrategy},
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
-									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService
+									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
+									GoogleApiService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]

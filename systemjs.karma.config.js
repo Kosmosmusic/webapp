@@ -10,7 +10,6 @@
 	var map = {
 		'app': 																	'./base/public/app',
 		'mocks': 																'./base/test/client/mocks',
-		'ng2-nvd3': 														'npm:ng2-nvd3/build',
 
 		'rxjs': 																'npm:rxjs/bundles/rxjs.umd.js',
 		'rxjs/ajax': 														'npm:rxjs/ajax',
@@ -65,7 +64,6 @@
 	var packages = {
 		'app': 													{ main: 'app', defaultExtension: 'js' },
 		'mocks': 												{ main: 'index', defaultExtension: 'js' },
-		'ng2-nvd3': 										{ main: 'index', defaultExtension: 'js' },
 		'traceur': 											{ main: 'traceur', defaultExtension: 'js' },
 
 		'rxjs/ajax': 										{ main: 'index', defaultExtension: 'js' },

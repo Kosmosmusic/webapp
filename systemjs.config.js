@@ -9,7 +9,6 @@
 	// packages locations
 	var map = {
 		'app': 																	'./public/app',
-		'ng2-nvd3': 														'npm:ng2-nvd3/build',
 
 		'rxjs': 																'npm:rxjs/bundles/rxjs.umd.js',
 		'rxjs/ajax': 														'npm:rxjs/ajax',
@@ -63,7 +62,6 @@
 	// how to load packages
 	var packages = {
 		'app': 													{ main: 'app', defaultExtension: 'js' },
-		'ng2-nvd3': 										{ main: 'index', defaultExtension: 'js' },
 		'traceur': 											{ main: 'traceur', defaultExtension: 'js' },
 
 		'rxjs/ajax': 										{ main: 'index', defaultExtension: 'js' },
