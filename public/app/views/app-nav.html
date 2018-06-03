@@ -1,0 +1,62 @@
+<mat-toolbar color="primary" fxFlex="0 1 auto">
+	<span fxLayout="row" fxLayoutAlign="start stretch">
+		<button mat-icon-button (click)="toggleSidenav()">
+			<img fxFlex src="/favicon.ico" alt="{{ 'title' | translate }}" title="{{ 'title' | translate  }}" />
+		</button>
+	</span>
+	<span fxFlex="1 1 auto"></span>
+	<span class="mat-toolbar-tools">
+
+		<button [routerLink]="['index']" (click)="switchNavButtons($event, 'index');" mat-button [ngClass]="{selected: navButtonsState[0], inactive: !navButtonsState[0]}" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-home"></i> {{ 'title' | translate }}
+		</button>
+		<button [routerLink]="['releases']" (click)="switchNavButtons($event, 'releases')" mat-button [ngClass]="{selected: navButtonsState[1], inactive: !navButtonsState[1]}" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-music"></i> {{ 'releases' | translate }}
+		</button>
+		<button [routerLink]="['mastering']" (click)="switchNavButtons($event, 'mastering')" mat-button [ngClass]="{selected: navButtonsState[2], inactive: !navButtonsState[2]}" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-user"></i> {{ 'mastering' | translate }}
+		</button>
+		<button [routerLink]="['mixes']" (click)="switchNavButtons($event, 'mixes')" mat-button [ngClass]="{selected: navButtonsState[3], inactive: !navButtonsState[3]}" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-database"></i> {{ 'mixes' | translate }}
+		</button>
+		<button [routerLink]="['videos']" (click)="switchNavButtons($event, 'videos')" mat-button [ngClass]="{selected: navButtonsState[4], inactive: !navButtonsState[4]}" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-map"></i> {{ 'videos' | translate }}
+		</button>
+		<button [routerLink]="['about']" (click)="switchNavButtons($event, 'about')" mat-button [ngClass]="{selected: navButtonsState[5], inactive: !navButtonsState[5]}" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-info"></i> {{ 'about' | translate }}
+		</button>
+		<button mat-button [matMenuTriggerFor]="languageMenu" [fxHide.xs]="true" [fxHide.sm]="true">
+			<i class="fas fa-globe"></i> {{ 'language' | translate }}
+		</button>
+		<mat-menu #languageMenu="matMenu" [fxHide.xs]="true" [fxHide.sm]="true">
+			<button mat-menu-item *ngFor="let lang of supportedLanguages" [ngClass]="{selected: isLanguageSelected(lang.key)}" (click)="selectLanguage(lang.key)">{{lang.name}}</button>
+		</mat-menu>
+
+		<button mat-button [matMenuTriggerFor]="mobileMenu" [fxHide.md]="true" [fxHide.lg]="true">
+			<i class="fas fa-ellipsis-v"></i>
+		</button>
+		<mat-menu #mobileMenu="matMenu" [fxHide.md]="true" [fxHide.lg]="true">
+			<button [routerLink]="['index']" (click)="switchNavButtons($event, 'index')" mat-menu-item [ngClass]="{selected: navButtonsState[0], inactive: !navButtonsState[0]}">
+				<i class="fas fa-home"></i> {{ 'title' | translate }}
+			</button>
+			<button [routerLink]="['releases']" (click)="switchNavButtons($event, 'releases')" mat-menu-item [ngClass]="{selected: navButtonsState[1], inactive: !navButtonsState[1]}">
+				<i class="fas fa-music"></i> {{ 'releases' | translate }}
+			</button>
+			<button [routerLink]="['mastering']" (click)="switchNavButtons($event, 'mastering')" mat-menu-item [ngClass]="{selected: navButtonsState[2], inactive: !navButtonsState[2]}">
+				<i class="fas fa-database"></i> {{ 'mastering' | translate }}
+			</button>
+			<button [routerLink]="['mixes']" (click)="switchNavButtons($event, 'mixes')" mat-menu-item [ngClass]="{selected: navButtonsState[3], inactive: !navButtonsState[3]}">
+				<i class="fas fa-map"></i> {{ 'mixes' | translate }}
+			</button>
+			<button [routerLink]="['videos']" (click)="switchNavButtons($event, 'videos')" mat-menu-item [ngClass]="{selected: navButtonsState[4], inactive: !navButtonsState[4]}">
+				<i class="fas fa-map"></i> {{ 'videos' | translate }}
+			</button>
+			<button [routerLink]="['about']" (click)="switchNavButtons($event, 'about')" mat-menu-item [ngClass]="{selected: navButtonsState[5], inactive: !navButtonsState[5]}">
+				<i class="fas fa-map"></i> {{ 'about' | translate }}
+			</button>
+			<hr>
+			<button mat-button *ngFor="let lang of supportedLanguages" [ngClass]="{selected: isLanguageSelected(lang.key)}" (click)="selectLanguage(lang.key)">{{lang.name}}</button>
+		</mat-menu>
+
+	</span>
+</mat-toolbar>

@@ -1,293 +1,135 @@
-$white: #ffffff;
 $black: #000000;
-$grey: #c5c5c5;
-$darkGreen: #003300;
-$green: #009900;
-$amber: #ffc107;
-$lightGreen: #00cc33;
-$lightBlue: #00cccc;
-$yellow: #ffed00;
+$white: #ffffff;
 
-$selected: rgba(0, 0, 0, 0.4);
+$boxPadding: 0.5em;
 
-$padding: 0.5em;
+/* required in case of self hosting of material-design-icons */
+	@font-face {
+		font-family: 'Material Icons';
+		font-style: normal;
+		font-weight: 400;
+		src: url(../webfonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+		src: local('Material Icons'),
+			local('MaterialIcons-Regular'),
+			url(../webfonts/MaterialIcons-Regular.woff2) format('woff2'),
+			url(../webfonts/MaterialIcons-Regular.woff) format('woff'),
+			url(../webfonts/MaterialIcons-Regular.ttf) format('truetype');
+	}
+	.material-icons {
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px;  /* Preferred icon size */
+		display: inline-block;
+		line-height: 1;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normal;
+		white-space: nowrap;
+		direction: ltr;
+
+		/* Support for all WebKit browsers. */
+		-webkit-font-smoothing: antialiased;
+		/* Support for Safari and Chrome. */
+		text-rendering: optimizeLegibility;
+
+		/* Support for Firefox. */
+		-moz-osx-font-smoothing: grayscale;
+
+		/* Support for IE. */
+		font-feature-settings: 'liga';
+
+		&:hover {
+			cursor: default;
+		}
+	}
+	button {
+		.material-icons {
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+/* required in case of self hosting of material-design-icons */
 
 html {
 	height: 100vh;
-	width: 100vw;
-
-	body {
-		height: 100vh;
-		width: 100vw;
-		background: #000 url(../img/body_bg.jpg) center center no-repeat;
-		background-attachment: fixed;
-	}
+	width: 100%;
+	margin: 0;
+	padding: 0;
 }
+body {
+	display: block;
+	height: auto!important;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	color: $black;
+	font-size: 1.75em;
+	overflow-x: hidden;
 
 /*
-*	general
+*	DOM elements general
 */
-	:focus { outline: 0; }
 	a {
-		color: $green;
-		outline: none;
 		text-decoration: none;
-
-		&:hover {
-			cursor: pointer;
-			color: $amber;
+		&:hover, &:focus {
+			outline: none;
 			text-decoration: none;
 		}
-	}
-	.hover-pointer {
-		&:hover {
-			cursor: pointer;
-		}
-	}
-	h1, h2, h3, h4, h5, h6 {
-		margin: 0;
-		&:hover { cursor: default; }
-	}
-	img { border: none; }
-	input { vertical-align: middle; }
-
-	.splitter {
-		flex: 1;
+		&:hover {cursor: pointer}
 	}
 
-	md-content {
-		background: transparent;
+	h1:hover, h2:hover, h3:hover, h4:hover, p:hover { cursor: default; }
+	h1, h2, h3, h4 {
+		margin-top: 20px;
+		margin-bottom: 10px;
 	}
 
-	.border { /* common class for bordered blocks, mostly soundcloud widgets */
-		box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.33) !important;
-		border-width: 0px 0px 0px !important;
-		border-style: none none solid !important;
-		border-color: -moz-use-text-color -moz-use-text-color rgba(0, 0, 0, 0.09) !important;
-		-moz-border-top-colors: none !important;
-		-moz-border-right-colors: none !important;
-		-moz-border-bottom-colors: none !important;
-		-moz-border-left-colors: none !important;
-		border-image: none !important;
-		overflow:hidden;
-	}
-
-/*
-*	colouring
-*/
-	.green-text { color: $lightGreen; }
-	.amber-text { color: $amber; }
-	.yellow-text { color: $yellow; }
-	.selected {
-		background: $selected;
-		color: $white;
-	}
-
-/*
-*	scrollbars
-*/
-	::-webkit-scrollbar {
-		width: 10px;
-		height: 10px;
-	}
-	::-webkit-scrollbar-track {
-		background: rgba(0, 0, 0, 0.1);
-	}
-	::-webkit-scrollbar-thumb {
-		background: rgba(255, 255, 255, 0.5);
-	}
-
-/*
-*	navbar
-*/
-
-	.logo {
-		height: 42px;
-		width: 42px;
-		border: 1px $grey solid;
-		border-radius: 50%;
-	}
-
-	#dropdown-menu {
-		height: auto!important;
-		max-height: 95vh;
-	}
-
-	#sidebar-toggler {
-		margin-left: 0;
-	}
-
-	md-menu-item {
-		a {
+	form {
+		legend {
 			&:hover {
-				cursor: pointer;
-				color: $black;
-				text-decoration: none;
+				cursor: default;
 			}
 		}
+		textarea {
+			resize: vertical;
+		}
 	}
 
 /*
-*	index
+*	layout
 */
-	#showcase {
-		min-width: 30vw;
-		// overflow-y: hidden;
-		overflow-x: hidden;
 
-		/* custom embedded mailchimp subscribe form */
-		#mc_embed_signup {
-			background: $black;
+	#spinner {
+		display: flex;
+		position: fixed;
+		align-items: center;
+		justify-content: center;
+		width: 100vw;
+		height: 100vh;
+		color: $white;
+		text-align: center;
+		z-index: 1000;
+		background: rgba(0, 0, 0, 0.15);
+
+		mat-spinner {
+			width: 20vh;
 			height: auto!important;
-			clear: left;
-			padding: 0;
-
-			#mc-embedded-subscribe-form { padding-left: 0; }
-
-			label {
-				width: 100%;
-				text-align: center;
-			}
-
-			#mce-EMAIL { width: 100%; }
-
-			.clear {
-				#mc-embedded-subscribe {
-					width: 100%;
-
-					&:hover {
-						background: $amber;
-						width: 100%;
-						color: $black;
-					}
-				}
-			}
-		}
-
-		/* custom soundcloud player */
-		#sc-player {
-			width: 100%;
-			border-radius: 0;
-			text-align: left;
-			background: $black;
-
-			iframe { border: 0; width: 100%; }
-
-			div {
-				&:hover {
-					cursor: default;
-				}
-			}
-		}
-
-		/* used in about section */
-		#powered_by {
-			background: rgba(255,255,255, 0.5);
-			color: $black;
 		}
 	}
 
-	#twitter {
-		overflow-y: scroll;
-		overflow-x: hidden;
-		display: block;
-		box-sizing: border-box;
-		position: relative;
-		padding-left: 0.5em;
-		font-variant: small-caps;
+	root {
+		min-height: 100vh;
 		height: 100%;
-		z-index: 10;
-		background-color: rgba(0, 0, 0, 0.5);
-
-		iframe {
-			width: 100%;
-			height: 100%;
-			padding-left: 0.1em;
-			padding-right: 0.1em;
-			background-color: transparent;
-
-			html {
-				body {
-					.root { background-color: transparent; }
-				}
-			}
-		}
+		width: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
-/*
-*	releases
-*/
-	#releases {
-		height: 100%;
+	app-nav {
+		width: 100vw;
+		height: auto!important;
+		flex: 0 1 auto;
 	}
-
-/*
-*	mastering
-*/
-	#mastering {
-		height: 100%;
-	}
-
-/*
-*	mixes
-*/
-	#mixes {
-		height: 100%;
-	}
-
-/*
-*	videos
-*/
-	#videos {
-		height: 100%;
-	}
-
-/*
-*	about
-*/
-	#about {
-		color: $white;
-
-		h4 {
-			text-transform: uppercase;
-			font-weight: bold;
-			text-align: center;
-		}
-
-		#text {
-			padding: 0 $padding 0 $padding;
-			font-size: 1.1em;
-		}
-
-		.links {
-			a {
-				min-width: 55px;
-				&:hover {
-					color: $amber;
-				}
-			}
-		}
-
-		#dialog-trigger {
-			min-width: 55px;
-			&:hover {
-				color: $amber;
-			}
-		}
-	}
-
-/*
-*	contact
-*/
-	#contact {
-		flex: 1 1 auto;
-		align-self: stretch;
-
-		.contact-instructions {
-			color: $white;
-			background: rgba(0, 0, 0, 0.5);
-			display: block;
-			min-height: auto!important;
-		}
-
-	}
+}
