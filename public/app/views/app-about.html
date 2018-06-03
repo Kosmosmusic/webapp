@@ -1,0 +1,68 @@
+<div fxLayout="row">
+	<div fxFlex="75" fxFlex.xs="100" fxLayout="row wrap" fxLayoutAlign="start stretch">
+		<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start stretch">
+			<h3 fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+				{{details.title}}
+			</h3>
+			<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="details.links">
+				<a mat-icon-button href="{{details.links.soundcloud}}" title="{{details.title}} @ soundcloud" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-soundcloud" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.rss}}" title="{{details.title}} rss" target=_blank>
+					<mat-icon fontSet="fas" fontIcon="fa-rss" class="material-icons-fas"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.mixcloud}}" title="{{details.title}} @ mixcloud" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-mixcloud" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.twitter}}" title="{{details.title}} @ twitter" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-twitter" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.facebook}}" title="{{details.title}} @ facebook" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-facebook" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.youtube}}" title="{{details.title}} @ youtube" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-youtube" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.instagram}}" title="{{details.title}} @ instagram" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-instagram" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.bandcamp}}" title="{{details.title}} @ bandcamp" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-bandcamp" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.vkontakte}}" title="{{details.title}} @ vkontakte" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-vk" class="material-icons-fab"></mat-icon>
+				</a>
+				<a mat-icon-button href="{{details.links.telegram}}" title="{{details.title}} @ telegram" target=_blank>
+					<mat-icon fontSet="fab" fontIcon="fa-telegram" class="material-icons-fab"></mat-icon>
+				</a>
+			</div>
+		</div>
+		<div fxFlex="100" class="mat-body-1">
+			<span [innerHtml]="details.text"></span>
+			<button mat-icon-button (click)="showContactDialog()" title="show contact dialog">
+				<mat-icon fontSet="fas" fontIcon="fa-envelope" class="material-icons-fas"></mat-icon>
+			</button>
+		</div>
+	</div>
+
+	<div fxFlex="25" fxHide.xs fxLayout="column" fxLayoutAlign="start stretch">
+		<!-- Begin MailChimp Signup Form -->
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<div fxFlex id="mc_embed_signup">
+			<!-- TODO reconfig form -->
+			<form action="//dnbhub.us3.list-manage.com/subscribe/post?u=3eeba7cfe8388b91c662bdf95&amp;id=8cca3229c8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<div id="mc_embed_signup_scroll">
+					<label for="mce-EMAIL">Join <span class="amber-text">SMC PR</span> Mailing List</label>
+					<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+					<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+					<div style="position: absolute; left: -5000px;"><input type="text" name="b_3eeba7cfe8388b91c662bdf95_8cca3229c8" tabindex="-1" value=""></div>
+					<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+				</div>
+			</form>
+		</div>
+		<!--End mc_embed_signup-->
+		<div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+			something else here
+		</div>
+	</div>
+</div>

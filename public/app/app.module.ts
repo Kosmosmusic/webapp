@@ -26,6 +26,7 @@ import { AppReleasesComponent } from './components/app-releases.component';
 import { AppMasteringComponent } from './components/app-mastering.component';
 import { AppMixesComponent } from './components/app-mixes.component';
 import { AppVideosComponent } from './components/app-videos.component';
+import { AppAboutComponent } from './components/app-about.component';
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
@@ -35,10 +36,11 @@ import { CustomHttpHandlersService } from './services/custom-http-handlers.servi
 import { EventEmitterService } from './services/event-emitter.service';
 
 import { GoogleApiService } from './services/google-api.service';
+import { FirebaseService } from './services/firebase.service';
 
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
-									AppMasteringComponent, AppMixesComponent, AppVideosComponent
+									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent
 								],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
@@ -46,7 +48,7 @@ import { GoogleApiService } from './services/google-api.service';
 	providers 	: [ {provide: APP_BASE_HREF, useValue: '/'}, {provide: LocationStrategy, useClass: PathLocationStrategy},
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
 									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
-									GoogleApiService
+									GoogleApiService, FirebaseService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]
