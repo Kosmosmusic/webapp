@@ -27,6 +27,7 @@ import { AppMasteringComponent } from './components/app-mastering.component';
 import { AppMixesComponent } from './components/app-mixes.component';
 import { AppVideosComponent } from './components/app-videos.component';
 import { AppAboutComponent } from './components/app-about.component';
+import { AppContactDialog } from './components/app-contact.component';
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
@@ -37,18 +38,21 @@ import { EventEmitterService } from './services/event-emitter.service';
 
 import { GoogleApiService } from './services/google-api.service';
 import { FirebaseService } from './services/firebase.service';
+import { SendEmailService } from './services/send-email.service';
+import { SoundcloudService } from './services/soundcloud.service';
 
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
-									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent
+									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog
 								],
+	entryComponents: [ AppContactDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
 								],
 	providers 	: [ {provide: APP_BASE_HREF, useValue: '/'}, {provide: LocationStrategy, useClass: PathLocationStrategy},
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
 									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
-									GoogleApiService, FirebaseService
+									GoogleApiService, FirebaseService, SendEmailService, SoundcloudService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]
