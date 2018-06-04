@@ -1,104 +1,56 @@
 import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { Observable, Observer, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CustomHttpHandlersService } from './custom-http-handlers.service';
 
-import ClientConfig = gapi.auth2.ClientConfig;
-interface INgGapiClientConfig extends ClientConfig {
-	discoveryDocs: string[];
-}
-
-import GoogleAuth = gapi.auth2.GoogleAuth;
+import { Observable } from 'rxjs';
+import { timeout, take, map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class GoogleApiService {
 
 	constructor(
+		private http: HttpClient,
+		private handlers: CustomHttpHandlersService,
 		@Inject('Window') private window: Window
 	) {
 		console.log('GoogleApiService constructor');
-		this.getAuth().subscribe((auth: any) => {
-			console.log('auth', auth);
-			auth.subscribe((authObj: GoogleAuth) => {
-				console.log('is signed in', auth.isSignedIn.get());
-			});
-		});
 	}
 
-	/*
-	*	API
-	*/
-
-	private readonly gapiUrl: string = 'https://apis.google.com/js/api.js';
-
-	private loadGapi(): Observable<void> {
-		return Observable.create((observer: Observer<boolean>) => {
-			const node = this.window.document.createElement('script');
-			node.src = this.gapiUrl;
-			node.type = 'text/javascript';
-			node.charset = 'utf-8';
-			this.window.document.getElementsByTagName('head')[0].appendChild(node);
-			node.onload = () => {
-				console.log('gapi service loaded');
-				observer.next(true);
-				observer.complete();
-			};
-		});
-	}
-
-	public onLoad(): Observable<void> {
-		return this.loadGapi();
-	}
-
-	/*
-	* Auth
-	*/
-
-	private clientConfig: INgGapiClientConfig = {
-		client_id: 'google_apis_client_id',
-		discoveryDocs: ['https://www.googleapis.com/youtube/v3'],
-		scope: ['https://www.googleapis.com/auth/youtube.readonly'].join(' ')
-	};
-	private googleAuth: GoogleAuth = undefined;
-	private loadGapiAuth(): Observable<GoogleAuth> {
-		return Observable.create((observer: Observer<GoogleAuth>) => {
-			gapi.load('auth2', () => {
-				gapi.auth2.init(this.clientConfig).then((auth: GoogleAuth) => {
-					this.googleAuth = auth;
-					console.log('this.googleAuth', this.googleAuth);
-					observer.next(auth);
-					observer.complete();
-				});
-			});
-		});
-	}
-	public getAuth(): Observable<GoogleAuth> {
-		if (!this.googleAuth) {
-			return this.onLoad().pipe(
-				map(() => this.loadGapiAuth())
-			);
+	/**
+	 * Google API endpoints.
+	 */
+	private endpoints: { youtube: { search: string } } = {
+		youtube: {
+			search: 'https://www.googleapis.com/youtube/v3/channels'
 		}
-		return Observable.of(this.googleAuth);
+	};
+
+	/**
+	 * Google API authentication data.
+	 */
+	private config: { browserKey: string, channelId: string, part: string, order: string, maxResults: string } = {
+		browserKey: 'google_apis_browser_key',
+		channelId: 'UC2HOUBVyZw9mPM3joMShYKQ',
+		part: 'snippet,contentDetails,statistics,topicDetails,status,brandingSettings,invideoPromotion,contentOwnerDetails',
+		order: 'date',
+		maxResults: '50'
+	};
+
+	/**
+	 * Gets youtube channel data.
+	 */
+	public getChannelData(): Observable<any[]> {
+		let query: HttpParams = new HttpParams().set('key', this.config.browserKey);
+		query = query.set('id', this.config.channelId);
+		query = query.set('part', this.config.part);
+		query = query.set('order', this.config.order);
+		query = query.set('maxResults', this.config.maxResults);
+		return this.http.get(this.endpoints.youtube.search, { params: query, responseType: 'json' }).pipe(
+			timeout(1000),
+			take(1),
+			map(this.handlers.extractObject),
+			catchError(this.handlers.handleError)
+		);
 	}
-
-	/*
-	* Youtube
-	*/
-
-	private part: string = 'snippet,contentDetails,statistics,topicDetails,status,brandingSettings,invideoPromotion,contentOwnerDetails';
-	private channelId: string = 'UC2HOUBVyZw9mPM3joMShYKQ';
-	private gcbk: string = 'google_apis_browser_key';
-	private gcid: string = 'google_apis_client_id';
-	private gscope: string = 'https://www.googleapis.com/auth/youtube.readonly';
-
-	/*
-	* TODO: get channel details, return to component required data for youtube playlist init
-	*/
-/*
-	channel: () => GApi.execute('youtube', 'channels.list', {
-		part: part,
-		id: channelId,
-		key: gcbk
-	})
-*/
 }

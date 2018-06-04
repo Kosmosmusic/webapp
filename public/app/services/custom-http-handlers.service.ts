@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Observable, concat, throwError } from 'rxjs';
+
 @Injectable()
 export class CustomHttpHandlersService {
 
@@ -11,12 +13,11 @@ export class CustomHttpHandlersService {
 		return res || [];
 	}
 
-	public handleError(error: any): string {
+	public handleError(error: any): Observable<any> {
 		console.log('error', error);
 		const errMsg = (error.message) ? error.message :
 			error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 		console.log('errMsg', errMsg);
-		return errMsg;
+		return concat(throwError(errMsg));
 	}
-
 }

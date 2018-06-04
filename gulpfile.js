@@ -261,7 +261,6 @@ gulp.task('build-system-js', () => {
 		.pipe(replace('firebase_messaging_sender_id', env.FIREBASE_MESSAGING_SENDER_ID))
 		.pipe(replace('privileged_access_firebase_uid', env.PRIVILEGED_ACCESS_FIREBASE_UID))
 		.pipe(replace('google_apis_browser_key', env.GOOGLE_APIS_BROWSER_KEY))
-		.pipe(replace('google_apis_client_id', env.GOOGLE_APIS_CLIENT_ID))
 		.pipe(gulp.dest('./public/js'));
 });
 
