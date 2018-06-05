@@ -34,5 +34,5 @@ script:
   - gulp set-build-hash
   - gulp server & # ampersand is required to run server in background
   - gulp server-test
-  - gulp client-unit-test-single-run
+  - gulp client-unit-test
   - gulp client-e2e-test

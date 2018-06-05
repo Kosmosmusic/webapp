@@ -32,7 +32,6 @@ describe('TranslateService', () => {
 	});
 
 	it('instant() should return provided key if no translation is available', () => {
-		expect(this.service.instant('title')).toEqual('KOS.MOS.MUSIC');
 		this.service.use('en');
 		expect(this.service.instant('nonexistent_key')).toEqual('nonexistent_key');
 		expect(this.service.instant('nonexistent.key')).toEqual('nonexistent.key');

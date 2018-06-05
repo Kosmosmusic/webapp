@@ -25,7 +25,7 @@ describe('TranslatePipe', () => {
 	});
 
 	it('instant() should return provided key if no translation is available', () => {
-		expect(this.pipe.transform('title', [])).toEqual('KOS.MOS.MUSIC');
+		expect(this.pipe.transform('title', [])).toEqual('title');
 	});
 
 	it('transform() should return instant translation of a dictionary key', () => {

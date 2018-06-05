@@ -30,7 +30,7 @@ describe('CustomHttpHandlersService', () => {
 	});
 
 	it('extractObject should return an Object', () => {
-		expect(this.service.extractObject(new Response(new ResponseOptions({ body: {}, status: 200 })))).toEqual(jasmine.any(Object));
+		expect(this.service.extractObject({})).toEqual(jasmine.any(Object));
 	});
 
 	it('extractObject should return an empty Object if not data is present', () => {
@@ -38,15 +38,11 @@ describe('CustomHttpHandlersService', () => {
 	});
 
 	it('extractArray should return an Array', () => {
-		expect(this.service.extractArray(new Response(new ResponseOptions({ body: [ {x: 'x'}, {y: 'y'} ], status: 200, headers: new Headers({}) })))).toEqual(jasmine.any(Array));
+		expect(this.service.extractArray([ {x: 'x'}, {y: 'y'} ])).toEqual(jasmine.any(Array));
 	});
 
 	it('extractArray should return an empty Array if no data is present', () => {
 		expect(this.service.extractArray(null)).toEqual(jasmine.any(Array));
-	});
-
-	it('handleError should return an Observable', () => {
-		expect(this.service.handleError({ errors: [{ detail: 'error' }]})).toEqual(jasmine.any(Observable));
 	});
 
 	it('handleError should return an Observable', () => {

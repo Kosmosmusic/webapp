@@ -206,7 +206,7 @@ gulp.task('server-test', () => {
 });
 
 let karmaSRV;
-gulp.task('client-unit-test-single-run', (done) => {
+gulp.task('client-unit-test', (done) => {
 	if (!karmaSRV) {
 		karmaSRV = new karmaServer({
 			configFile: require('path').resolve('test/karma.conf.js'),

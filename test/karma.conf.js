@@ -11,8 +11,6 @@ module.exports = function(config){
 
 			'node_modules/firebase/firebase.js',
 
-			'node_modules/angular-google-gapi/dist/angular-google-gapi.js',
-
 			'node_modules/core-js/client/shim.js',
 			'node_modules/reflect-metadata/Reflect.js',
 
