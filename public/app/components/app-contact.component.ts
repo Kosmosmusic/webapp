@@ -13,7 +13,7 @@ import { TranslateService } from '../modules/translate/translate.service';
  */
 @Component({
 	selector: 'app-contact',
-	templateUrl: '/public/app/views/app-contact.html',
+	templateUrl: '/app/views/app-contact.html',
 	host: {
 		class: 'mat-body-1'
 	}
@@ -64,6 +64,9 @@ export class AppContactDialog implements OnInit, OnDestroy {
 		}
 	}
 
+	/**
+	 * UI feedback for user actions.
+	 */
 	public feedback: string;
 
 	/**

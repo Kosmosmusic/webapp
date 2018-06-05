@@ -25,7 +25,7 @@ export const LANG_EN_TRANSLATIONS = {
 		name: 'Name',
 		header: 'Header',
 		message: 'Message',
-		invalide: {
+		invalid: {
 			email: 'Invalid email',
 			name: 'Invalid name: 2+ characters',
 			header: 'Invalid header: 3+ characters',

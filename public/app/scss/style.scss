@@ -101,6 +101,8 @@ $black: #000000;
 	}
 /* required in case of self hosting of material-design-icons */
 
+$boxPadding: 0.2em;
+
 html {
 	display: block;
 	height: 100%;
@@ -195,4 +197,5 @@ body {
 			height: auto!important;
 		}
 	}
+
 }

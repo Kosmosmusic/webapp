@@ -25,7 +25,7 @@ export const LANG_RU_TRANSLATIONS = {
 		name: 'Имя',
 		header: 'Заголовок',
 		message: 'Сообщение',
-		invalide: {
+		invalid: {
 			email: 'Неправильный адрес эл. почты',
 			name: 'Неправильное имя: 2+ знаков',
 			header: 'Неправильный заголовок: 3+ знаков',

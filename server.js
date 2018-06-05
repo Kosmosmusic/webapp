@@ -18,7 +18,7 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 
 /*
 *	this is required for angular to load urls properly when user requests url directly, e.g.
-*	user if user requests dnbhub.com/index by typing it in browser's address bar
+*	user if user requests domain.tld/index by typing it in browser's address bar
 */
 app.use((req, res) => {
 	res.sendFile(__dirname + '/public/index.html');

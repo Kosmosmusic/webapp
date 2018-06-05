@@ -2,6 +2,10 @@
 
 <mat-dialog-content fxFlex="1 1 auto">
 
+	<div *ngIf="feedback" fxLayout="row" fxLayoutAlign="center center">
+		<span fxFlex="0 1 auto">{{feedback}}</span>
+	</div>
+
 	<form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px" id="mdm-modal-form-inline" [formGroup]="emailForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
 
 		<mat-form-field fxFlex>
