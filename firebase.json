@@ -59,11 +59,11 @@
 				"function": "sendEmail"
 			},
 			{
-				"source": "/submitBlogPostOverEmail",
-				"function": "submitBlogPostOverEmail"
+				"source": "/submitDemoOverEmail",
+				"function": "submitDemoOverEmail"
 			},
 			{
-				"source": "**/!(sendEmail|submitBlogPostOverEmail)",
+				"source": "**/!(sendEmail|submitDemoOverEmail)",
 				"destination": "/index.html"
 			}
 		]
