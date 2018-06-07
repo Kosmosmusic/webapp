@@ -51,7 +51,7 @@
 			<button mat-menu-item *ngFor="let lang of supportedLanguages" [ngClass]="{selected: isLanguageSelected(lang.key)}" (click)="selectLanguage(lang.key)">{{ 'language.' + lang.key | translate}}</button>
 		</mat-menu>
 
-		<button mat-icon-button [matMenuTriggerFor]="mobileMenu" [fxHide.md]="true" [fxHide.lg]="true">
+		<button mat-icon-button [matMenuTriggerFor]="mobileMenu" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
 			<mat-icon fontSet="fas" fontIcon="fa-ellipsis-v" class="material-icons-fas"></mat-icon>
 		</button>
 		<mat-menu #mobileMenu="matMenu" [fxHide.md]="true" [fxHide.lg]="true">
