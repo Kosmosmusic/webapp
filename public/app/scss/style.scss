@@ -128,7 +128,7 @@ body {
 		justify-content: flex-start;
 
 		mat-sidenav {
-			width: 40vw;
+			width: 60vw;
 
 			mat-grid-tile {
 				&:hover {
@@ -145,7 +145,7 @@ body {
 		}
 	}
 
-	app-releases, app-mastering, app-mixes, app-videos, app-about {
+	app-index, app-releases, app-mastering, app-mixes, app-videos, app-about {
 		flex: 1 1 auto;
 	}
 
@@ -195,6 +195,15 @@ body {
 		mat-spinner {
 			width: 20vh;
 			height: auto!important;
+		}
+	}
+
+/*
+*	sketching classes
+*/
+	.coloured-tiles {
+		mat-grid-tile {
+			background-color: yellow;
 		}
 	}
 

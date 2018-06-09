@@ -42,9 +42,12 @@ import { FirebaseService } from './services/firebase.service';
 import { SendEmailService } from './services/send-email.service';
 import { SoundcloudService } from './services/soundcloud.service';
 
+import { FacebookWidgetSrcDirective } from './directives/facebook-widget-src.directive';
+
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
-									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog
+									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
+									FacebookWidgetSrcDirective
 								],
 	entryComponents: [ AppContactDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
