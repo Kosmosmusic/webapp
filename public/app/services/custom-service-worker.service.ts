@@ -55,11 +55,11 @@ export class CustomServiceWorkerService {
 	private emitterSubscription: any;
 
 	private emitterSubscribe(): void {
-		this.emitterSubscription = this.emitter.getEmitter().subscribe((message: any) => {
-			console.log('CustomServiceWorkerService consuming event:', JSON.stringify(message));
-			if (message.serviceWorker === 'initialize') {
+		this.emitterSubscription = this.emitter.getEmitter().subscribe((event: any) => {
+			console.log('CustomServiceWorkerService consuming event:', JSON.stringify(event));
+			if (event.serviceWorker === 'initialize') {
 				this.initializeServiceWorker();
-			} else if (message.serviceWorker === 'deinitialize') {
+			} else if (event.serviceWorker === 'deinitialize') {
 				this.deinitializeServiceWorker();
 			}
 		});

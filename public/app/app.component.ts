@@ -36,6 +36,9 @@ export class AppComponent implements OnInit, OnDestroy {
 		console.log('TODO activate something');
 	}
 
+	/**
+	 * Indicates if progress spinner should be shown.
+	 */
 	public showSpinner: boolean = false;
 	/**
 	 * Shows spinner.

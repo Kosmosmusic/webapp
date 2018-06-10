@@ -71,10 +71,6 @@ export class AppNavComponent implements OnInit, OnDestroy {
 		return key === this.translate.currentLanguage;
 	}
 
-	public toggleSidenav(): void {
-		console.log('TODO toggle sidenav');
-	}
-
 	public serviceWorkerRegistered: boolean = true; // registered by default
 	public toggleServiceWorker(): void {
 		if (this.serviceWorkerRegistered) {

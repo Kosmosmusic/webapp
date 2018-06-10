@@ -1,10 +1,8 @@
 <mat-toolbar color="primary">
 	<span fxLayout="row" fxLayoutAlign="start stretch">
-		<button mat-icon-button (click)="toggleSidenav()">
-			<mat-icon svgIcon="logo" class="material-icons" alt="{{ 'title' | translate }}" title="{{ 'title' | translate  }}"></mat-icon>
-		</button>
+		<mat-icon svgIcon="logo" class="material-icons" alt="{{ 'title' | translate }}" title="{{ 'title' | translate  }}"></mat-icon>
 	</span>
-	<span fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="center center">
+	<span fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="center center" class="nohover">
 		<span fxFlex="0 1 auto" *ngIf="navButtonsState[0]">
 			{{ 'title' | translate }}
 		</span>
