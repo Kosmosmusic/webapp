@@ -45,11 +45,12 @@ import { BandcampService } from './services/bandcamp.service';
 
 import { FacebookWidgetSrcDirective } from './directives/facebook-widget-src.directive';
 import { IframeContentLoadedDirective } from './directives/iframe-content-loaded.directive';
+import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.directive';
 
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
 									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
-									FacebookWidgetSrcDirective, IframeContentLoadedDirective
+									FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
 								],
 	entryComponents: [ AppContactDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
