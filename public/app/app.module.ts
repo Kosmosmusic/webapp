@@ -41,13 +41,15 @@ import { GoogleApiService } from './services/google-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SendEmailService } from './services/send-email.service';
 import { SoundcloudService } from './services/soundcloud.service';
+import { BandcampService } from './services/bandcamp.service';
 
 import { FacebookWidgetSrcDirective } from './directives/facebook-widget-src.directive';
+import { IframeContentLoadedDirective } from './directives/iframe-content-loaded.directive';
 
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
 									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
-									FacebookWidgetSrcDirective
+									FacebookWidgetSrcDirective, IframeContentLoadedDirective
 								],
 	entryComponents: [ AppContactDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
@@ -56,7 +58,7 @@ import { FacebookWidgetSrcDirective } from './directives/facebook-widget-src.dir
 	providers 	: [ { provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
 									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
-									GoogleApiService, FirebaseService, SendEmailService, SoundcloudService
+									GoogleApiService, FirebaseService, SendEmailService, SoundcloudService, BandcampService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]

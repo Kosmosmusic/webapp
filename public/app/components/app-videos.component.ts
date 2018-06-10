@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, HostBinding } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 import { GoogleApiService } from '../services/google-api.service';
 
@@ -15,6 +16,7 @@ export class AppVideosComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private sanitizer: DomSanitizer,
+		private emitter: EventEmitterService,
 		private googleAPI: GoogleApiService,
 		@Inject('Window') private window: Window
 	) {}
@@ -28,15 +30,18 @@ export class AppVideosComponent implements OnInit, OnDestroy {
 
 	private getChannelData(): Promise<any> {
 		const def = new CustomDeferredService<any>();
+		this.emitter.emitSpinnerStartEvent();
 		this.googleAPI.getChannelData().subscribe(
 			(data: any) => {
 				this.channelData = data;
 				this.uploads = data.items[0].contentDetails.relatedPlaylists.uploads;
 				this.playlistSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/?listType=playlist&list=' + this.uploads + '&enablejsapi=1&origin=' + this.window.location.origin);
+				this.emitter.emitSpinnerStopEvent();
 				def.resolve();
 			},
 			(error: string) => {
 				console.log('getChannelData, error', error);
+				this.emitter.emitSpinnerStopEvent();
 				def.reject();
 			}
 		);

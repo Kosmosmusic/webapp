@@ -2,7 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { EventEmitterService } from '../services/event-emitter.service';
+import { CustomDeferredService } from '../services/custom-deferred.service';
 import { FirebaseService } from '../services/firebase.service';
+
 import { AppContactDialog } from './app-contact.component';
 
 @Component({
@@ -21,6 +24,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 	constructor(
 		private dialog: MatDialog,
 		private fb: FormBuilder,
+		private emitter: EventEmitterService,
 		private firebaseService: FirebaseService
 	) {
 		this.resetEmailSignupForm();
@@ -34,7 +38,9 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 	/**
 	 * Gets company details from firebase.
 	 */
-	private getDetails(): void {
+	private getDetails(): Promise<any> {
+		const def = new CustomDeferredService<any>();
+		this.emitter.emitSpinnerStartEvent();
 		this.firebaseService.getDB('about', false)
 			.then((snapshot) => {
 				console.log('getDetails, about', snapshot.val());
@@ -44,10 +50,15 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 				keys.forEach((key) => {
 					this.details[key] = response[key];
 				});
+				this.emitter.emitSpinnerStopEvent();
+				def.resolve();
 			})
 			.catch((error) => {
 				console.log('getDetails, error', error);
+				this.emitter.emitSpinnerStopEvent();
+				def.reject();
 			});
+		return def.promise;
 	}
 
 	/**

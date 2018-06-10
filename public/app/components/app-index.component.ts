@@ -3,6 +3,8 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/co
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 
+import { BandcampService } from '../services/bandcamp.service';
+
 @Component({
 	selector: 'app-index',
 	templateUrl: '/app/views/app-index.html',
@@ -15,6 +17,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	constructor(
 		private el: ElementRef,
 		private emitter: EventEmitterService,
+		private bandcampService: BandcampService
 	) {
 		// console.log('this.el.nativeElement:', this.el.nativeElement);
 	}
@@ -37,6 +40,9 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 			console.log('AppIndexComponent consuming event:', event);
 		});
 		this.subscriptions.push(sub);
+
+		this.emitter.emitSpinnerStopEvent();
+
 /*
 		this.getPublicData()
 			.then(() => this.getServerStaticData())
