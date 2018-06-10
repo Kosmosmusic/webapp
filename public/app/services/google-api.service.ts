@@ -47,7 +47,7 @@ export class GoogleApiService {
 		query = query.set('order', this.config.order);
 		query = query.set('maxResults', this.config.maxResults);
 		return this.http.get(this.endpoints.youtube.search, { params: query, responseType: 'json' }).pipe(
-			timeout(1000),
+			timeout(this.handlers.timeoutValue()),
 			take(1),
 			map(this.handlers.extractObject),
 			catchError(this.handlers.handleError)

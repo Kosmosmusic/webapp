@@ -27,7 +27,7 @@ export class SendEmailService {
 	 */
 	public sendEmail(formData: { name: string, email: string, header: string, message: string, domain: string }): Observable<any[]> {
 		return this.http.post(this.endpoint, formData).pipe(
-			timeout(1000),
+			timeout(this.handlers.timeoutValue()),
 			take(1),
 			map(this.handlers.extractObject),
 			catchError(this.handlers.handleError)
