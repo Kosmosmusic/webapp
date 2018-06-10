@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import { timeout, take, map, catchError } from 'rxjs/operators';
 
 /**
- * Makes a request to bandcamp by artist page url.
- * Parses html-response, and retrieves album urls.
+ * TODO:client should form widget urls for bandcamp albums.
+ * Albums should be fetched on server, and stored in db.
  */
 @Injectable()
 export class BandcampService {
@@ -23,22 +23,5 @@ export class BandcampService {
 	/**
 	 * Bandcamp page url.
 	 */
-	private url: string = 'https://kosmosmusicru.bandcamp.com/';
-
-	private parseHtml(res: string): string[] {
-		console.log('parseHtml, res', res);
-		return [];
-	}
-
-	/**
-	 * Makes a bandcamp request, returns album urls as an array.
-	 */
-	public getAlbumUrls(): Observable<any> {
-		return this.http.get(this.url, { responseType: 'text' }).pipe(
-			timeout(this.handlers.timeoutValue()),
-			take(1),
-			map(this.parseHtml),
-			catchError(this.handlers.handleError)
-		);
-	}
+	private url: string = 'https://kosmosmusicru.bandcamp.com/';	
 }
