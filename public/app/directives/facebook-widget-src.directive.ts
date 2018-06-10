@@ -1,6 +1,7 @@
 import { Directive, ElementRef, OnInit, Input } from '@angular/core';
 
 /**
+ * Sets facebook widget src.
  * Stretches facebook widget to full container (iframe) height.
  */
 @Directive({
