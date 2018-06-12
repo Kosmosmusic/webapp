@@ -9,10 +9,10 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "dotenv": "^5.0.1",
+    "dotenv": "^6.0.0",
     "firebase-admin": "~5.12.1",
     "firebase-functions": "^1.0.3",
-    "nodemailer": "4.6.5"
+    "nodemailer": "4.6.6"
   },
   "private": true
 }
