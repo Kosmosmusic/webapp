@@ -19,11 +19,11 @@ export class BandcampWidgetSrcDirective implements OnInit {
 	 */
 	public ngOnInit(): void {
 		this.el.nativeElement.onload = () => {
-			console.log('this.el', this.el);
-			console.log('this.el.nativeElement', this.el.nativeElement);
+			// console.log('this.el', this.el);
+			// console.log('this.el.nativeElement', this.el.nativeElement);
 			if (this.src) {
 				this.el.nativeElement.setAttribute('src', this.src);
-				console.log('this.el.nativeElement.getAttribute(\'src\')', this.el.nativeElement.getAttribute('src'));
+				// console.log('this.el.nativeElement.getAttribute(\'src\')', this.el.nativeElement.getAttribute('src'));
 				this.el.nativeElement.onload = () => true;
 			}
 		};

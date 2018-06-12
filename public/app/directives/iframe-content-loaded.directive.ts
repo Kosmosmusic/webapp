@@ -25,7 +25,7 @@ export class IframeContentLoadedDirective implements OnInit {
 	 */
 	public ngOnInit(): void {
 		this.el.nativeElement.onload = () => {
-			console.log('this.el', this.el);
+			// console.log('this.el', this.el);
 			this.emitLoadedEvent();
 		};
 	}
