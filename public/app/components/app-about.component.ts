@@ -105,6 +105,10 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 	 * Returns url if control value is empty.
 	 */
 	public subscriptionUrl(): string {
+		// TODO: reconfigure url
+		// https://mailchi.mp/c65eb0b2a9ee/kosmosmusicnews
+		// https://mc.us18.list-manage.com/signup-form/settings?u=21706b65549875e1ffd506af7&id=00d0e6e1f0&for_preview=0
+		// https://mc.us18.list-manage.com/signup-form/subscribe?u=21706b65549875e1ffd506af7&id=00d0e6e1f0&EMAIL=test@test.test
 		const url = 'https://dnbhub.us3.list-manage.com/subscribe/post?u=3eeba7cfe8388b91c662bdf95&id=8cca3229c8&subscribe=Subscribe&EMAIL=' + this.subscriptionForm.controls.email.value + '&b_3eeba7cfe8388b91c662bdf95_8cca3229c8=' + this.subscriptionForm.controls.b_3eeba7cfe8388b91c662bdf95_8cca3229c8.value;
 		return !this.subscriptionForm.controls.b_3eeba7cfe8388b91c662bdf95_8cca3229c8.value ? url : '';
 	}
