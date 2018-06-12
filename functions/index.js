@@ -115,7 +115,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 	const header = req.body.header || '';
 	const message = req.body.message || '';
 	const domain = req.body.domain || '';
-	if (name.length >= 2 && /\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && header.length >= 5 && message.length >= 75 && domain.length >= 4) {
+	if (name.length >= 2 && /\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && header.length >= 4 && message.length >= 50 && domain.length) {
 		// res.status(200).json({'success': 'Your message was successfully sent.'});
 		sendEmail(name, email, header, message, domain, res);
 	} else {
