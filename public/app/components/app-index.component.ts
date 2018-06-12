@@ -61,6 +61,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 					const key = value.releaseCode;
 					this.bandcampAlbumsData[key] = value;
 				});
+				this.gridInitialized = true;
 				this.emitter.emitSpinnerStopEvent();
 				def.resolve();
 			})
@@ -92,6 +93,12 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	 */
 	public gridColumns: number = 3;
 
+	/**
+	 * Indicates if grid data model is initialized.
+	 * Is used to correctly render facebook widget.
+	 */
+	public gridInitialized: boolean = false;
+
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppIndexComponent initialized');
 
@@ -112,7 +119,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	}
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppIndexComponent destroyed');
-		if (this.subscriptions.length) {
+		if (this.subscription.length) {
 			for (const sub of this.subscriptions) {
 				sub.unsubscribe();
 			}

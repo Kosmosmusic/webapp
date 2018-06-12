@@ -8,7 +8,7 @@
 			</mat-grid-tile>
 		</mat-grid-list>
 	</div>
-	<div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start start" fxHide.xs="true" fxHide.sm="true">
+	<div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start start" fxHide.xs="true" fxHide.sm="true" *ngIf="gridInitialized">
 		<iframe fxFlex [fbwidgetsrc]="'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKosMosMusicRU&tabs=timeline&width=340&height=1600&small_header=true&adapt_container_width=true&adapt_container_height=true&hide_cover=true&show_facepile=false&appId=1771962743078907'" width="340" height="100%" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 	</div>
 </div>
