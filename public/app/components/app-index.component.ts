@@ -119,7 +119,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	}
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppIndexComponent destroyed');
-		if (this.subscription.length) {
+		if (this.subscriptions.length) {
 			for (const sub of this.subscriptions) {
 				sub.unsubscribe();
 			}
