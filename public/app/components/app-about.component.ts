@@ -62,7 +62,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * Reusable modal dialogs instance.
+	 * Reusable modal dialog instance.
 	 */
 	private dialogInstance: any;
 
@@ -80,7 +80,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 			data: {}
 		});
 		this.dialogInstance.afterClosed().subscribe((result: any) => {
-			console.log('cargo order details modal closed with result', result);
+			console.log('contact doalog closed with result', result);
 			this.dialogInstance = undefined;
 		});
 	}

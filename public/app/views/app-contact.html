@@ -6,7 +6,7 @@
 		<span fxFlex="0 1 auto">{{feedback}}</span>
 	</div>
 
-	<form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px" id="mdm-modal-form-inline" [formGroup]="emailForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
+	<form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="emailForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
 
 		<mat-form-field fxFlex>
 			<input matInput type="text" name="email" [formControl]="emailForm.controls.email" placeholder="{{ 'form.email' | translate }}" />

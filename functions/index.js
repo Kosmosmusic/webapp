@@ -127,7 +127,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
  * Fallback function if mail transporter returns an error on submitDemoOverEmail
  * TODO: reconfigure
  */
-function saveDemoOverEmailToDB(email, link, domain, res) {
+function saveDemoToDB(email, link, domain, res) {
 	const entry = {
 		email: email,
 		link: link,
@@ -144,7 +144,7 @@ function saveDemoOverEmailToDB(email, link, domain, res) {
  * Submit a demo over email using nodemailer
  * TODO: reconfigure
  */
-function submitDemoOverEmail(email, link, domain, res) {
+function sendDemo(email, link, domain, res) {
 	const mailOptions = {
 		from: '"KOS.MOS.MUSIC 👥" <' + process.env.MAILER_EMAIL +'>',
 		to: process.env.MAILER_RECIPIENT_EMAIL,
@@ -160,7 +160,7 @@ function submitDemoOverEmail(email, link, domain, res) {
 			*	try recording message to DB first
 			*/
 			// res.status(500).send('Mail transporter error');
-			saveDemoOverEmailToDB(email, link, domain, res);
+			saveDemoToDB(email, link, domain, res);
 		} else {
 			// console.log('Message sent: ' + info.response);
 			res.status(200).json({success: 'Your message was successfully sent'});
@@ -172,16 +172,16 @@ function submitDemoOverEmail(email, link, domain, res) {
  * actual submit a demo over email cloud function
  * TODO: reconfigure
  */
-exports.submitDemoOverEmail = functions.https.onRequest((req, res) => {
+exports.sendDemo = functions.https.onRequest((req, res) => {
 	if (req.method !== 'POST') {
 		res.status(403).json({error: 'Forbidden method'});
 	}
 	const email = req.body.email || '';
 	const link = req.body.link || '';
 	const domain = req.body.domain || '';
-	if (/\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && /https:\/\/soundcloud\.com\/\w+[^/]*\/sets\/\w+[^/]*/.test(link) && domain.length >= 4) {
+	if (/\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && /http(s)?:\/\/\w+/.test(link) && domain.length) {
 		// res.status(200).json({'success': 'Your message was successfully sent.'});
-		submitDemoOverEmail(email, link, domain, res);
+		sendDemo(email, link, domain, res);
 	} else {
 		res.status(400).send('Missing mandatory request parameters or invalid values');
 	}

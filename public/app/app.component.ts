@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy, ElementRef, Inject, HostBinding } from '@angular/core';
-import { MatIconRegistry, DateAdapter } from '@angular/material';
+import { MatIconRegistry, DateAdapter, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { EventEmitterService } from './services/event-emitter.service';
 import { TranslateService } from './modules/translate/index';
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
+
+import { AppDemoDialog } from './components/app-demo.component';
 
 declare let $: JQueryStatic;
 
@@ -14,10 +16,21 @@ declare let $: JQueryStatic;
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+	/**
+	 * @param el Element reference
+	 * @param matIconRegistry Material icons registry
+	 * @param dateAdapter Material moment date adapter
+	 * @param dialog Reusable dialog
+	 * @param domSanitizer DOM sanitizer
+	 * @param emitter Event emitter service - components interaction
+	 * @param translateService Translate service - UI translation to predefined languages
+	 * @param serviceWorker Service worker service
+	 */
 	constructor(
 		private el: ElementRef,
 		private matIconRegistry: MatIconRegistry,
 		private dateAdapter: DateAdapter<any>,
+		private dialog: MatDialog,
 		private domSanitizer: DomSanitizer,
 		private emitter: EventEmitterService,
 		private translate: TranslateService,
@@ -85,6 +98,30 @@ export class AppComponent implements OnInit, OnDestroy {
 		} else {
 			this.dateAdapter.setLocale('en');
 		}
+	}
+
+	/**
+	 * Reusable modal dialog instance.
+	 */
+	private dialogInstance: any;
+
+	/**
+	 * Shows demo dialog.
+	 */
+	public showDemoDialog(): void {
+		this.dialogInstance = this.dialog.open(AppDemoDialog, {
+			height: '85vh',
+			width: '95vw',
+			maxWidth: '1680',
+			maxHeight: '1024',
+			autoFocus: true,
+			disableClose: false,
+			data: {}
+		});
+		this.dialogInstance.afterClosed().subscribe((result: any) => {
+			console.log('demo dialog closed with result', result);
+			this.dialogInstance = undefined;
+		});
 	}
 
 	public ngOnInit(): void {

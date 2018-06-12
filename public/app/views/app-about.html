@@ -39,7 +39,7 @@
 		</div>
 		<div fxFlex="100" class="mat-body-1" [ngStyle]="{'padding': '5px'}">
 			<span [innerHtml]="details.text"></span>
-			<button mat-icon-button (click)="showContactDialog()" title="show contact dialog">
+			<button mat-icon-button (click)="showContactDialog()" title="{{ 'contact.open' | translate }}">
 				<mat-icon fontSet="fas" fontIcon="fa-envelope" class="material-icons-fas"></mat-icon>
 			</button>
 		</div>

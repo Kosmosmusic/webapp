@@ -29,6 +29,7 @@ import { AppMixesComponent } from './components/app-mixes.component';
 import { AppVideosComponent } from './components/app-videos.component';
 import { AppAboutComponent } from './components/app-about.component';
 import { AppContactDialog } from './components/app-contact.component';
+import { AppDemoDialog } from './components/app-demo.component';
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
@@ -40,6 +41,7 @@ import { EventEmitterService } from './services/event-emitter.service';
 import { GoogleApiService } from './services/google-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SendEmailService } from './services/send-email.service';
+import { SendDemoService } from './services/send-demo.service';
 import { SoundcloudService } from './services/soundcloud.service';
 import { BandcampService } from './services/bandcamp.service';
 
@@ -50,16 +52,16 @@ import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.dir
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
 									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
-									FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
+									AppDemoDialog, FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
 								],
-	entryComponents: [ AppContactDialog ],
+	entryComponents: [ AppContactDialog, AppDemoDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
 								],
 	providers 	: [ { provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
 									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
-									GoogleApiService, FirebaseService, SendEmailService, SoundcloudService, BandcampService
+									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SoundcloudService, BandcampService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]
