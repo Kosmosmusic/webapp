@@ -39,6 +39,8 @@ export class AppContactDialog implements OnInit, OnDestroy {
 		console.log('AppContactDialog constructor', this.data);
 	}
 
+	private subscriptions: any[] = [];
+
 	/**
 	 * Email form.
 	 */
@@ -62,7 +64,10 @@ export class AppContactDialog implements OnInit, OnDestroy {
 	 */
 	public submitForm(): void {
 		if (this.emailForm.valid && !this.emailForm.pristine) {
-			this.sendEmail();
+			this.sendEmail()
+				.catch((error: any) => {
+					console.log('sendEmail, error', error);
+				});
 		}
 	}
 
@@ -72,16 +77,40 @@ export class AppContactDialog implements OnInit, OnDestroy {
 	public feedback: string;
 
 	/**
+	 * Dialog loading state.
+	 */
+	private loading: boolean = false;
+	/**
+	 * Use in templates to get loaded state.
+	 */
+	public loaded(): boolean {
+		return !this.loading;
+	}
+
+	/**
+	 * Starts progress.
+	 */
+	private startProgress(): void {
+		this.loading = true;
+	}
+	/**
+	 * Stops progress.
+	 */
+	private stopProgress(): void {
+		this.loading = false;
+	}
+
+	/**
 	 * Sends invite.
 	 */
 	public sendEmail(): Promise<boolean> {
 		const def = new CustomDeferredService<boolean>();
-		this.emitter.emitSpinnerStartEvent();
+		this.emitter.emitProgressStartEvent();
 		const formData: any = this.emailForm.value;
 		this.sendEmailService.sendEmail(formData).subscribe(
 			(data: any) => {
 				console.log('sendEmail, data:', data);
-				this.emitter.emitSpinnerStopEvent();
+				this.emitter.emitProgressStopEvent();
 				def.resolve(true);
 				this.feedback = this.translateService.instant('contact.result.success');
 				setTimeout(() => {
@@ -91,7 +120,7 @@ export class AppContactDialog implements OnInit, OnDestroy {
 			(error: any) => {
 				console.log('sendEmail, error', error);
 				this.feedback = this.translateService.instant('contact.result.fail');
-				this.emitter.emitSpinnerStopEvent();
+				this.emitter.emitProgressStopEvent();
 				def.reject(false);
 			},
 			() => {
@@ -121,12 +150,30 @@ export class AppContactDialog implements OnInit, OnDestroy {
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppContactDialog initialized');
 		this.resetForm();
+
+		const sub: any = this.emitter.getEmitter().subscribe((event: any) => {
+			console.log('AppContactDialog consuming event:', event);
+			if (event.progress) {
+				if (event.progress === 'start') {
+					console.log('AppContactDialog, starting progress');
+					this.startProgress();
+				} else if (event.progress === 'stop') {
+					console.log('AppContactDialog, stopping progress');
+					this.stopProgress();
+				}
+			}
+		});
+		this.subscriptions.push(sub);
 	}
 	/**
 	 * Lifecycle hook called after component is destroyed.
 	 */
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppContactDialog destroyed');
+		if (this.subscriptions.length) {
+			for (const sub of this.subscriptions) {
+				sub.unsubscribe();
+			}
+		}
 	}
-
 }

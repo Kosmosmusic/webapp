@@ -99,6 +99,9 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	 */
 	public gridInitialized: boolean = false;
 
+	/**
+	 * Lifecycle hook called after component is initialized.
+	 */
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppIndexComponent initialized');
 
@@ -117,6 +120,9 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 		});
 		this.subscriptions.push(sub);
 	}
+	/**
+	 * Lifecycle hook called after component is destroyed.
+	 */
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppIndexComponent destroyed');
 		if (this.subscriptions.length) {

@@ -25,7 +25,7 @@ export class EventEmitterService {
 	}
 
 	/**
-	 * Emits spinner start event.
+	 * Emits progress spinner start event.
 	 */
 	public emitSpinnerStartEvent(): void {
 		console.log('root spinner start event emitted');
@@ -33,11 +33,29 @@ export class EventEmitterService {
 	}
 
 	/**
-	 * Emits spinner stop event.
+	 * Emits progress spinner stop event.
 	 */
 	public emitSpinnerStopEvent(): void {
 		console.log('root spinner stop event emitted');
 		this.emitter.emit({spinner: 'stop'});
+	}
+
+	/**
+	 * Emits progress bar start event.
+	 * Progress pars should be used locally in dialogs and similar.
+	 */
+	public emitProgressStartEvent(): void {
+		console.log('progress bar start event emitted');
+		this.emitter.emit({progress: 'start'});
+	}
+
+	/**
+	 * Emits progress bar stop event.
+	 * Progress pars should be used locally in dialogs and similar.
+	 */
+	public emitProgressStopEvent(): void {
+		console.log('progress bar stop event emitted');
+		this.emitter.emit({progress: 'stop'});
 	}
 
 }

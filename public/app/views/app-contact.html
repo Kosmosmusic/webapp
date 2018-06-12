@@ -51,11 +51,13 @@
 </mat-dialog-content>
 <mat-dialog-actions fxFlex="0 1 auto" fxLayoutAlign="center center">
 
-	<button mat-button tabindex="-1" (click)="submitForm()" [disabled]="emailForm.invalid || emailForm.pristine" matTooltip="{{ 'action.confirm' | translate }}" color="accent">
+	<mat-progress-bar mode="indeterminate" *ngIf="!loaded()"></mat-progress-bar>
+
+	<button mat-button tabindex="-1" (click)="submitForm()" [disabled]="emailForm.invalid || emailForm.pristine" matTooltip="{{ 'action.confirm' | translate }}" color="accent" *ngIf="loaded()">
 		<mat-icon class="metarial-icons">done</mat-icon><span [fxHide.xs]="true"> {{ 'action.confirm' | translate }}</span>
 	</button>
 
-	<button mat-button tabindex="-1" (click)="closeDialog()" matTooltip="{{ 'action.close' | translate }}">
+	<button mat-button tabindex="-1" (click)="closeDialog()" matTooltip="{{ 'action.close' | translate }}" *ngIf="loaded()">
 		<mat-icon class="metarial-icons">close</mat-icon><span [fxHide.xs]="true"> {{ 'action.close' | translate }}</span>
 	</button>
 
