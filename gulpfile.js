@@ -418,7 +418,7 @@ gulp.task('spawn-rebuild-app', (done) => {
 */
 
 gulp.task('default', (done) => {
-	runSequence('lint', 'compile-and-build', 'hashsum', 'set-build-hash', 'server', 'watch', done);
+	runSequence('lint', 'compile-and-build', 'server', 'watch', done);
 });
 
 /*
