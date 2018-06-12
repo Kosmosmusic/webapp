@@ -24,7 +24,7 @@
 				"headers": [
 					{
 						"key": "Access-Control-Allow-Origin",
-						"value": "https://dnbhub-a5d9c.firebaseapp.com https://dnbhub.com"
+						"value": "https://kosmosmusic-51fd1.firebaseapp.com https://kosmosmusic.ru"
 					},
 					{
 						"key": "Access-Control-Allow-Methods",
@@ -57,6 +57,23 @@
 						"value": "no-cache"
 					}
 				]
+			},
+			{
+				"source": "/sendDemo",
+				"headers": [
+					{
+						"key": "Cache-Control",
+						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+					},
+					{
+						"key": "Expires",
+						"value": "-1"
+					},
+					{
+						"key": "Pragme",
+						"value": "no-cache"
+					}
+				]
 			}
 		],
 		"rewrites": [
@@ -65,11 +82,11 @@
 				"function": "sendEmail"
 			},
 			{
-				"source": "/submitDemoOverEmail",
-				"function": "submitDemoOverEmail"
+				"source": "/sendDemo",
+				"function": "sendDemo"
 			},
 			{
-				"source": "**/!(sendEmail|submitDemoOverEmail)",
+				"source": "**/!(sendEmail|sendDemo)",
 				"destination": "/index.html"
 			}
 		]
