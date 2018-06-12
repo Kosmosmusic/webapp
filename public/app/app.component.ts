@@ -7,6 +7,7 @@ import { TranslateService } from './modules/translate/index';
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
 
 import { AppDemoDialog } from './components/app-demo.component';
+import { AppContactDialog } from './components/app-contact.component';
 
 declare let $: JQueryStatic;
 
@@ -120,6 +121,25 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 		this.dialogInstance.afterClosed().subscribe((result: any) => {
 			console.log('demo dialog closed with result', result);
+			this.dialogInstance = undefined;
+		});
+	}
+
+	/**
+	 * Shows contact dialog.
+	 */
+	public showContactDialog(): void {
+		this.dialogInstance = this.dialog.open(AppContactDialog, {
+			height: '85vh',
+			width: '95vw',
+			maxWidth: '1680',
+			maxHeight: '1024',
+			autoFocus: true,
+			disableClose: false,
+			data: {}
+		});
+		this.dialogInstance.afterClosed().subscribe((result: any) => {
+			console.log('contact dialog closed with result', result);
 			this.dialogInstance = undefined;
 		});
 	}
