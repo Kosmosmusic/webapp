@@ -33,7 +33,8 @@ export class AppContactDialog implements OnInit, OnDestroy {
 		private fb: FormBuilder,
 		private emitter: EventEmitterService,
 		private translateService: TranslateService,
-		private sendEmailService: SendEmailService
+		private sendEmailService: SendEmailService,
+		@Inject('Window') private window: Window
 	) {
 		console.log('AppContactDialog constructor', this.data);
 	}
@@ -51,7 +52,8 @@ export class AppContactDialog implements OnInit, OnDestroy {
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			name: ['', Validators.compose([Validators.required, Validators.pattern(/\w{2,}/)])],
 			header: ['', Validators.compose([Validators.required, Validators.pattern(/\w{4,}/)])],
-			message: ['', Validators.compose([Validators.required, Validators.pattern(/[\w\s_-]{50,}/)])]
+			message: ['', Validators.compose([Validators.required, Validators.pattern(/[\w\s_-]{50,}/)])],
+			domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
 		});
 	}
 
