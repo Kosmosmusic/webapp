@@ -74,6 +74,19 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	}
 
 	/**
+	 * Bandcamp iframe counter.
+	 * Needeed for loading sequential iframes, one by one.
+	 */
+	public bcIframeCounter: number = 0;
+
+	/**
+	 * Increments Bandcamp iframe counter.
+	 */
+	public incrementLoadingCounter(): void {
+		this.bcIframeCounter++;
+	}
+
+	/**
 	 * Iframe url for bandcamp album widget.
 	 * @param releaseCode album release code which should be used to resolve a bandcamp album id.
 	 */

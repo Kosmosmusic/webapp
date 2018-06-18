@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 /**
  * Sets bandcamp widget src.
@@ -14,6 +14,12 @@ export class BandcampWidgetSrcDirective implements OnInit {
 
 	@Input('bcwidgetsrc') public src: string = 'https://kosmosmusicru.bandcamp.com';
 
+	@Output('loadedcallback') public loadedCallback: EventEmitter<any> = new EventEmitter<any>();
+
+	private emitLoadedEvent(): void {
+		this.loadedCallback.emit(true);
+	}
+
 	/**
 	 * Lifecycle hook called after directive is initialized.
 	 */
@@ -23,6 +29,7 @@ export class BandcampWidgetSrcDirective implements OnInit {
 			// console.log('this.el.nativeElement', this.el.nativeElement);
 			if (this.src) {
 				this.el.nativeElement.setAttribute('src', this.src);
+				this.emitLoadedEvent();
 				// console.log('this.el.nativeElement.getAttribute(\'src\')', this.el.nativeElement.getAttribute('src'));
 				this.el.nativeElement.onload = () => true;
 			}
