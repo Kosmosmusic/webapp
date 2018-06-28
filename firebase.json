@@ -74,6 +74,23 @@
 						"value": "no-cache"
 					}
 				]
+			},
+			{
+				"source": "/saveEmailSubscription",
+				"headers": [
+					{
+						"key": "Cache-Control",
+						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+					},
+					{
+						"key": "Expires",
+						"value": "-1"
+					},
+					{
+						"key": "Pragme",
+						"value": "no-cache"
+					}
+				]
 			}
 		],
 		"rewrites": [
@@ -86,7 +103,11 @@
 				"function": "sendDemo"
 			},
 			{
-				"source": "**/!(sendEmail|sendDemo)",
+				"source": "/saveEmailSubscription",
+				"function": "saveEmailSubscription"
+			},
+			{
+				"source": "**/!(sendEmail|sendDemo|saveEmailSubscription)",
 				"destination": "/index.html"
 			}
 		]

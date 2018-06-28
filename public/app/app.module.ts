@@ -42,6 +42,7 @@ import { GoogleApiService } from './services/google-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SendEmailService } from './services/send-email.service';
 import { SendDemoService } from './services/send-demo.service';
+import { EmailSubscriptionService } from './services/email-subscription.service';
 import { SoundcloudService } from './services/soundcloud.service';
 import { BandcampService } from './services/bandcamp.service';
 
@@ -61,7 +62,8 @@ import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.dir
 	providers 	: [ { provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
 									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
-									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SoundcloudService, BandcampService
+									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, EmailSubscriptionService,
+									SoundcloudService, BandcampService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]

@@ -1,21 +1,21 @@
-<h2 mat-dialog-title fxFlex="0 1 auto">{{ 'demo.title' | translate }}</h2>
+<h2 mat-dialog-title>{{ 'demo.title' | translate }}</h2>
 
-<mat-dialog-content fxFlex="1 1 auto">
+<mat-dialog-content>
 
 	<div *ngIf="feedback" fxLayout="row" fxLayoutAlign="center center">
 		<span fxFlex="0 1 auto">{{feedback}}</span>
 	</div>
 
-	<form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="demoForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
+	<form fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="demoForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
 
-		<mat-form-field fxFlex>
+		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="email" [formControl]="demoForm.controls.email" placeholder="{{ 'form.email' | translate }}" />
 			<mat-error *ngIf="demoForm.controls.email.invalid" class="mat-body-1">
 				{{ 'form.invalid.email' | translate }}
 			</mat-error>
 		</mat-form-field>
 
-		<mat-form-field fxFlex>
+		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="name" [formControl]="demoForm.controls.link" placeholder="{{ 'form.link' | translate }}" />
 			<mat-error *ngIf="demoForm.controls.link.invalid" class="mat-body-1">
 				{{ 'form.invalid.link' | translate }}
@@ -35,7 +35,7 @@
 	</form>
 
 </mat-dialog-content>
-<mat-dialog-actions fxFlex="0 1 auto" fxLayoutAlign="center center">
+<mat-dialog-actions fxLayoutAlign="center center">
 
 	<mat-progress-bar mode="indeterminate" *ngIf="!loaded()"></mat-progress-bar>
 

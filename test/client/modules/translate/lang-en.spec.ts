@@ -28,6 +28,13 @@ describe('TranslateService dictionary: lang-en', () => {
 					fail: 'Message sending failed. Please, try again later.'
 				}
 			},
+			subscribe: {
+				title: 'Mailing list subscription',
+				result: {
+					success: 'Provided email address was added to mailing list.',
+					fail: 'Mailing list subscription failed. Please, try again later.'
+				}
+			},
 			demo: {
 				open: 'Send demo',
 				title: 'Demo submission',

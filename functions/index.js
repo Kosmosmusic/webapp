@@ -13,26 +13,24 @@ const nodemailer = require('nodemailer');
 *	});
 */
 
-/*
-*	load .env variables
-*/
+/**
+ * Load .env variables.
+ */
 require('dotenv').load();
 
-/*
-*	initialize admin SDK to access Firebase Realtime Database
-*/
+/**
+ * Initialize admin SDK to access Firebase Realtime Database.
+ */
 admin.initializeApp(functions.config().firebase);
 
-/*
-* nodemailer usage notice:
-* To use Gmail you may need to configure "Allow Less Secure Apps" (https://www.google.com/settings/security/lesssecureapps)
-* in your Gmail account unless you are using 2FA
-* in which case you would have to create an Application Specific password (https://security.google.com/settings/security/apppasswords).
-* You may also need to unlock your account with "Allow access to your Google account" (https://accounts.google.com/DisplayUnlockCaptcha)
-* to use SMTP.
-*
-* TODO: configure .env
-*/
+/**
+ * Nodemailer usage notice:
+ * To use Gmail you may need to configure "Allow Less Secure Apps" (https://www.google.com/settings/security/lesssecureapps)
+ * in your Gmail account unless you are using 2FA
+ * in which case you would have to create an Application Specific password (https://security.google.com/settings/security/apppasswords).
+ * You may also need to unlock your account with "Allow access to your Google account" (https://accounts.google.com/DisplayUnlockCaptcha)
+ * to use SMTP.
+ */
 const smtpConfig = {
 	host: process.env.MAILER_HOST,
 	port: process.env.MAILER_PORT,
@@ -46,9 +44,10 @@ const smtpConfig = {
 		accessToken: 'empty'
 	}
 };
-/*
-*	reusable transporter object using the default SMTP transport
-*/
+
+/**
+ * Reusable transporter object using the default SMTP transport.
+ */
 const mailTransporter = nodemailer.createTransport(smtpConfig);
 mailTransporter.verify((err, success) => {
 	if (err) {
@@ -59,7 +58,7 @@ mailTransporter.verify((err, success) => {
 });
 
 /**
- * Fallback function if mail transporter returns an error on sendEmail
+ * Fallback function if mail transporter returns an error on sendEmail.
  */
 function saveEmailToDB(name, email, header, message, domain, res) {
 	const entry = {
@@ -77,7 +76,7 @@ function saveEmailToDB(name, email, header, message, domain, res) {
 }
 
 /**
- * Send email message using nodemailer
+ * Send email message using nodemailer.
  */
 function sendEmail(name, email, header, message, domain, res) {
 	const mailOptions = {
@@ -104,7 +103,7 @@ function sendEmail(name, email, header, message, domain, res) {
 }
 
 /**
- * actual send email message cloud function
+ * Actual send email message cloud function.
  */
 exports.sendEmail = functions.https.onRequest((req, res) => {
 	if (req.method !== 'POST') {
@@ -116,7 +115,6 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 	const message = req.body.message || '';
 	const domain = req.body.domain || '';
 	if (name.length >= 2 && /\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && header.length >= 4 && message.length >= 50 && domain.length) {
-		// res.status(200).json({'success': 'Your message was successfully sent.'});
 		sendEmail(name, email, header, message, domain, res);
 	} else {
 		res.status(400).send('Missing mandatory request parameters or invalid values');
@@ -124,8 +122,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 });
 
 /**
- * Fallback function if mail transporter returns an error on submitDemoOverEmail
- * TODO: reconfigure
+ * Fallback function if mail transporter returns an error on submitDemoOverEmail.
  */
 function saveDemoToDB(email, link, domain, res) {
 	const entry = {
@@ -141,15 +138,14 @@ function saveDemoToDB(email, link, domain, res) {
 }
 
 /**
- * Submit a demo over email using nodemailer
- * TODO: reconfigure
+ * Submit a demo over email using nodemailer.
  */
 function sendDemo(email, link, domain, res) {
 	const mailOptions = {
 		from: '"KOS.MOS.MUSIC 👥" <' + process.env.MAILER_EMAIL +'>',
 		to: process.env.MAILER_RECIPIENT_EMAIL,
 		subject: `KOS.MOS.MUSIC: demo submission ✔`,
-		text: `Soundclou playlist link: ${link}\n\nFrom: ${email}\n\nMessage was sent from domain: ${domain}`,
+		text: `Soundcloud playlist link: ${link}\n\nFrom: ${email}\n\nMessage was sent from domain: ${domain}`,
 		html: `<p>Soundcloud playlist link: ${link}</p><p>From: ${email}</p><p>Message was sent from domain: ${domain}</p>`
 	};
 	mailTransporter.sendMail(mailOptions, (err, info) => {
@@ -169,8 +165,7 @@ function sendDemo(email, link, domain, res) {
 }
 
 /**
- * actual submit a demo over email cloud function
- * TODO: reconfigure
+ * Actual submit a demo over email cloud function.
  */
 exports.sendDemo = functions.https.onRequest((req, res) => {
 	if (req.method !== 'POST') {
@@ -180,8 +175,38 @@ exports.sendDemo = functions.https.onRequest((req, res) => {
 	const link = req.body.link || '';
 	const domain = req.body.domain || '';
 	if (/\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && /http(s)?:\/\/\w+/.test(link) && domain.length) {
-		// res.status(200).json({'success': 'Your message was successfully sent.'});
 		sendDemo(email, link, domain, res);
+	} else {
+		res.status(400).send('Missing mandatory request parameters or invalid values');
+	}
+});
+
+/**
+ * Save subscriber's email to DB.
+ */
+function saveEmailSubscription(email, domain, res) {
+	const entry = {
+		email: email,
+		domain: domain
+	};
+	admin.database().ref('/emailSubscriptions').push(entry).then((snapshot) => {
+		res.status(200).json({success: 'You were successfully subscribed to KOS.MOS.MUSIC mailling list'});
+	}).catch((error) => {
+		res.status(500).send('Error: try again later, please');
+	});
+}
+
+/**
+ * Actual save email subscription cloud function.
+ */
+exports.saveEmailSubscription = functions.https.onRequest((req, res) => {
+	if (req.method !== 'POST') {
+		res.status(403).json({error: 'Forbidden method'});
+	}
+	const email = req.body.email || '';
+	const domain = req.body.domain || '';
+	if (/\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && domain.length && b_3eeba7cfe8388b91c662bdf95_8cca3229c8 === '') {
+		saveEmailSubscription(email, domain, res);
 	} else {
 		res.status(400).send('Missing mandatory request parameters or invalid values');
 	}

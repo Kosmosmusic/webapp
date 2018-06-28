@@ -1,35 +1,35 @@
-<h2 mat-dialog-title fxFlex="0 1 auto">{{ 'contact.title' | translate }}</h2>
+<h2 mat-dialog-title>{{ 'contact.title' | translate }}</h2>
 
-<mat-dialog-content fxFlex="1 1 auto">
+<mat-dialog-content>
 
 	<div *ngIf="feedback" fxLayout="row" fxLayoutAlign="center center">
 		<span fxFlex="0 1 auto">{{feedback}}</span>
 	</div>
 
-	<form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="emailForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
+	<form fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="emailForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
 
-		<mat-form-field fxFlex>
+		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="email" [formControl]="emailForm.controls.email" placeholder="{{ 'form.email' | translate }}" />
 			<mat-error *ngIf="emailForm.controls.email.invalid" class="mat-body-1">
 				{{ 'form.invalid.email' | translate }}
 			</mat-error>
 		</mat-form-field>
 
-		<mat-form-field fxFlex>
+		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="name" [formControl]="emailForm.controls.name" placeholder="{{ 'form.name' | translate }}" />
 			<mat-error *ngIf="emailForm.controls.name.invalid" class="mat-body-1">
 				{{ 'form.invalid.name' | translate }}
 			</mat-error>
 		</mat-form-field>
 
-		<mat-form-field fxFlex>
+		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="header" [formControl]="emailForm.controls.header" placeholder="{{ 'form.header' | translate }}" />
 			<mat-error *ngIf="emailForm.controls.header.invalid" class="mat-body-1">
 				{{ 'form.invalid.header' | translate }}
 			</mat-error>
 		</mat-form-field>
 
-		<mat-form-field fxFlex>
+		<mat-form-field fxFlex="100">
 			<textarea matInput type="text" name="message" [formControl]="emailForm.controls.message" placeholder="{{ 'form.message' | translate }}"></textarea>
 			<mat-error *ngIf="emailForm.controls.message.invalid" class="mat-body-1">
 				{{ 'form.invalid.message' | translate }}
@@ -49,7 +49,7 @@
 	</form>
 
 </mat-dialog-content>
-<mat-dialog-actions fxFlex="0 1 auto" fxLayoutAlign="center center">
+<mat-dialog-actions fxLayoutAlign="center center">
 
 	<mat-progress-bar mode="indeterminate" *ngIf="!loaded()"></mat-progress-bar>
 

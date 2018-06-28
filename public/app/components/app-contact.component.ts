@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 import { SendEmailService } from '../services/send-email.service';
+import { EmailSubscriptionService } from '../services/email-subscription.service';
 
 import { TranslateService } from '../modules/translate/translate.service';
 
@@ -24,8 +25,10 @@ export class AppContactDialog implements OnInit, OnDestroy {
 	 * @param data Dialog data provided by parent controller
 	 * @param dialogRef Dialog reference
 	 * @param fb Form builder - user input procession
-	 * @param emitter Event emitter service - components interaction
+	 * @param emitter Event emitter service
 	 * @param translateService Translate service - UI translation to predefined languages
+	 * @param sendEmailService Send email service - sends user email to specified email address by calling cloud functions
+	 * @param window Window reference
 	 */
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -49,7 +52,7 @@ export class AppContactDialog implements OnInit, OnDestroy {
 	/**
 	 * Resets email form group.
 	 */
-	private resetForm(): void {
+	private resetEmailForm(): void {
 		this.emailForm = this.fb.group({
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			name: ['', Validators.compose([Validators.required, Validators.pattern(/\w{2,}/)])],
@@ -149,7 +152,7 @@ export class AppContactDialog implements OnInit, OnDestroy {
 	 */
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppContactDialog initialized');
-		this.resetForm();
+		this.resetEmailForm();
 
 		const sub: any = this.emitter.getEmitter().subscribe((event: any) => {
 			console.log('AppContactDialog consuming event:', event);

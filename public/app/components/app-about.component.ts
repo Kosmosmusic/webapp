@@ -1,12 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 import { FirebaseService } from '../services/firebase.service';
+import { EmailSubscriptionService } from '../services/email-subscription.service';
 
 import { AppContactDialog } from './app-contact.component';
+
+import { TranslateService } from '../modules/translate/translate.service';
 
 @Component({
 	selector: 'app-about',
@@ -19,16 +22,22 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 
 	/**
 	 * @param dialog Reusable dialog
+	 * @param fb Form builder
+	 * @param emitter Event emitter service
+	 * @param translateService Translate service - UI translation to predefined languages
 	 * @param firebaseService Firebase interaction service
+	 * @param emailSubscriptionService Email subscription service - saves subscribers' email to database
+	 * @param window Window reference
 	 */
 	constructor(
 		private dialog: MatDialog,
 		private fb: FormBuilder,
 		private emitter: EventEmitterService,
-		private firebaseService: FirebaseService
-	) {
-		this.resetEmailSignupForm();
-	}
+		private translateService: TranslateService,
+		private firebaseService: FirebaseService,
+		private emailSubscriptionService: EmailSubscriptionService,
+		@Inject('Window') private window: Window
+	) {}
 
 	/**
 	 * Company details object.
@@ -96,21 +105,44 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 	private resetEmailSignupForm(): void {
 		this.subscriptionForm = this.fb.group({
 			email: ['', Validators.compose([Validators.required, Validators.email])],
+			domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])],
 			b_3eeba7cfe8388b91c662bdf95_8cca3229c8: ['']
 		});
 	}
 
 	/**
-	 * Submit subscriptionForm.
-	 * Returns url if control value is empty.
+	 * UI feedback for user actions.
 	 */
-	public subscriptionUrl(): string {
-		// TODO: reconfigure url
-		// https://mailchi.mp/c65eb0b2a9ee/kosmosmusicnews
-		// https://mc.us18.list-manage.com/signup-form/settings?u=21706b65549875e1ffd506af7&id=00d0e6e1f0&for_preview=0
-		// https://mc.us18.list-manage.com/signup-form/subscribe?u=21706b65549875e1ffd506af7&id=00d0e6e1f0&EMAIL=test@test.test
-		const url = 'https://dnbhub.us3.list-manage.com/subscribe/post?u=3eeba7cfe8388b91c662bdf95&id=8cca3229c8&subscribe=Subscribe&EMAIL=' + this.subscriptionForm.controls.email.value + '&b_3eeba7cfe8388b91c662bdf95_8cca3229c8=' + this.subscriptionForm.controls.b_3eeba7cfe8388b91c662bdf95_8cca3229c8.value;
-		return !this.subscriptionForm.controls.b_3eeba7cfe8388b91c662bdf95_8cca3229c8.value ? url : '';
+	public feedback: string;
+
+	/**
+	 * Subscribes user to mailing list.
+	 */
+	public subscribeToMailingList(): Promise<boolean> {
+		const def = new CustomDeferredService<boolean>();
+		this.emitter.emitProgressStartEvent();
+		const formData: any = this.subscriptionForm.value;
+		this.emailSubscriptionService.subscribe(formData).subscribe(
+			(data: any) => {
+				console.log('subscribeToMailingList, data:', data);
+				this.emitter.emitProgressStopEvent();
+				this.feedback = this.translateService.instant('subscribe.result.success');
+				def.resolve(true);
+			},
+			(error: any) => {
+				console.log('subscribeToMailingList, error', error);
+				this.emitter.emitProgressStopEvent();
+				this.feedback = this.translateService.instant('subscribe.result.fail');
+				setTimeout(() => {
+					this.feedback = '';
+				}, 3000);
+				def.reject(false);
+			},
+			() => {
+				console.log('subscribeToMailingList: done');
+			}
+		);
+		return def.promise;
 	}
 
 	/**
@@ -119,6 +151,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppAboutComponent initialized');
 		this.getDetails();
+		this.resetEmailSignupForm();
 	}
 	/**
 	 * Lifecycle hook called after component is destroyed.

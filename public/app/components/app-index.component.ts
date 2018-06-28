@@ -51,12 +51,12 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 		const def = new CustomDeferredService<any>();
 		this.emitter.emitSpinnerStartEvent();
 		this.firebaseService.getDB('bandcamp', true).orderByChild('timestamp').once('value')
-			.then((snapshot) => {
+			.then((snapshot: any) => {
 				console.log('getBandcampAlbumsData, about', snapshot.val());
 				this.bandcampAlbumsData = {};
 				// to get sorted data should inerate through snapchot
-				snapshot.forEach((child: any, index: any) => {
-					console.log('child.val()', child.val(), 'index', index);
+				snapshot.forEach((child: any) => {
+					console.log('child.val()', child.val());
 					const value = child.val();
 					const key = value.releaseCode;
 					this.bandcampAlbumsData[key] = value;
@@ -65,7 +65,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 				this.emitter.emitSpinnerStopEvent();
 				def.resolve();
 			})
-			.catch((error) => {
+			.catch((error: any) => {
 				console.log('getBandcampAlbumsData, error', error);
 				this.emitter.emitSpinnerStopEvent();
 				def.reject();
