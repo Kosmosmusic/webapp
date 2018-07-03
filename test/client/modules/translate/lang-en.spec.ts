@@ -10,7 +10,8 @@ describe('TranslateService dictionary: lang-en', () => {
 
 		expect(LANG_EN_TRANSLATIONS).toEqual(jasmine.objectContaining({
 			title: 'KOS.MOS.MUSIC',
-			releases: 'Releases',
+			home: 'Home',
+			releases: 'Soundcloud',
 			mastering: 'Mastering',
 			mixes: 'Mixes',
 			videos: 'Videos',

@@ -3,7 +3,8 @@ export const LANG_RU_NAME = 'ru';
 // keys map for Russian language
 export const LANG_RU_TRANSLATIONS = {
 	title: 'KOS.MOS.MUSIC',
-	releases: 'Релизы',
+	home: 'Дом',
+	releases: 'Саундклауд',
 	mastering: 'Мастеринг',
 	mixes: 'Миксы',
 	videos: 'Видео',

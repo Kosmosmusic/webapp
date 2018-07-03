@@ -296,7 +296,7 @@ gulp.task('pack-vendor-css', () => {
 		/*
 		*	Angular material theme should be chosen and loaded here
 		*/
-		'./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css'
+		//'./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css'
 		//'./node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
 		//'./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css'
 		//'./node_modules/@angular/material/prebuilt-themes/purple-green.css'
