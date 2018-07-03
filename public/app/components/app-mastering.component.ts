@@ -11,6 +11,9 @@ import { EventEmitterService } from '../services/event-emitter.service';
 })
 export class AppMasteringComponent implements OnInit, OnDestroy {
 
+	/**
+	 * @param emitter Event emitter service
+	 */
 	constructor(
 		private emitter: EventEmitterService
 	) {}
@@ -25,6 +28,8 @@ export class AppMasteringComponent implements OnInit, OnDestroy {
 		console.log('content loaded');
 		this.emitter.emitSpinnerStopEvent();
 	}
+
+	public details: any = {};
 
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppMasteringComponent initialized');

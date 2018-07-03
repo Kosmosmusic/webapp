@@ -28,7 +28,7 @@ export class FirebaseService {
 		this.db = firebase.database();
 	}
 
-	public getDB(collection: 'about'|'bandcamp', refOnly: boolean): any {
+	public getDB(collection: 'about'|'mastering'|'bandcamp', refOnly: boolean): any {
 		return (!refOnly) ? this.db.ref('/' + collection).once('value') : this.db.ref('/' + collection);
 	}
 }

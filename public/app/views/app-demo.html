@@ -6,6 +6,8 @@
 		<span fxFlex="0 1 auto">{{feedback}}</span>
 	</div>
 
+	<p>{{ 'demo.requirements' | translate }}</p>
+
 	<form fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="demoForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
 
 		<mat-form-field fxFlex="100">

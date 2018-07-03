@@ -1,6 +1,6 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="start start">
 	<div fxFlex>
-		<mat-grid-list [cols]="gridColumns" rowHeight="1:1" class="coloured-tiles">
+		<mat-grid-list [cols]="gridColumns" rowHeight="1:1">
 			<mat-grid-tile *ngFor="let releaseCode of bandcampAlbumsDataKeys; let j = index">
 				<iframe style="border: 0; width: 100%; height: 100%;" bcwidgetsrc="{{bcIframeUrl(releaseCode)}}" (loadedcallback)="incrementLoadingCounter()" *ngIf="j <= bcIframeCounter">
 					<a href="{{bcAnchorUrl(releaseCode)}}">{{releaseCode}}</a>

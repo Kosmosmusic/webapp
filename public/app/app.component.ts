@@ -199,7 +199,8 @@ export class AppComponent implements OnInit, OnDestroy {
 		/*
 		* add svgs
 		*/
-		this.matIconRegistry.addSvgIcon('logo', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_circle.svg'));
+		this.matIconRegistry.addSvgIcon('logo-round', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_circle.svg'));
+		this.matIconRegistry.addSvgIcon('logo-square', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_square.svg'));
 
 	}
 

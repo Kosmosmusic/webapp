@@ -41,7 +41,7 @@ describe('TranslateService', () => {
 		this.service.use('ru');
 		expect(this.service.instant('title')).toEqual('KOS.MOS.MUSIC');
 		this.service.use('en');
-		expect(this.service.instant('releases')).toEqual('Releases');
+		expect(this.service.instant('releases')).toEqual('Soundcloud');
 		this.service.use('en');
 		expect(this.service.instant('mastering')).toEqual('Mastering');
 	});

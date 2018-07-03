@@ -31,9 +31,9 @@ describe('TranslatePipe', () => {
 	it('transform() should return instant translation of a dictionary key', () => {
 		expect(this.pipe.transform('')).toBeUndefined();
 		this.service.use('ru');
-		expect(this.pipe.transform('releases', [])).toEqual('Релизы');
+		expect(this.pipe.transform('releases', [])).toEqual('Саундклауд');
 		this.service.use('en');
-		expect(this.pipe.transform('releases', [])).toEqual('Releases');
+		expect(this.pipe.transform('releases', [])).toEqual('Soundcloud');
 	});
 
 });
