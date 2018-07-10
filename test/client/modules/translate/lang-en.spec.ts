@@ -29,6 +29,46 @@ describe('TranslateService dictionary: lang-en', () => {
 					fail: 'Message sending failed. Please, try again later.'
 				}
 			},
+			booking: {
+				open: 'Booking',
+				title: 'Booking',
+				form: {
+					date: 'Date',
+					venue: {
+						title: 'Venue details',
+						name: 'Venue name',
+						capacity: 'Venue capacity',
+						address: 'Venue address',
+						website: 'Venue website'
+					},
+					event: {
+						title: 'Event details',
+						name: 'Event name',
+						website: 'Event website',
+						ticket: 'Event Ticket cost',
+						lineup: 'Event Line up'
+					},
+					time: {
+						start: 'Event start time',
+						end: 'Event end time',
+						stage: 'Stage time'
+					},
+					fee: 'Offered fee',
+					booked: 'Atrists booked earlier',
+					promoter: {
+						title: 'Promoter details',
+						company: 'Company name',
+						contact: 'Contact name',
+						email: 'Contact email',
+						phone: 'Contact phone',
+						website: 'Promoter website'
+					}
+				},
+				result: {
+					success: 'Your message was successfully sent.',
+					fail: 'Message sending failed. Please, try again later.'
+				}
+			},
 			subscribe: {
 				title: 'Mailing list subscription',
 				result: {

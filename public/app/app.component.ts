@@ -8,6 +8,7 @@ import { CustomServiceWorkerService } from './services/custom-service-worker.ser
 
 import { AppDemoDialog } from './components/app-demo.component';
 import { AppContactDialog } from './components/app-contact.component';
+import { AppBookingDialog } from './components/app-booking.component';
 
 declare let $: JQueryStatic;
 
@@ -140,6 +141,25 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 		this.dialogInstance.afterClosed().subscribe((result: any) => {
 			console.log('contact dialog closed with result', result);
+			this.dialogInstance = undefined;
+		});
+	}
+
+	/**
+	 * Shows booking dialog.
+	 */
+	public showBookingDialog(): void {
+		this.dialogInstance = this.dialog.open(AppBookingDialog, {
+			height: '85vh',
+			width: '95vw',
+			maxWidth: '1680',
+			maxHeight: '1024',
+			autoFocus: true,
+			disableClose: false,
+			data: {}
+		});
+		this.dialogInstance.afterClosed().subscribe((result: any) => {
+			console.log('booking dialog closed with result', result);
 			this.dialogInstance = undefined;
 		});
 	}

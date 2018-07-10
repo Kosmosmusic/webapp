@@ -1,0 +1,179 @@
+<h2 mat-dialog-title>{{ 'booking.title' | translate }}</h2>
+
+<mat-dialog-content>
+
+	<div *ngIf="feedback" fxLayout="row" fxLayoutAlign="center center">
+		<span fxFlex="0 1 auto">{{feedback}}</span>
+	</div>
+
+	<form fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px" [formGroup]="bookingForm" (ngSubmit)="submitForm()" novalidate class="mat-body-2">
+		<!-- venue details -->
+		<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+			<span fxFlex="0 1 auto">{{ 'booking.form.venue.title' | translate }}</span>
+			<mat-divider fxFlex></mat-divider>
+		</div>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="venueName" [formControl]="bookingForm.controls.venueName" placeholder="{{ 'booking.form.venue.name' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.venueName.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.venue.name' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="venueCapasity" [formControl]="bookingForm.controls.venueCapacity" placeholder="{{ 'booking.form.venue.capacity' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.venueCapacity.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.venue.capacity' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="venueAddress" [formControl]="bookingForm.controls.venueAddress" placeholder="{{ 'booking.form.venue.address' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.venueAddress.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.venue.address' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="message" [formControl]="bookingForm.controls.venueWebsite" placeholder="{{ 'booking.form.venue.website' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.venueWebsite.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.venue.website' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<!-- event details -->
+		<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+			<span fxFlex="0 1 auto">{{ 'booking.form.event.title' | translate }}</span>
+			<mat-divider fxFlex></mat-divider>
+		</div>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="eventName" [formControl]="bookingForm.controls.eventName" placeholder="{{ 'booking.form.event.name' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.eventName.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.event.name' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="eventWebsite" [formControl]="bookingForm.controls.eventWebsite" placeholder="{{ 'booking.form.event.website' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.eventWebsite.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.event.website' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="ticketCost" [formControl]="bookingForm.controls.ticketCost" placeholder="{{ 'booking.form.event.ticket' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.ticketCost.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.event.ticket' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="ticketCost" [formControl]="bookingForm.controls.lineup" placeholder="{{ 'booking.form.event.lineup' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.lineup.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.event.lineup' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="start" [formControl]="bookingForm.controls.start" placeholder="{{ 'booking.form.time.start' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.start.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.time.start' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="end" [formControl]="bookingForm.controls.end" placeholder="{{ 'booking.form.time.end' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.end.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.time.end' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="stageTime" [formControl]="bookingForm.controls.stageTime" placeholder="{{ 'booking.form.time.stage' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.stageTime.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.time.stage' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="fee" [formControl]="bookingForm.controls.fee" placeholder="{{ 'booking.form.fee' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.fee.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.fee' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<textarea matInput type="text" name="artistsBookedEarlier" [formControl]="bookingForm.controls.artistsBookedEarlier" placeholder="{{ 'booking.form.booked' | translate }}"></textarea>
+			<mat-error *ngIf="bookingForm.controls.artistsBookedEarlier.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.booked' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<!-- event details -->
+		<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+			<span fxFlex="0 1 auto">{{ 'booking.form.promoter.title' | translate }}</span>
+			<mat-divider fxFlex></mat-divider>
+		</div>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="company" [formControl]="bookingForm.controls.company" placeholder="{{ 'booking.form.promoter.company' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.company.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.promoter.company' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="contact" [formControl]="bookingForm.controls.contact" placeholder="{{ 'booking.form.promoter.contact' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.contact.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.promoter.contact' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="email" [formControl]="bookingForm.controls.email" placeholder="{{ 'booking.form.promoter.email' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.email.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.promoter.email' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="phone" [formControl]="bookingForm.controls.phone" placeholder="{{ 'booking.form.promoter.phone' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.phone.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.promoter.phone' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<input matInput type="text" name="website" [formControl]="bookingForm.controls.website" placeholder="{{ 'booking.form.promoter.website' | translate }}" />
+			<mat-error *ngIf="bookingForm.controls.website.invalid" class="mat-body-1">
+				{{ 'booking.form.invalid.promoter.website' | translate }}
+			</mat-error>
+		</mat-form-field>
+
+		<div>
+			<span fxFlex fxHide="true">
+				<mat-toolbar class="controls" fxLayout.xs="row wrap" fxLayoutAlign="center center">
+					<button mat-button tabindex="-1" type="submit" [disabled]="bookingForm.invalid || bookingForm.pristine" [attr.aria-label]="submit" color="accent">
+						<mat-icon class="metarial-icons">done</mat-icon> {{ 'form.submit' | translate }}
+					</button>
+				</mat-toolbar>
+			</span>
+		</div>
+
+	</form>
+
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="center center">
+
+	<mat-progress-bar mode="indeterminate" *ngIf="!loaded()"></mat-progress-bar>
+
+	<button mat-button tabindex="-1" (click)="submitForm()" [disabled]="bookingForm.invalid || bookingForm.pristine" matTooltip="{{ 'action.confirm' | translate }}" color="accent" *ngIf="loaded()">
+		<mat-icon class="metarial-icons">done</mat-icon><span [fxHide.xs]="true"> {{ 'action.confirm' | translate }}</span>
+	</button>
+
+	<button mat-button tabindex="-1" (click)="closeDialog()" matTooltip="{{ 'action.close' | translate }}" *ngIf="loaded()">
+		<mat-icon class="metarial-icons">close</mat-icon><span [fxHide.xs]="true"> {{ 'action.close' | translate }}</span>
+	</button>
+
+</mat-dialog-actions>

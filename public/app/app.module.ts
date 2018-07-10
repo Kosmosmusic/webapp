@@ -30,6 +30,7 @@ import { AppVideosComponent } from './components/app-videos.component';
 import { AppAboutComponent } from './components/app-about.component';
 import { AppContactDialog } from './components/app-contact.component';
 import { AppDemoDialog } from './components/app-demo.component';
+import { AppBookingDialog } from './components/app-booking.component';
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
@@ -53,9 +54,9 @@ import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.dir
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
 									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
-									AppDemoDialog, FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
+									AppDemoDialog, AppBookingDialog, FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
 								],
-	entryComponents: [ AppContactDialog, AppDemoDialog ],
+	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
 								],

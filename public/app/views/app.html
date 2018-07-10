@@ -32,6 +32,9 @@
 		<button mat-button (click)="showContactDialog()" [fxHide.xs]="true" [fxHide.sm]="true">
 			<mat-icon class="material-icons">email</mat-icon> {{ 'contact.open' | translate }}
 		</button>
+		<button mat-button (click)="showBookingDialog()" [fxHide.xs]="true" [fxHide.sm]="true">
+			<mat-icon class="material-icons">assignment</mat-icon> {{ 'booking.open' | translate }}
+		</button>
 
 		<button mat-icon-button [matMenuTriggerFor]="mobileMenuBottom" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
 			<mat-icon class="material-icons">reorder</mat-icon>
@@ -42,6 +45,9 @@
 			</a>
 			<a mat-menu-item (click)="showContactDialog()">
 				<mat-icon class="material-icons">email</mat-icon> {{ 'contact.open' | translate }}
+			</a>
+			<a mat-menu-item (click)="showBookingDialog()">
+				<mat-icon class="material-icons">assignment</mat-icon> {{ 'booking.open' | translate }}
 			</a>
 		</mat-menu>
 	</mat-toolbar>
