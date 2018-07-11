@@ -343,7 +343,7 @@ gulp.task('sass-autoprefix-minify-css', () => {
 */
 
 gulp.task('eslint', () => {
-	return gulp.src(['./*.js', './app/**/*.js', './test/*.js', './test/client/e2e/scenarios.js', './test/server/test.js']) // uses ignore list from .eslintignore
+	return gulp.src(['./*.js', './functinons/*.js', './app/service-worker.js', './test/*.js', './test/e2e/scenarios.js', './test/server/test.js']) // uses ignore list from .eslintignore
 		.pipe(eslint('./.eslintrc.json'))
 		.pipe(eslint.format());
 });

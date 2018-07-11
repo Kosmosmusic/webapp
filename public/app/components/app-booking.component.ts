@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
-import { SendEmailService } from '../services/send-email.service';
+import { SendBookingRequestService } from '../services/send-booking-request.service';
 import { EmailSubscriptionService } from '../services/email-subscription.service';
 
 import { TranslateService } from '../modules/translate/translate.service';
@@ -27,7 +27,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 	 * @param fb Form builder - user input procession
 	 * @param emitter Event emitter service
 	 * @param translateService Translate service - UI translation to predefined languages
-	 * @param sendEmailService Send email service - sends user email to specified email address by calling cloud functions
+	 * @param sendBookingRequestService Send booking request service - sends a booking request to specified email address by calling cloud functions
 	 * @param window Window reference
 	 */
 	constructor(
@@ -36,7 +36,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 		private fb: FormBuilder,
 		private emitter: EventEmitterService,
 		private translateService: TranslateService,
-		private sendEmailService: SendEmailService,
+		private sendBookingRequestService: SendBookingRequestService,
 		@Inject('Window') private window: Window
 	) {
 		console.log('AppBookingDialog constructor', this.data);
@@ -85,9 +85,9 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 	 */
 	public submitForm(): void {
 		if (this.bookingForm.valid && !this.bookingForm.pristine) {
-			this.sendEmail()
+			this.sendBookingRequest()
 				.catch((error: any) => {
-					console.log('sendEmail, error', error);
+					console.log('sendBookingRequest, error', error);
 				});
 		}
 	}
@@ -124,15 +124,14 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 	/**
 	 * Sends email.
 	 */
-	public sendEmail(): Promise<boolean> {
+	public sendBookingRequest(): Promise<boolean> {
 		const def = new CustomDeferredService<boolean>();
-		// this.emitter.emitProgressStartEvent();
+		this.emitter.emitProgressStartEvent();
 		const formData: any = this.bookingForm.value;
 		console.log('formData', formData);
-		/*
-		this.sendEmailService.sendEmail(formData).subscribe(
+		this.sendBookingRequestService.sendBookingRequest(formData).subscribe(
 			(data: any) => {
-				console.log('sendEmail, data:', data);
+				console.log('sendBookingRequest, data:', data);
 				this.emitter.emitProgressStopEvent();
 				def.resolve(true);
 				this.feedback = this.translateService.instant('booing.result.success');
@@ -141,17 +140,15 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 				}, 1500);
 			},
 			(error: any) => {
-				console.log('sendEmail, error', error);
+				console.log('sendBookingRequest, error', error);
 				this.feedback = this.translateService.instant('booing.result.fail');
 				this.emitter.emitProgressStopEvent();
 				def.reject(false);
 			},
 			() => {
-				console.log('sendEmail: done');
+				console.log('sendBookingRequest: done');
 			}
 		);
-		*/
-		def.resolve();
 		return def.promise;
 	}
 

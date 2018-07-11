@@ -25,7 +25,7 @@ export class SendDemoService {
 	/**
 	 * Sends demo.
 	 */
-	public sendDemo(formData: { email: string, link: string, domain: string }): Observable<any[]> {
+	public sendDemo(formData: { email: string, link: string, domain: string }): Observable<any> {
 		return this.http.post(this.endpoint, formData).pipe(
 			timeout(this.handlers.timeoutValue()),
 			take(1),

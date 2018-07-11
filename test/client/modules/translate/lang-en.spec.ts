@@ -45,7 +45,7 @@ describe('TranslateService dictionary: lang-en', () => {
 						title: 'Event details',
 						name: 'Event name',
 						website: 'Event website',
-						ticket: 'Event Ticket cost',
+						ticket: 'Ticket cost',
 						lineup: 'Event Line up'
 					},
 					time: {

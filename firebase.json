@@ -76,6 +76,23 @@
 				]
 			},
 			{
+				"source": "/sendBookingRequest",
+				"headers": [
+					{
+						"key": "Cache-Control",
+						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+					},
+					{
+						"key": "Expires",
+						"value": "-1"
+					},
+					{
+						"key": "Pragme",
+						"value": "no-cache"
+					}
+				]
+			},
+			{
 				"source": "/saveEmailSubscription",
 				"headers": [
 					{
@@ -103,11 +120,15 @@
 				"function": "sendDemo"
 			},
 			{
+				"source": "/sendBookingRequest",
+				"function": "sendBookingRequest"
+			},
+			{
 				"source": "/saveEmailSubscription",
 				"function": "saveEmailSubscription"
 			},
 			{
-				"source": "**/!(sendEmail|sendDemo|saveEmailSubscription)",
+				"source": "**/!(sendEmail|sendDemo|sendBookingRequest|saveEmailSubscription)",
 				"destination": "/index.html"
 			}
 		]

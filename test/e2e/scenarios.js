@@ -6,16 +6,16 @@
 
 describe('Kosmosmusic: ', () => {
 
-	const EC = protractor.ExpectedConditions;
+	// const EC = protractor.ExpectedConditions;
 
 	it('should load index view', () => {
 		// browser.ignoreSynchronization = true;
 		// browser.refresh(5000);
 		browser.get('');
 		browser.getCurrentUrl().then((url) => {
-			expect(url).toMatch('\/index$');
+			expect(url).toMatch('/index$');
 
-			const content = element.all(by.css('body[layout*=column]'));
+			const content = element.all(by.css('body[class*=mat-body-1]'));
 			expect(content.count()).toEqual(1);
 		});
 	});
