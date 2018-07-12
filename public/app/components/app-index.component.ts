@@ -107,6 +107,11 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	public gridColumns: number = 3;
 
 	/**
+	 * Indicates if bandcamp grid should be shown or not.
+	 */
+	public showBandcampGrid: boolean = true;
+
+	/**
 	 * Indicates if grid data model is initialized.
 	 * Is used to correctly render facebook widget.
 	 */
@@ -130,6 +135,14 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 		sub = this.media.asObservable().subscribe((event: MediaChange) => {
 			console.log('flex-layout media change event', event);
 			this.gridColumns = (event.mqAlias === 'xs') ? 1 : (event.mqAlias === 'sm') ? 2 : (event.mqAlias === 'md') ? 3 : (event.mqAlias === 'lg') ? 4 : 5;
+
+			if (event.mqAlias === 'xs' || event.mqAlias === 'sm') {
+				this.showBandcampGrid = false;
+				this.gridInitialized = false;
+			} else {
+				this.showBandcampGrid = true;
+				this.gridInitialized = true;
+			}
 		});
 		this.subscriptions.push(sub);
 	}

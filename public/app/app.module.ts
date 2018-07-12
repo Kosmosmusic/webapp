@@ -23,7 +23,6 @@ import { CustomMaterialModule } from './modules/custom-material.module';
 import { AppComponent } from './app.component';
 import { AppNavComponent } from './components/app-nav.component';
 import { AppIndexComponent } from './components/app-index.component';
-import { AppReleasesComponent } from './components/app-releases.component';
 import { AppMasteringComponent } from './components/app-mastering.component';
 import { AppMixesComponent } from './components/app-mixes.component';
 import { AppVideosComponent } from './components/app-videos.component';
@@ -53,9 +52,9 @@ import { IframeContentLoadedDirective } from './directives/iframe-content-loaded
 import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.directive';
 
 @NgModule({
-	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppReleasesComponent,
-									AppMasteringComponent, AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
-									AppDemoDialog, AppBookingDialog, FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
+	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppMasteringComponent,
+									AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog, AppDemoDialog,
+									AppBookingDialog, FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
