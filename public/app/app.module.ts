@@ -47,14 +47,13 @@ import { EmailSubscriptionService } from './services/email-subscription.service'
 import { SoundcloudService } from './services/soundcloud.service';
 import { BandcampService } from './services/bandcamp.service';
 
-import { FacebookWidgetSrcDirective } from './directives/facebook-widget-src.directive';
 import { IframeContentLoadedDirective } from './directives/iframe-content-loaded.directive';
 import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.directive';
 
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppMasteringComponent,
 									AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog, AppDemoDialog,
-									AppBookingDialog, FacebookWidgetSrcDirective, IframeContentLoadedDirective, BandcampWidgetSrcDirective
+									AppBookingDialog, IframeContentLoadedDirective, BandcampWidgetSrcDirective
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,

@@ -11,7 +11,7 @@
 	<div fxFlex *ngIf="!showBandcampGrid">
 		<iframe fxFlex="100" fxFlexFill scrolling="no" frameborder="0" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/403059&amp;color=%23ffc107&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"></iframe>
 	</div>
-	<div fxFlex="0 1 auto" fxHide.xs="true" fxHide.sm="true" *ngIf="gridInitialized">
-		<iframe fxFlex="100" [fbwidgetsrc]="'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKosMosMusicRU&tabs=timeline&width=340&height=3200&small_header=true&adapt_container_width=true&adapt_container_height=false&hide_cover=true&show_facepile=false&appId=1771962743078907'" width="340" height="100%" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+	<div fxFlex="0 1 auto" fxHide.xs="true" fxHide.sm="true" *ngIf="gridInitialized" fxLayout="row wrap" fxLayoutAlign="start stretch">
+		<div class="fb-page" data-href="https://www.facebook.com/KosMosMusicRU/" data-tabs="timeline" data-width="380" data-height="3250" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/KosMosMusicRU/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/KosMosMusicRU/">KOS.MOS.MUSIC</a></blockquote></div>
 	</div>
 </div>

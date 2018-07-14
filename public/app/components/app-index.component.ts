@@ -56,7 +56,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 				this.bandcampAlbumsData = {};
 				// to get sorted data should inerate through snapchot
 				snapshot.forEach((child: any) => {
-					console.log('child.val()', child.val());
+					// console.log('child.val()', child.val());
 					const value = child.val();
 					const key = value.releaseCode;
 					this.bandcampAlbumsData[key] = value;
