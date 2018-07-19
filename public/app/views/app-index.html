@@ -2,6 +2,7 @@
 	<div fxFlex *ngIf="showBandcampGrid">
 		<mat-grid-list [cols]="gridColumns" rowHeight="1:1">
 			<mat-grid-tile *ngFor="let releaseCode of bandcampAlbumsDataKeys; let j = index">
+				<img *ngIf="j > bcIframeCounter" [ngStyle]="{'max-width': '125px', 'width': '60%'}" src="./img/kosmos_circle.svg">
 				<iframe style="border: 0; width: 100%; height: 100%;" bcwidgetsrc="{{bcIframeUrl(releaseCode)}}" (loadedcallback)="incrementLoadingCounter()" *ngIf="j <= bcIframeCounter">
 					<a href="{{bcAnchorUrl(releaseCode)}}">{{releaseCode}}</a>
 				</iframe>
