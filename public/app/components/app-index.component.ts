@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Inject } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
@@ -23,6 +23,7 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	 * @param emitter Event emitter service - components interaction
 	 * @param firebaseService Service for making firebase requests
 	 * @param bandcampService Service for generating bandcamp urls
+	 * @param window Window reference
 	 */
 	constructor(
 		private el: ElementRef,
@@ -30,7 +31,8 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 		private media: ObservableMedia,
 		private emitter: EventEmitterService,
 		private firebaseService: FirebaseService,
-		private bandcampService: BandcampService
+		private bandcampService: BandcampService,
+		@Inject('Window') private window: Window
 	) {
 		// console.log('this.el.nativeElement:', this.el.nativeElement);
 	}
@@ -118,10 +120,38 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 	public gridInitialized: boolean = false;
 
 	/**
+	 * Initializes facebook javascript sdk.
+	 *
+	 * see:
+	 * - https://developers.facebook.com/docs/javascript/howto/angularjs
+	 * - https://blog.brunoscopelliti.com/facebook-authentication-in-your-angularjs-web-app/
+	 */
+	private initFacebookJsSDK(): void {
+		let js;
+		const id: string = 'facebook-jssdk';
+		const doc: Document = this.window.document;
+		const ref: any = doc.getElementsByTagName('script')[0];
+
+		if (doc.getElementById(id)) {
+			return;
+		}
+
+		js = doc.createElement('script');
+		js.id = id;
+		js.async = true;
+		// js.src = "//connect.facebook.net/en_US/all.js";
+		js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=1771962743078907&autoLogAppEvents=1';
+
+		ref.parentNode.insertBefore(js, ref);
+	}
+
+	/**
 	 * Lifecycle hook called after component is initialized.
 	 */
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppIndexComponent initialized');
+
+		this.initFacebookJsSDK();
 
 		this.getBandcampAlbumsData().then(() => {
 			this.bandcampAlbumsDataKeys = Object.keys(this.bandcampAlbumsData);
