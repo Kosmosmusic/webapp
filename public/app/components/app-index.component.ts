@@ -101,7 +101,10 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 * Increments Bandcamp iframe counter.
 	 */
 	public incrementLoadingCounter(): void {
-		this.bcIframeCounter++;
+		if (this.bcIframeCounter <= this.bcMaxCounter) {
+			this.bcIframeCounter++;
+			console.log('this.bcIframeCounter', this.bcIframeCounter);
+		}
 	}
 
 	/**
@@ -168,18 +171,17 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		if (doc.getElementById(id)) {
 			return;
 		}
-		console.log('initFacebookJsSDK...');
 		const js: any = doc.createElement('script');
 		js.id = id;
 		js.async = true;
-		// js.src = "//connect.facebook.net/en_US/all.js";
-		js.src = 'https://connect.facebook.net/en_US/sdk.js#status=1&xfbml=1&version=v3.0&appId=1771962743078907&channelUrl=channel.html';
+		js.src = 'https://connect.facebook.net/en_US/sdk.js#status=1&xfbml=1&version=v3.0&appId=477209839373369&channelUrl=channel.html';
 
 		ref.parentNode.insertBefore(js, ref);
-
-		console.log('this.window', this.window);
 	}
 
+	/**
+	 * Removes facebook sdk, and optionally fb-root (not used for now, see ngOnDestroy hook).
+	 */
 	private removeFbJsSDK(): void {
 		const id: string = 'facebook-jssdk';
 		const doc: Document = this.window.document;
@@ -187,8 +189,8 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		const js: any = doc.getElementById('facebook-jssdk');
 		// removed both script and fb-root
 		if (js) {
-			ref.parentNode.removeChild(js);
-			ref.parentNode.removeChild(ref);
+			ref.parentNode.removeChild(js); // sdk script
+			// ref.parentNode.removeChild(ref); // fb-root
 		}
 	}
 
@@ -199,20 +201,25 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	private rendererListener: any;
 	/**
+	 * Scroll top value.
+	 */
+	private previousScrollTopValue: number = 0;
+	/**
 	 * Binds to mat-sidenav-content scroll event.
 	 */
 	private bindToContentScrollEvent(): void {
-		let previousScrollTopValue: number = 0;
+		// let previousScrollTopValue: number = 0;
 		this.rendererListener = this.renderer.listen(this.content.nativeElement.parentNode.parentNode, 'scroll', (event) => {
 			// console.log('mat-sidenav-content scroll, event', event);
 			const currentScrollTopValue: number = event.target.scrollTop;
 			// increment bandcamp max counter when user scrolls down
-			const currentBcMaxCounterValue: number = Math.ceil((currentScrollTopValue / event.target.clientHeight) * this.gridColumns * (this.gridColumns - 1));
-			if (previousScrollTopValue < currentScrollTopValue && this.bcMaxCounter < currentBcMaxCounterValue) {
+			const currentBcMaxCounterValue: number = Math.floor(1.3 * this.gridColumns * Math.ceil((currentScrollTopValue / event.target.scrollHeight) * Math.pow(this.gridColumns, 2)));
+			console.log('currentBcMaxCounterValue', currentBcMaxCounterValue);
+			if (this.previousScrollTopValue < currentScrollTopValue && currentBcMaxCounterValue > this.bcMaxCounter) {
 				this.bcMaxCounter = currentBcMaxCounterValue;
 				console.log('this.bcMaxCounter', this.bcMaxCounter);
 			}
-			previousScrollTopValue = currentScrollTopValue;
+			this.previousScrollTopValue = currentScrollTopValue;
 		});
 	}
 
@@ -244,6 +251,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.gridInitialized = false;
 				// reset bandcamp counters
 				this.resetBandcampCounters();
+				this.previousScrollTopValue = 0;
 			} else {
 				this.showBandcampGrid = true;
 				this.gridInitialized = true;
@@ -259,7 +267,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppIndexComponent destroyed');
-		this.removeFbJsSDK();
+		// this.removeFbJsSDK();
 		if (this.subscriptions.length) {
 			for (const sub of this.subscriptions) {
 				sub.unsubscribe();
