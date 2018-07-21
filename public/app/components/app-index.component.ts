@@ -224,6 +224,39 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	/**
+	 * Since bandcamp widgets lag in Google chrome, use this method to use alternative soundcloud widget.
+	 */
+	public isGoogleChrome(): boolean {
+		// see https://stackoverflow.com/questions/4565112/javascript-how-to-find-out-if-the-user-browser-is-chrome#13348618
+		// please note,
+		// that IE11 now returns undefined again for window.chrome
+		// and new Opera 30 outputs true for window.chrome
+		// but needs to check if window.opr is not undefined
+		// and new IE Edge outputs to true now for window.chrome
+		// and if not iOS Chrome check
+		// so use the below updated condition
+		const chrome: string = 'chrome';
+		const isChromium = this.window[chrome] !== null && typeof this.window[chrome] !== 'undefined';
+		const navigator = this.window.navigator;
+		const vendorName = navigator.vendor;
+		const opr: string = 'opr';
+		const isOpera = typeof this.window[opr] !== 'undefined';
+		const isIEedge = navigator.userAgent.indexOf('Edge') > -1;
+		const isIOSChrome = navigator.userAgent.match('CriOS');
+
+		if (isIOSChrome) {
+			// is Google Chrome on IOS
+			return true;
+		} else if (isChromium && vendorName === 'Google Inc.' && isOpera === false && isIEedge === false) {
+			// is Google Chrome
+			return true;
+		} else {
+			// not Google Chrome
+			return false;
+		}
+	}
+
+	/**
 	 * Lifecycle hook called after component is initialized.
 	 */
 	public ngOnInit(): void {
