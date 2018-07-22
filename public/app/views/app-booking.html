@@ -64,14 +64,14 @@
 		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="ticketCost" [formControl]="bookingForm.controls.ticketCost" placeholder="{{ 'booking.form.event.ticket' | translate }}" />
 			<mat-error *ngIf="bookingForm.controls.ticketCost.invalid" class="mat-body-1">
-				{{ 'booking.form.invalid.event.ticket' | translate }}
+				{{ 'booking.form.invalid.event.ticketCost' | translate }}
 			</mat-error>
 		</mat-form-field>
 
 		<mat-form-field fxFlex="100">
 			<input matInput type="text" name="ticketCost" [formControl]="bookingForm.controls.lineup" placeholder="{{ 'booking.form.event.lineup' | translate }}" />
 			<mat-error *ngIf="bookingForm.controls.lineup.invalid" class="mat-body-1">
-				{{ 'booking.form.invalid.event.lineup' | translate }}
+				{{ 'booking.form.invalid.lineup' | translate }}
 			</mat-error>
 		</mat-form-field>
 
@@ -105,9 +105,6 @@
 
 		<mat-form-field fxFlex="100">
 			<textarea matInput type="text" name="artistsBookedEarlier" [formControl]="bookingForm.controls.artistsBookedEarlier" placeholder="{{ 'booking.form.booked' | translate }}"></textarea>
-			<mat-error *ngIf="bookingForm.controls.artistsBookedEarlier.invalid" class="mat-body-1">
-				{{ 'booking.form.invalid.booked' | translate }}
-			</mat-error>
 		</mat-form-field>
 
 		<!-- event details -->

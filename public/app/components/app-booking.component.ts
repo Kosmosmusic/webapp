@@ -56,26 +56,26 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 		this.bookingForm = this.fb.group({
 			// event details
 			date: ['', Validators.compose([Validators.required])],
-			venueName: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-			venueCapacity: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-			venueAddress: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-			venueWebsite: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-			eventName: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-			eventWebsite: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-			ticketCost: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-			lineup: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+			venueName: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+			venueCapacity: ['', Validators.compose([Validators.required, Validators.min(1)])],
+			venueAddress: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+			venueWebsite: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/(.*\/)?\.*\/\..{2,}/)])],
+			eventName: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+			eventWebsite: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/(.*\/)?\.*\/\..{2,}/)])],
+			ticketCost: ['', Validators.compose([Validators.required, Validators.min(0)])],
+			lineup: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
 			start: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9-\:]+/)])],
 			end: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9-\:]+/)])],
 			stageTime: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9-,\:]+/)])],
-			fee: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-			artistsBookedEarlier: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+			fee: ['', Validators.compose([Validators.required, Validators.min(1)])],
+			artistsBookedEarlier: [''],
 
 			// promoter details
-			company: ['', Validators.compose([Validators.required, Validators.pattern(/\w{2,}/)])],
-			contact: ['', Validators.compose([Validators.required, Validators.pattern(/\w{2,}/)])],
+			company: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+			contact: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
 			email: ['', Validators.compose([Validators.required, Validators.email])],
-			phone: [''],
-			website: [''],
+			phone: ['', Validators.compose([Validators.required, Validators.pattern(/\+\d\s[\d\s-]+/)])],
+			website: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/(.*\/)?\.*\/\..{2,}/)])],
 			domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
 		});
 	}

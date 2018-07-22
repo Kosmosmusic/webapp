@@ -265,4 +265,12 @@ body {
 		}
 	}
 
+/*
+*	override some material selectors
+*/	
+	mat-form-field {
+		padding-top: $boxPadding * 2;
+		padding-bottom: $boxPadding * 2;
+	}
+
 }

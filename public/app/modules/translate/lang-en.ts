@@ -55,6 +55,33 @@ export const LANG_EN_TRANSLATIONS = {
 				email: 'Contact email',
 				phone: 'Contact phone',
 				website: 'Promoter website'
+			},
+			invalid: {
+				venue: {
+					name: 'Min length: 1 symbol',
+					capacity: 'Min value: 1',
+					address: 'Min length: 1 symbol',
+					website: 'Valid input example: http://domain.tld'
+				},
+				event: {
+					name: 'Min length: 1 symbol',
+					website: 'Valid input example: http://domain.tld'
+				},
+				ticketCost: 'Min value: 0',
+				lineup: 'Min length: 1 symbol',
+				time: {
+					start: 'Valid input example: 20:00 or 20:00-21:00',
+					end: 'Valid input example: 20:00 or 20:00-21:00',
+					stage: 'Valid input example: 01:00-02:00, 03:00-04:00'
+				},
+				fee: 'Min value: 1',
+				promoter: {
+					company: 'Min length: 1 symbol',
+					contact: 'Min length: 1 symbol',
+					email: 'Must be a valid email address',
+					phone: 'Valid input example: +1 123 456-789',
+					website: 'Valid input example: http://domain.tld'
+				}
 			}
 		},
 		result: {
