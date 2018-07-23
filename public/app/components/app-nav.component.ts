@@ -32,10 +32,6 @@ export class AppNavComponent implements OnInit, OnDestroy {
 		{ key: 'ru', name: 'Russian' }
 	];
 
-	public navigateToIndexAndRefresh(): void {
-		this.router.navigateByUrl('/index');
-	}
-
 	public switchNavButtons(event: any, path?: string): void {
 		/*
 		*	accepts router event, and optionally path which contains name of activated path
