@@ -224,7 +224,6 @@ export class AppComponent implements OnInit, OnDestroy {
 		*/
 		this.matIconRegistry.addSvgIcon('logo-round', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_circle.svg'));
 		this.matIconRegistry.addSvgIcon('logo-square', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_square.svg'));
-
 	}
 
 	public ngOnDestroy(): void {

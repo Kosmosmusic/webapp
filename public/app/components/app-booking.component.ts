@@ -59,9 +59,9 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 			venueName: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
 			venueCapacity: ['', Validators.compose([Validators.required, Validators.min(1)])],
 			venueAddress: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
-			venueWebsite: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/(.*\/)?\.*\/\..{2,}/)])],
+			venueWebsite: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/.+/)])],
 			eventName: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
-			eventWebsite: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/(.*\/)?\.*\/\..{2,}/)])],
+			eventWebsite: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/.+/)])],
 			ticketCost: ['', Validators.compose([Validators.required, Validators.min(0)])],
 			lineup: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
 			start: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9-\:]+/)])],
@@ -75,7 +75,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
 			contact: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			phone: ['', Validators.compose([Validators.required, Validators.pattern(/\+\d\s[\d\s-]+/)])],
-			website: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/(.*\/)?\.*\/\..{2,}/)])],
+			website: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/.+/)])],
 			domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
 		});
 	}

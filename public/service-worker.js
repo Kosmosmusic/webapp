@@ -117,7 +117,7 @@ function updateCache() {
 self.addEventListener('fetch', function(event) {
 	// console.log('>> serviceWorker, fetch event', event);
 	var request = event.request;
-	if (/service-worker\.js$/.test(request.url)) {
+	if (/index\.html$/.test(request.url)) {
 		// console.log('>> serviceWorker, should check cache update, this happens on initial page load when worker is already installed');
 		event.waitUntil(updateCache());
 		event.respondWith(fetch(request));
