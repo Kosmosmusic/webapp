@@ -1,6 +1,6 @@
 function getCacheName() {
 	return new Promise(function(resolve/*, reject*/) {
-		fetch(self.registration.scope + 'SHA1SUMS.json').then(async function(response) {
+		fetch(self.registration.scope + 'hashsum.json').then(async function(response) {
 			var json = await response.json();
 			resolve('kosmosmusic-' + json.hashsum);
 		}).catch(function(/*error*/) {
@@ -11,6 +11,21 @@ function getCacheName() {
 var cacheName;
 
 var staticAssets = [
+	'/public/index.html',
+	'/public/app/views/app.html',
+	'/public/app/views/app-nav.html',
+	'/public/app/views/app-index.html',
+	'/public/app/views/app-mastering.html',
+	'/public/app/views/app-mixes.html',
+	'/public/app/views/app-videos.html',
+	'/public/app/views/app-about.html',
+	'/public/app/views/app-demo.html',
+	'/public/app/views/app-contact.html',
+	'/public/app/views/app-booking.html',
+	'/public/js/vendor-pack.min.js',
+	'/public/js/packed-app.min.js',
+	'/public/css/vendor-pack.min.css',
+	'/public/css/packed-app.min.css',
 	'/public/webfonts/fa-brands-400.svg',
 	'/public/webfonts/fa-brands-400.ttf',
 	'/public/webfonts/fa-brands-400.eot',
@@ -32,7 +47,8 @@ var staticAssets = [
 	'/public/webfonts/MaterialIcons-Regular.woff2',
 	'/public/img/body_bg.jpg',
 	'/public/img/kosmos_circle.svg',
-	'/public/img/kosmos_square.svg'
+	'/public/img/kosmos_square.svg',
+	'/favicon.ico'
 ];
 
 self.addEventListener('install', function(event) {
