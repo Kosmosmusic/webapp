@@ -46,6 +46,7 @@ import { SendBookingRequestService } from './services/send-booking-request.servi
 import { EmailSubscriptionService } from './services/email-subscription.service';
 import { SoundcloudService } from './services/soundcloud.service';
 import { BandcampService } from './services/bandcamp.service';
+import { FacebookService } from './services/facebook.service';
 
 import { IframeContentLoadedDirective } from './directives/iframe-content-loaded.directive';
 import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.directive';
@@ -63,7 +64,7 @@ import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.dir
 									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
 									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
 									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendBookingRequestService,
-									EmailSubscriptionService, SoundcloudService, BandcampService
+									EmailSubscriptionService, SoundcloudService, BandcampService, FacebookService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, Inject, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Inject, ViewChild, Renderer2 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
@@ -14,7 +14,7 @@ import { BandcampService } from '../services/bandcamp.service';
 		class: 'mat-body-1'
 	}
 })
-export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppIndexComponent implements OnInit, OnDestroy {
 
 	/**
 	 * @param el Element reference
@@ -39,6 +39,9 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		// console.log('this.el.nativeElement:', this.el.nativeElement);
 	}
 
+	/**
+	 * Component subscriptions.
+	 */
 	private subscriptions: any[] = [];
 
 	/**
@@ -51,6 +54,9 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	public bandcampAlbumsDataKeys: string[] = [];
 
+	/**
+	 * Gets Bandcamp albums data.
+	 */
 	private getBandcampAlbumsData(): Promise<any> {
 		const def = new CustomDeferredService<any>();
 		this.emitter.emitSpinnerStartEvent();
@@ -66,7 +72,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 					this.bandcampAlbumsData[key] = value;
 				});
 				this.gridInitialized = true;
-				this.initFacebookJsSDK();
 				this.emitter.emitSpinnerStopEvent();
 				def.resolve();
 			})
@@ -138,62 +143,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	public gridInitialized: boolean = false;
 
-	/**
-	 * Creates Facebook root div.
-	 * @return Facebook root div reference <div id="fb-root"></div>
-	 */
-	private createFbRoot(): any {
-		const doc: Document = this.window.document;
-		let ref: any = doc.getElementById('fb-root'); // try getting it first
-		if (!ref) {
-			// create 'fb-root' if it does not exist
-			ref = doc.createElement('div');
-			ref.id = 'fb-root';
-			const firstScriptTag: any = doc.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(ref, firstScriptTag);
-		}
-		return ref;
-	}
-
-	/**
-	 * Initializes facebook javascript sdk.
-	 *
-	 * see:
-	 * - https://developers.facebook.com/docs/javascript/howto/angularjs
-	 * - https://blog.brunoscopelliti.com/facebook-authentication-in-your-angularjs-web-app/
-	 */
-	private initFacebookJsSDK(): void {
-		const id: string = 'facebook-jssdk';
-		const doc: Document = this.window.document;
-		const ref: any = this.createFbRoot();
-		console.log('ref', ref);
-		// return if script is already included
-		if (doc.getElementById(id)) {
-			return;
-		}
-		const js: any = doc.createElement('script');
-		js.id = id;
-		js.async = true;
-		js.src = 'https://connect.facebook.net/en_US/sdk.js#status=1&xfbml=1&version=v3.0&appId=477209839373369&channelUrl=channel.html';
-
-		ref.parentNode.insertBefore(js, ref);
-	}
-
-	/**
-	 * Removes facebook sdk, and optionally fb-root (not used for now, see ngOnDestroy hook).
-	 */
-	private removeFbJsSDK(): void {
-		const id: string = 'facebook-jssdk';
-		const doc: Document = this.window.document;
-		const ref: any = doc.getElementById('fb-root');
-		const js: any = doc.getElementById('facebook-jssdk');
-		// removed both script and fb-root
-		if (js) {
-			ref.parentNode.removeChild(js); // sdk script
-			// ref.parentNode.removeChild(ref); // fb-root
-		}
-	}
-
 	@ViewChild('content') private content: ElementRef;
 
 	/**
@@ -264,8 +213,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.bindToContentScrollEvent();
 
-		this.createFbRoot();
-
 		this.getBandcampAlbumsData().then(() => {
 			this.bandcampAlbumsDataKeys = Object.keys(this.bandcampAlbumsData);
 		});
@@ -292,15 +239,11 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		});
 		this.subscriptions.push(sub);
 	}
-	public ngAfterViewInit(): void {
-		this.initFacebookJsSDK();
-	}
 	/**
 	 * Lifecycle hook called after component is destroyed.
 	 */
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppIndexComponent destroyed');
-		// this.removeFbJsSDK();
 		if (this.subscriptions.length) {
 			for (const sub of this.subscriptions) {
 				sub.unsubscribe();

@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { EventEmitterService } from './services/event-emitter.service';
 import { TranslateService } from './modules/translate/index';
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
+import { FacebookService } from './services/facebook.service';
 
 import { AppDemoDialog } from './components/app-demo.component';
 import { AppContactDialog } from './components/app-contact.component';
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	 * @param domSanitizer DOM sanitizer
 	 * @param emitter Event emitter service - components interaction
 	 * @param translateService Translate service - UI translation to predefined languages
+	 * @param facebookService Facebook service - Facebook JavaScrip SDK wrapper
 	 * @param serviceWorker Service worker service
 	 */
 	constructor(
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		private domSanitizer: DomSanitizer,
 		private emitter: EventEmitterService,
 		private translate: TranslateService,
+		private facebookService: FacebookService,
 		private serviceWorker: CustomServiceWorkerService,
 		@Inject('Window') private window: Window
 	) {
