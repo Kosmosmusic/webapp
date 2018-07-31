@@ -11,6 +11,7 @@ function isDocker() {
 }
 
 module.exports = {
+	isDocker: isDocker,
 	karmaHeadlessChromeFlags: () => {
 		const flags = [
 			'--headless',
@@ -33,5 +34,9 @@ module.exports = {
 			flags.push(['--no-sandbox']); // required by Docker
 		}
 		return flags;
-	}
+	},
+	/**
+	 * Increase karma browser timeouts interval for docker.
+	 */
+	karmaBrowserTimeoutValue: () => isDocker() ? 50000 : 20000
 };

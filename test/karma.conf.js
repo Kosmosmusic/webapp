@@ -1,11 +1,12 @@
 const testUtils = require('./test-utils');
 const headlessChromeFlags = testUtils.karmaHeadlessChromeFlags();
+const karmaBrowserTimeoutValue = testUtils.karmaBrowserTimeoutValue();
 
-module.exports = function(config){
+module.exports = function(config) {
 	config.set({
 
 		basePath : '../',
-		
+
 		files : [
 			'node_modules/jquery/dist/jquery.js',
 
@@ -30,7 +31,7 @@ module.exports = function(config){
 			{ pattern: 'systemjs.config.js', included: false, watched: false },
 			{ pattern: 'systemjs.karma.config.js', included: false, watched: false },
 			{ pattern: 'systemjs.config.extras.js', included: false, watched: false },
-			
+
 			'node_modules/hammerjs/hammer.js',
 			{ pattern: 'node_modules/@angular/**', included: false, watched: false },
 			{ pattern: 'node_modules/rxjs/**', included: false, watched: false },
@@ -60,8 +61,8 @@ module.exports = function(config){
 
 		frameworks: ['jasmine'],
 
-		browserNoActivityTimeout: 20000,
-		browserDisconnectTimeout: 20000,
+		browserNoActivityTimeout: karmaBrowserTimeoutValue,
+		browserDisconnectTimeout: karmaBrowserTimeoutValue,
 		customLaunchers: {
 			/*
 			*	this custom launcher requires setting env var CHROME_BIN=chromium-browser
@@ -74,7 +75,7 @@ module.exports = function(config){
 			}
 		},
 		browsers: ['ChromeHeadless'],
-		
+
 		plugins: [
 			'karma-redirect-preprocessor',
 			'karma-chrome-launcher',
@@ -121,7 +122,13 @@ module.exports = function(config){
 
 		autoWatch: true,
 		singleRun: true,
-		logLevel: config.LOG_DEBUG,
+		logLevel: config.LOG_ERROR, // LOG_DISABLE, LOG_ERROR, LOG_WARN, LOG_INFO, LOG_DEBUG
+		browserConsoleLogOptions: {
+			level: 'debug',
+			format: '%b %T %m',
+			path: 'logs/unit-browser-console.log',
+			terminal: testUtils.isDocker() ? true : false // don't show log when running tests locally, it is faster, but show in docker
+		},
 		colors: true
 
 	});
