@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, Inject, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, Inject, ViewChild, Renderer2 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
@@ -14,7 +14,7 @@ import { BandcampService } from '../services/bandcamp.service';
 		class: 'mat-body-1'
 	}
 })
-export class AppIndexComponent implements OnInit, OnDestroy {
+export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	/**
 	 * @param el Element reference
@@ -238,6 +238,19 @@ export class AppIndexComponent implements OnInit, OnDestroy {
 			}
 		});
 		this.subscriptions.push(sub);
+	}
+	/**
+	 * Lifecycle hook called after component view is initialized.
+	 */
+	public ngAfterViewInit(): void {
+		console.log('ngAfterViewInit: AppIndexComponent view initialized');
+		/*
+		* render facebook widget, without this widget won't initialize after user navigates to another view and then back to /index
+		*/
+		const facebookWinKey = 'FB';
+		if (this.window[facebookWinKey]) {
+			this.window[facebookWinKey].XFBML.parse();
+		}
 	}
 	/**
 	 * Lifecycle hook called after component is destroyed.
