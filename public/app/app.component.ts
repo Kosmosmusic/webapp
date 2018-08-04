@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		private serviceWorker: CustomServiceWorkerService,
 		@Inject('Window') private window: Window
 	) {
-		console.log('this.el.nativeElement', this.el.nativeElement);
+		this.toggleConsoleOutput();
 	}
 
 	private subscriptions: any[] = [];
@@ -165,6 +165,20 @@ export class AppComponent implements OnInit, OnDestroy {
 			console.log('booking dialog closed with result', result);
 			this.dialogInstance = undefined;
 		});
+	}
+
+	/**
+	 * Holds a backup of console.log function.
+	 */
+	private consoleLoggerBackup: any = console.log;
+	/**
+	 * Disables/Enables logging to user's browser console.
+	 * Logging is automatically disabled when the app is deployed in a domain which name includes a substring 'kosmosmusic'.
+	 */
+	private toggleConsoleOutput(): void {
+		if (new RegExp(/.*kosmosmusic.*/, 'i').test(this.window.location.origin)) {
+			console.log = (console.log === this.consoleLoggerBackup) ? () => true : this.consoleLoggerBackup;
+		}
 	}
 
 	public ngOnInit(): void {
