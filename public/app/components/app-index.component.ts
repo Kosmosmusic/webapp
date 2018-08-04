@@ -6,6 +6,7 @@ import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 import { FirebaseService } from '../services/firebase.service';
 import { BandcampService } from '../services/bandcamp.service';
+import { FacebookService } from '../services/facebook.service';
 
 @Component({
 	selector: 'app-index',
@@ -23,6 +24,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 * @param emitter Event emitter service - components interaction
 	 * @param renderer Application renderer
 	 * @param firebaseService Service for making firebase requests
+	 * @param facebookService Facebook API wrapper
 	 * @param bandcampService Service for generating bandcamp urls
 	 * @param window Window reference
 	 */
@@ -34,6 +36,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		private renderer: Renderer2,
 		private firebaseService: FirebaseService,
 		private bandcampService: BandcampService,
+		private facebookService: FacebookService,
 		@Inject('Window') private window: Window
 	) {
 		// console.log('this.el.nativeElement:', this.el.nativeElement);
@@ -222,6 +225,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		});
 		this.subscriptions.push(sub);
 
+		let previousMqAlias: string = '';
 		sub = this.media.asObservable().subscribe((event: MediaChange) => {
 			console.log('flex-layout media change event', event);
 			this.gridColumns = (event.mqAlias === 'xs') ? 1 : (event.mqAlias === 'sm') ? 2 : (event.mqAlias === 'md') ? 3 : (event.mqAlias === 'lg') ? 4 : 5;
@@ -236,6 +240,13 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.showBandcampGrid = true;
 				this.gridInitialized = true;
 			}
+
+			if (/(xs|sm)/.test(previousMqAlias) && /!(xs|sm)/.test(event.mqAlias)) {
+				// rerender facebook widget
+				this.facebookService.renderFacebookWidget();
+			}
+
+			previousMqAlias = event.mqAlias;
 		});
 		this.subscriptions.push(sub);
 	}
@@ -244,13 +255,8 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	public ngAfterViewInit(): void {
 		console.log('ngAfterViewInit: AppIndexComponent view initialized');
-		/*
-		* render facebook widget, without this widget won't initialize after user navigates to another view and then back to /index
-		*/
-		const facebookWinKey = 'FB';
-		if (this.window[facebookWinKey]) {
-			this.window[facebookWinKey].XFBML.parse();
-		}
+		// rerender facebook widget
+		this.facebookService.renderFacebookWidget();
 	}
 	/**
 	 * Lifecycle hook called after component is destroyed.

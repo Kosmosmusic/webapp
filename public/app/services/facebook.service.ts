@@ -69,4 +69,14 @@ export class FacebookService {
 			// ref.parentNode.removeChild(ref); // fb-root
 		}
 	}
+
+	/**
+	 * Renders facebook widget, without this widget won't initialize after user navigates to another view and then back to a view the widget is placed
+	 */
+	public renderFacebookWidget(): void {
+		const facebookWinKey = 'FB';
+		if (this.window[facebookWinKey]) {
+			this.window[facebookWinKey].XFBML.parse();
+		}
+	}
 }
