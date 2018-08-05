@@ -9,9 +9,12 @@
 			</mat-grid-tile>
 		</mat-grid-list>
 	</div>
+	<soundcloud-player fxFlex fxFlex.lt-md="100" *ngIf="!showBandcampGrid || isGoogleChrome()"></soundcloud-player>
+	<!--
 	<div fxFlex fxFlex.lt-md="100" *ngIf="!showBandcampGrid || isGoogleChrome()">
 		<iframe fxFlex="100" [ngStyle]="{'height': '3500'}" [ngStyle.lt-md]="{'height': '450'}" scrolling="no" frameborder="0" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/403059&amp;color=%23ffc107&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"></iframe>
 	</div>
+	-->
 	<div fxFlex="0 1 auto" fxHide.lt-md="true" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutAlign.lt-md="center stretch">
 		<div class="fb-page" [ngStyle]="{'width': '360'}" data-href="https://www.facebook.com/KosMosMusicRU/" data-tabs="timeline" data-width="360" data-height="3500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/KosMosMusicRU/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/KosMosMusicRU/">KOS.MOS.MUSIC</a></blockquote></div>
 	</div>

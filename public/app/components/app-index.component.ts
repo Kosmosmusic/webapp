@@ -7,6 +7,7 @@ import { CustomDeferredService } from '../services/custom-deferred.service';
 import { FirebaseService } from '../services/firebase.service';
 import { BandcampService } from '../services/bandcamp.service';
 import { FacebookService } from '../services/facebook.service';
+import { SoundcloudService } from '../services/soundcloud.service';
 
 @Component({
 	selector: 'app-index',
@@ -26,6 +27,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 	 * @param firebaseService Service for making firebase requests
 	 * @param facebookService Facebook API wrapper
 	 * @param bandcampService Service for generating bandcamp urls
+	 * @param soundcloudService Soundcloud API wrapper
 	 * @param window Window reference
 	 */
 	constructor(
@@ -37,6 +39,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		private firebaseService: FirebaseService,
 		private bandcampService: BandcampService,
 		private facebookService: FacebookService,
+		private soundcloudService: SoundcloudService,
 		@Inject('Window') private window: Window
 	) {
 		// console.log('this.el.nativeElement:', this.el.nativeElement);
@@ -164,6 +167,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.rendererListener = this.renderer.listen(this.content.nativeElement.parentNode.parentNode, 'scroll', (event) => {
 			// console.log('mat-sidenav-content scroll, event', event);
 			const currentScrollTopValue: number = event.target.scrollTop;
+
 			// increment bandcamp max counter when user scrolls down
 			const currentBcMaxCounterValue: number = Math.floor(1.3 * this.gridColumns * Math.ceil((currentScrollTopValue / event.target.scrollHeight) * Math.pow(this.gridColumns, 2)));
 			console.log('currentBcMaxCounterValue', currentBcMaxCounterValue);
@@ -171,6 +175,21 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.bcMaxCounter = currentBcMaxCounterValue;
 				console.log('this.bcMaxCounter', this.bcMaxCounter);
 			}
+
+			// check if should request more data from soundcloud
+			const listEndDivider: ElementRef = new ElementRef(this.window.document.getElementById('list-end'));
+			// console.log('listEndDivider', listEndDivider);
+			const offsetTop: string = 'offsetTop';
+			const listEndOffsetTop: number = listEndDivider.nativeElement[offsetTop];
+			// console.log('listEndOffsetTop', listEndOffsetTop, 'currentScrollTopValue', currentScrollTopValue);
+			if (this.previousScrollTopValue < currentScrollTopValue && currentScrollTopValue >= listEndOffsetTop - (this.window.innerHeight + 1)) {
+				console.log('end reached, load more');
+				this.emitter.emitEvent({ soundcloud: 'loadMoreTracks' });
+				const sidenavContent: ElementRef = new ElementRef(this.window.document.getElementsByClassName('mat-sidenav-content')[0]);
+				const scrollTop: string = 'scrollTop';
+				sidenavContent.nativeElement[scrollTop] = currentScrollTopValue; // set scrollTop for sidenav content so that it remains the same after tracks loading
+			}
+
 			this.previousScrollTopValue = currentScrollTopValue;
 		});
 	}
@@ -268,5 +287,7 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 				sub.unsubscribe();
 			}
 		}
+		// reset Soundcloud shared data
+		this.soundcloudService.resetServiceData();
 	}
 }

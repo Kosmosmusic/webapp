@@ -1,0 +1,36 @@
+<div fxLayout="row wrap" fxLayoutAlign="start start">
+
+	<iframe frameborder="0" fxFlex="100" name="player" src=""></iframe>
+	
+	<div fxFlex="100" *ngFor="let track of tracks; let j = index" id="soundcloud-track-{{j}}" fxLayout="row wrap" fxLayoutAlign="start stretch" [ngClass]="{selected: j === selectedTrackIndex}" fxLayoutGap="10px">
+		<mat-divider fxFlex="100"></mat-divider>
+		<div fxFlex="0 1 auto">
+			<img [ngStyle]="{width: '100px', height: '100px'}" [src]="track.artwork_url"/>
+		</div>
+		<div fxFlex fxLayout="row wrap">
+			<div fxFlex="100">{{track.title}}</div>
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
+				<div fxFlex="1 1 auto">{{track.genre}}</div>
+				<div fxFlex="1 1 auto"></div>
+				<div fxFlex="1 1 auto">{{track.license}}</div>
+			</div>
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start end">
+				<a mat-button title="play" href="{{scPlayerUrl(track.stream_url)}}" target="player" (click)="selectTrack(j)">
+					<i class="fa fa-play"></i> {{track.playback_count}}
+				</a>
+				<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" target=_blank>
+					<i class="fa fa-save"></i> download
+				</a>
+				<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" target=_blank>
+					<i class="fa fa-save"></i> {{track.purchase_title || 'buy'}}
+				</a>
+				<button mat-button disabled="true">
+					<i class="fa fa-heart"></i> {{track.favoritings_count}}
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<mat-divider id="list-end" fxFlex="100"></mat-divider>
+
+</div>

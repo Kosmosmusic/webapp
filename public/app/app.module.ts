@@ -31,6 +31,8 @@ import { AppContactDialog } from './components/app-contact.component';
 import { AppDemoDialog } from './components/app-demo.component';
 import { AppBookingDialog } from './components/app-booking.component';
 
+import { SoundcloudPlayerComponent } from './components/soundcloud-player.component';
+
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
 
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
@@ -54,7 +56,7 @@ import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.dir
 @NgModule({
 	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppMasteringComponent,
 									AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog, AppDemoDialog,
-									AppBookingDialog, IframeContentLoadedDirective, BandcampWidgetSrcDirective
+									AppBookingDialog, IframeContentLoadedDirective, BandcampWidgetSrcDirective, SoundcloudPlayerComponent
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
