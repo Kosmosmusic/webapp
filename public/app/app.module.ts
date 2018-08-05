@@ -54,9 +54,11 @@ import { IframeContentLoadedDirective } from './directives/iframe-content-loaded
 import { BandcampWidgetSrcDirective } from './directives/bandcamp-widget-src.directive';
 
 @NgModule({
-	declarations: [ AppComponent, TranslatePipe, AppNavComponent, AppIndexComponent, AppMasteringComponent,
-									AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog, AppDemoDialog,
-									AppBookingDialog, IframeContentLoadedDirective, BandcampWidgetSrcDirective, SoundcloudPlayerComponent
+	declarations: [ AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
+									AppMixesComponent, AppVideosComponent, AppAboutComponent, SoundcloudPlayerComponent,
+									AppContactDialog, AppDemoDialog, AppBookingDialog,
+									IframeContentLoadedDirective, BandcampWidgetSrcDirective,
+									TranslatePipe
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,

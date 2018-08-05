@@ -69,14 +69,6 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 	public playlist: any = {};
 
 	/**
-	 * Soundcloud service for template usage.
-	 * @param trackStreamUrl Soundcloud track stream url
-	 */
-	public scPlayerUrl(trackStreamUrl: string): SafeUrl {
-		return this.soundcloudService.getLinkWithId(trackStreamUrl);
-	}
-
-	/**
 	 * Selected track index.
 	 */
 	public selectedTrackIndex: number;
@@ -133,6 +125,118 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 		} else {
 			console.log('Soundcloud player: no more tracks');
 		}
+	}
+
+	/**
+	 * Current Soundcloud player object.
+	 */
+	public player: any;
+	/**
+	 * Returns if playback is in progress, required for UI.
+	 */
+	public playbackInProgress(): boolean {
+		if (this.player) {
+			return (this.player.isActuallyPlaying()) ? true : false;
+		}
+		return false;
+	}
+	/**
+	 * Triggers player playback/pause.
+	 * @param track Track object
+	 * @param trackIndex Track index in view component array
+	 */
+	public playTrack(track: any, trackIndex: number): void {
+		console.log('playTrack, track: ', track, ', trackIndex', trackIndex);
+		if (this.selectedTrackIndex !== trackIndex) {
+			// kill player if exists
+			if (this.player) {
+				this.player.kill();
+			}
+			this.selectTrack(trackIndex);
+			this.emitter.emitSpinnerStartEvent();
+			this.soundcloudService.streamTrack(track.id).then(
+				(player: any) => {
+					console.log('soundcloudService.streamTrack, player: ', player);
+					/**
+					 * Player functions:
+					 * - currentTime
+					 * - getDuration
+					 * - getState
+					 * - getVolume
+					 * - hasErrored
+					 * - isActuallyPlaying
+					 * - isBuffering
+					 * - isDead
+					 * - isEnded
+					 * - isPlaying
+					 * - kill
+					 * - listenTo
+					 * - listenToOnce
+					 * - off
+					 * - on
+					 * - once
+					 * - pause
+					 * - play
+					 * - seek
+					 * - setVolume
+					 * - stopListening
+					 * - trigger
+					 * - unbind
+					 */
+					this.player = player;
+					setTimeout(() => {
+						this.player.play();
+						this.reportWaveformProgress();
+						this.emitter.emitSpinnerStopEvent();
+					}, 1000);
+				},
+				(error: any) => {
+					this.emitter.emitSpinnerStopEvent();
+				}
+			);
+		} else {
+			console.log('trigger player, player', this.player);
+			if (this.player.isActuallyPlaying()) {
+				this.player.pause();
+				clearInterval(this.waveformProgressInterval);
+			} else {
+				this.player.play();
+				this.reportWaveformProgress();
+			}
+		}
+	}
+	/**
+	 * Waveform progress interval.
+	 */
+	private waveformProgressInterval: any;
+	/**
+	 * Reports waveform progress to UI.
+	 */
+	public reportWaveformProgress(): void {
+		console.log('reportWaveformProgress');
+		this.waveformProgressInterval = setInterval(() => {
+			const visibleWaveform: ElementRef = new ElementRef(this.window.document.getElementsByClassName('waveform')[0]);
+			console.log('this.player.currentTime', this.player.currentTime());
+			console.log('this.player.getDuration', this.player.getDuration());
+			const playbackProgress: number = Math.floor(this.player.currentTime() * 100 / this.player.getDuration());
+			const nextVal = playbackProgress + 1;
+			console.log('playbackProgress', playbackProgress);
+			visibleWaveform.nativeElement.style.background = `linear-gradient(to right, rgba(171,71,188,1) 0%,rgba(171,71,188,1) ${playbackProgress}%, rgba(30,87,153,0) ${nextVal}%, rgba(30,87,153,0) 100%)`;
+		}, 1000);
+	}
+	/**
+	 * Waveform client event handler.
+	 * @param event waveform click event
+	 */
+	public waveformClick(event: any): void {
+		console.log('waveformClick, event', event);
+		const waveformWidth: number = event.srcElement.clientWidth;
+		const offsetX: number = event.offsetX;
+		const percent: number = offsetX * 100 / waveformWidth;
+		const newProgress: number = this.player.getDuration() * percent / 100;
+		this.player.seek(newProgress).then((data: any) => {
+			console.log('player seek success', data);
+		});
 	}
 
 	/**

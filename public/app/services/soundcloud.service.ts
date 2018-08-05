@@ -5,7 +5,7 @@ import { CustomHttpHandlersService } from './custom-http-handlers.service';
 import { CustomDeferredService } from './custom-deferred.service';
 
 import { Observable } from 'rxjs';
-import { timeout, take, map, catchError } from 'rxjs/operators';
+import { timeout, take, tap, map, catchError } from 'rxjs/operators';
 
 import { ISoundcloudTracksLinkedPartitioning } from '../interfaces';
 
@@ -89,15 +89,15 @@ export class SoundcloudService {
 			track.description = this.processDescription(track.description);
 			return track;
 		});
-		console.log('processedTracks', processedTracks);
-		console.log('this.data.tracks.collection', this.data.tracks.collection);
+		// console.log('processedTracks', processedTracks);
+		// console.log('this.data.tracks.collection', this.data.tracks.collection);
 		const previousCollectionLength: number = this.data.tracks.collection.length;
 		for (const track of processedTracks) {
 			if (!this.data.tracks.collection.filter((item: any) => item.id === track.id).length) {
 				this.data.tracks.collection.push(track);
 			}
 		}
-		console.log('this.data.tracks.collection pushed', this.data.tracks.collection);
+		// console.log('this.data.tracks.collection pushed', this.data.tracks.collection);
 		if (previousCollectionLength === this.data.tracks.collection.length) {
 			this.noMoreTracks = true;
 		}
@@ -181,6 +181,20 @@ export class SoundcloudService {
 			.replace(/(@)([^@,\s<)\]]+)/g, '<a href="https://soundcloud.com/$2" target=_blank><i class="fa fa-external-link"></i> <span class="md-caption">$1$2</span></a>');
 		// console.log('processed', processed);
 		return processed;
+	}
+
+	/**
+	 * Returns resolved soundcloud track stream object.
+	 * @param trackId Soundcloud track id
+	 */
+	public streamTrack(trackId: string): Promise<any> {
+		const def: CustomDeferredService<any> = new CustomDeferredService<any>();
+		SC.stream(`/tracks/${trackId}`)
+			.then((player: any) => {
+				def.resolve(player);
+			})
+			.catch((error: any) => def.reject(error));
+		return def.promise;
 	}
 
 }

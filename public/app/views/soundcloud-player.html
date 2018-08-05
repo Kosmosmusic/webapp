@@ -1,33 +1,53 @@
 <div fxLayout="row wrap" fxLayoutAlign="start start">
-
-	<iframe frameborder="0" fxFlex="100" name="player" src=""></iframe>
 	
-	<div fxFlex="100" *ngFor="let track of tracks; let j = index" id="soundcloud-track-{{j}}" fxLayout="row wrap" fxLayoutAlign="start stretch" [ngClass]="{selected: j === selectedTrackIndex}" fxLayoutGap="10px">
+	<div fxFlex="100" *ngFor="let track of tracks; let j = index" id="soundcloud-track-{{j}}" fxLayout="row wrap" fxLayoutAlign="start stretch" [ngClass]="{selected: j === selectedTrackIndex}">
 		<mat-divider fxFlex="100"></mat-divider>
-		<div fxFlex="0 1 auto">
-			<img [ngStyle]="{width: '100px', height: '100px'}" [src]="track.artwork_url"/>
+		<div fxFlex="100" matTooltip="{{track.title}}" fxLayout="row">
+			<div fxFlex="5px"></div>
+			<div fxFlex="1 1 auto" class="clamp-flex">{{track.title}}</div>
+			<div fxFlex="5px"></div>
+		</div>
+		<div fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="start center">
+			<img [ngStyle]="{width: '120px', height: '120px'}" [src]="track.artwork_url" (click)="playTrack(track, j)" matTooltip="Play / Pause" matTooltipPosition="after"/>
+			<div fxFlex="1 1 auto">{{track.genre}}</div>
+			<div fxFlex="1 1 auto">{{track.license}}</div>
 		</div>
 		<div fxFlex fxLayout="row wrap">
-			<div fxFlex="100">{{track.title}}</div>
 			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
-				<div fxFlex="1 1 auto">{{track.genre}}</div>
-				<div fxFlex="1 1 auto"></div>
-				<div fxFlex="1 1 auto">{{track.license}}</div>
+				<div fxFlex="10px"></div>
+				<div fxFlex="1 1 auto" *ngIf="j === selectedTrackIndex && player">
+					<img [ngStyle]="{'max-width': '100%', 'min-width': '150px', 'min-height': '150px'}" src="{{track.waveform_url}}" class="waveform" (click)="waveformClick($event)" />
+				</div>
+				<div fxFlex="10px"></div>
 			</div>
-			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start end">
-				<a mat-button title="play" href="{{scPlayerUrl(track.stream_url)}}" target="player" (click)="selectTrack(j)">
-					<i class="fa fa-play"></i> {{track.playback_count}}
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start end" fxHide.lt-sm>
+				<button mat-button (click)="playTrack(track, j)" matTooltip="{{ 'action.play' | translate }}" matTooltipPosition="above">
+					<i class="fa" [ngClass]="{'fa-play': j !== selectedTrackIndex || !playbackInProgress(), 'fa-pause': j === selectedTrackIndex && playbackInProgress()}"></i> {{track.playback_count}}
+				</button>
+				<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
+					<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
 				</a>
-				<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" target=_blank>
-					<i class="fa fa-save"></i> download
-				</a>
-				<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" target=_blank>
-					<i class="fa fa-save"></i> {{track.purchase_title || 'buy'}}
+				<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
+					<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
 				</a>
 				<button mat-button disabled="true">
 					<i class="fa fa-heart"></i> {{track.favoritings_count}}
 				</button>
 			</div>
+		</div>
+		<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" fxHide.gt-xs>
+			<button mat-button (click)="playTrack(track, j)" matTooltip="{{ 'action.play' | translate }}" matTooltipPosition="above">
+				<i class="fa" [ngClass]="{'fa-play': j !== selectedTrackIndex || !playbackInProgress(), 'fa-pause': j === selectedTrackIndex && playbackInProgress()}"></i> {{track.playback_count}}
+			</button>
+			<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
+				<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
+			</a>
+			<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
+				<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
+			</a>
+			<button mat-button disabled="true">
+				<i class="fa fa-heart"></i> {{track.favoritings_count}}
+			</button>
 		</div>
 	</div>
 

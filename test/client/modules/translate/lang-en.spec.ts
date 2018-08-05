@@ -134,7 +134,10 @@ describe('TranslateService dictionary: lang-en', () => {
 			action: {
 				confirm: 'Confirm',
 				cancel: 'Cancel',
-				close: 'Close'
+				close: 'Close',
+				play: 'Play',
+				download: 'Download',
+				buy: 'Buy'
 			}
 		}));
 

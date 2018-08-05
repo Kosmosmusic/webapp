@@ -134,7 +134,10 @@ describe('TranslateService dictionary: lang-ru', () => {
 			action: {
 				confirm: 'Подтвердить',
 				cancel: 'Отмеить',
-				close: 'Закрыть'
+				close: 'Закрыть',
+				play: 'Играть',
+				download: 'Скачать',
+				buy: 'Купить'
 			}
 		}));
 

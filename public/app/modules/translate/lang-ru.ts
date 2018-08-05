@@ -127,6 +127,9 @@ export const LANG_RU_TRANSLATIONS = {
 	action: {
 		confirm: 'Подтвердить',
 		cancel: 'Отмеить',
-		close: 'Закрыть'
+		close: 'Закрыть',
+		play: 'Играть',
+		download: 'Скачать',
+		buy: 'Купить'
 	}
 };
