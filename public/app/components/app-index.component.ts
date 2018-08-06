@@ -101,20 +101,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 		let previousMqAlias: string = '';
 		sub = this.media.asObservable().subscribe((event: MediaChange) => {
 			console.log('flex-layout media change event', event);
-			/*
-			this.gridColumns = (event.mqAlias === 'xs') ? 1 : (event.mqAlias === 'sm') ? 2 : (event.mqAlias === 'md') ? 3 : (event.mqAlias === 'lg') ? 4 : 5;
-
-			if (event.mqAlias === 'xs' || event.mqAlias === 'sm') {
-				this.showBandcampGrid = false;
-				this.gridInitialized = false;
-				// reset bandcamp counters
-				this.resetBandcampCounters();
-				this.previousScrollTopValue = 0;
-			} else {
-				this.showBandcampGrid = true;
-				this.gridInitialized = true;
-			}
-			*/
 
 			if (/(xs|sm)/.test(previousMqAlias) && /!(xs|sm)/.test(event.mqAlias)) {
 				// rerender facebook widget

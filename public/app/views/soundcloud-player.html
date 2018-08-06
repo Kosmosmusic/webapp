@@ -26,10 +26,10 @@
 					<mat-icon class="material-icons" *ngIf="j === selectedTrackIndex && playbackInProgress()">pause</mat-icon>
 					{{track.playback_count}}
 				</button>
-				<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
+				<a mat-button *ngIf="track.downloadable" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
 					<mat-icon class="material-icons">save</mat-icon> <span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
 				</a>
-				<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
+				<a mat-button *ngIf="track.purchase_url" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
 					<mat-icon class="material-icons">open_in_new</mat-icon> <span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
 				</a>
 				<button mat-button disabled="true">
@@ -43,11 +43,11 @@
 				<mat-icon class="material-icons" *ngIf="j === selectedTrackIndex && playbackInProgress()">pause</mat-icon>
 				{{track.playback_count}}
 			</button>
-			<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
-				<mat-icon class="material-icons">save</mat-icon> <span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
+			<a mat-button *ngIf="track.downloadable" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
+				<mat-icon class="material-icons">save</mat-icon> {{track.download_count}}
 			</a>
-			<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
-				<mat-icon class="material-icons">open_in_new</mat-icon> <span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
+			<a mat-button *ngIf="track.purchase_url" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
+				<mat-icon class="material-icons">open_in_new</mat-icon> {{'action.buy' | translate}}
 			</a>
 			<button mat-button disabled="true">
 				<mat-icon class="material-icons">favorite</mat-icon> {{track.favoritings_count}}
