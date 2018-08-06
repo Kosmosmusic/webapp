@@ -263,6 +263,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	private resetPlayer(): void {
 		this.playerKill();
 		this.soundcloudService.resetServiceData();
+		this.tracks = [];
 	}
 
 	/**
