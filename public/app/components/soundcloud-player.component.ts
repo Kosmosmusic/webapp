@@ -1,4 +1,4 @@
-import { Component, Input, Inject, OnInit, OnDestroy, ElementRef, HostBinding } from '@angular/core';
+import { Component, Input, Inject, OnInit, OnDestroy, OnChanges, SimpleChanges, ElementRef, HostBinding } from '@angular/core';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -17,7 +17,7 @@ import { SoundcloudService } from '../services/soundcloud.service';
 		class: 'mat-body-1'
 	}
 })
-export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
+export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
 	/**
 	 * @param el Element reference
@@ -46,7 +46,17 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 	/**
 	 * Soundcloud player mode.
 	 */
-	@Input('mode') private mode: 'user'|'playlist' = 'user';
+	@Input('mode') private mode: 'kosmosmusic'|'kosmoslab'|'playlist' = 'kosmosmusic';
+
+	/**
+	 * Predefined
+	 */
+	private predefinedIDs = {
+		user: {
+			kosmosmusic: '403059',
+			kosmoslab: '217740895'
+		}
+	};
 
 	/**
 	 * Soundcloud user id.
@@ -141,6 +151,14 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 		return false;
 	}
 	/**
+	 * Kills player.
+	 */
+	private playerKill(): void {
+		if (this.player) {
+			this.player.kill();
+		}
+	}
+	/**
 	 * Triggers player playback/pause.
 	 * @param track Track object
 	 * @param trackIndex Track index in view component array
@@ -149,9 +167,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 		console.log('playTrack, track: ', track, ', trackIndex', trackIndex);
 		if (this.selectedTrackIndex !== trackIndex) {
 			// kill player if exists
-			if (this.player) {
-				this.player.kill();
-			}
+			this.playerKill();
 			this.selectTrack(trackIndex);
 			this.emitter.emitSpinnerStartEvent();
 			this.soundcloudService.streamTrack(track.id).then(
@@ -240,12 +256,22 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 	}
 
 	/**
+	 * Resets player.
+	 * Is used when mode Input chanes.
+	 * Kills player, resets soundcloud service data.
+	 */
+	private resetPlayer(): void {
+		this.playerKill();
+		this.soundcloudService.resetServiceData();
+	}
+
+	/**
 	 * Lifecycle hook called after component is initialized.
 	 */
 	public ngOnInit(): void {
 		console.log('ngOnInit: SoundcloudPlayerComponent initialized');
 
-		if (this.mode === 'user') {
+		if (/(kosmosmusic|kosmoslab)/.test(this.mode)) {
 			this.loadMoreTracks();
 		} else if (this.mode === 'playlist') {
 			this.soundcloudService.getPlaylist(this.playlistId).then(
@@ -266,6 +292,21 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy {
 			}
 		});
 		this.subscriptions.push(sub);
+	}
+	/**
+	 * Lifecycle hook called on input changes.
+	 */
+	public ngOnChanges(changes: SimpleChanges): void {
+		console.log('SoundcloudPlayerComponent, changes', changes);
+		if (changes.mode.currentValue === 'kosmoslab') {
+			this.resetPlayer();
+			this.userId = this.predefinedIDs.user.kosmoslab;
+			this.loadMoreTracks();
+		} else if (changes.mode.currentValue === 'kosmosmusic') {
+			this.resetPlayer();
+			this.userId = this.predefinedIDs.user.kosmosmusic;
+			this.loadMoreTracks();
+		}
 	}
 	/**
 	 * Lifecycle hook called after component is destroyed.
