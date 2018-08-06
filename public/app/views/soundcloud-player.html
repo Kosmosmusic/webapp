@@ -22,31 +22,35 @@
 			</div>
 			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start end" fxHide.lt-sm>
 				<button mat-button (click)="playTrack(track, j)" matTooltip="{{ 'action.play' | translate }}" matTooltipPosition="above">
-					<i class="fa" [ngClass]="{'fa-play': j !== selectedTrackIndex || !playbackInProgress(), 'fa-pause': j === selectedTrackIndex && playbackInProgress()}"></i> {{track.playback_count}}
+					<mat-icon class="material-icons" *ngIf="j !== selectedTrackIndex || !playbackInProgress()">play_arrow</mat-icon>
+					<mat-icon class="material-icons" *ngIf="j === selectedTrackIndex && playbackInProgress()">pause</mat-icon>
+					{{track.playback_count}}
 				</button>
 				<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
-					<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
+					<mat-icon class="material-icons">save</mat-icon> <span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
 				</a>
 				<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
-					<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
+					<mat-icon class="material-icons">open_in_new</mat-icon> <span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
 				</a>
 				<button mat-button disabled="true">
-					<i class="fa fa-heart"></i> {{track.favoritings_count}}
+					<mat-icon class="material-icons">favorite</mat-icon> {{track.favoritings_count}}
 				</button>
 			</div>
 		</div>
 		<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" fxHide.gt-xs>
 			<button mat-button (click)="playTrack(track, j)" matTooltip="{{ 'action.play' | translate }}" matTooltipPosition="above">
-				<i class="fa" [ngClass]="{'fa-play': j !== selectedTrackIndex || !playbackInProgress(), 'fa-pause': j === selectedTrackIndex && playbackInProgress()}"></i> {{track.playback_count}}
+				<mat-icon class="material-icons" *ngIf="j !== selectedTrackIndex || !playbackInProgress()">play_arrow</mat-icon>
+				<mat-icon class="material-icons" *ngIf="j === selectedTrackIndex && playbackInProgress()">pause</mat-icon>
+				{{track.playback_count}}
 			</button>
 			<a mat-button *ngIf="track.downloadable" title="download" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" target=_blank>
-				<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
+				<mat-icon class="material-icons">save</mat-icon> <span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
 			</a>
 			<a mat-button *ngIf="track.purchase_url" title="{{track.purchase_title || 'buy'}}" href="{{track.purchase_url}}" matTooltip="{{track.purchase_title || ('action.buy' | translate)}}" matTooltipPosition="above" target=_blank>
-				<i class="fa fa-save"></i>&nbsp;<span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
+				<mat-icon class="material-icons">open_in_new</mat-icon> <span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
 			</a>
 			<button mat-button disabled="true">
-				<i class="fa fa-heart"></i> {{track.favoritings_count}}
+				<mat-icon class="material-icons">favorite</mat-icon> {{track.favoritings_count}}
 			</button>
 		</div>
 	</div>
