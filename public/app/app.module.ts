@@ -50,12 +50,13 @@ import { SoundcloudService } from './services/soundcloud.service';
 import { FacebookService } from './services/facebook.service';
 
 import { IframeContentLoadedDirective } from './directives/iframe-content-loaded.directive';
+import { ImageLoadedDirective } from './directives/image-loaded.directive';
 
 @NgModule({
 	declarations: [ AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
 									AppMixesComponent, AppVideosComponent, AppAboutComponent, SoundcloudPlayerComponent,
 									AppContactDialog, AppDemoDialog, AppBookingDialog,
-									IframeContentLoadedDirective,
+									IframeContentLoadedDirective, ImageLoadedDirective,
 									TranslatePipe
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],

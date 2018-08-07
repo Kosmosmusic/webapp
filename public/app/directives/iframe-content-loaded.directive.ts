@@ -8,6 +8,9 @@ import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@ang
 })
 export class IframeContentLoadedDirective implements OnInit {
 
+	/**
+	 * @param el Element reference
+	 */
 	constructor(
 		private el: ElementRef
 	) {}
@@ -16,6 +19,9 @@ export class IframeContentLoadedDirective implements OnInit {
 
 	@Output('loadedcallback') public loadedCallback: EventEmitter<any> = new EventEmitter<any>();
 
+	/**
+	 * Emits loaded event.
+	 */
 	private emitLoadedEvent(): void {
 		this.loadedCallback.emit(true);
 	}

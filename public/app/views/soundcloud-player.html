@@ -8,7 +8,7 @@
 			<div fxFlex="5px"></div>
 		</div>
 		<div fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="start center">
-			<img [ngStyle]="{width: '120px', height: '120px'}" [src]="track.artwork_url" (click)="playTrack(track, j)" matTooltip="Play / Pause" matTooltipPosition="after"/>
+			<img imageloaded [ngStyle]="{width: '120px', height: '120px'}" [src]="track.artwork_url" (click)="playTrack(track, j)" matTooltip="Play / Pause" matTooltipPosition="after"/>
 			<div fxFlex="1 1 auto">{{track.genre}}</div>
 			<div fxFlex="1 1 auto">{{track.license}}</div>
 		</div>
@@ -16,7 +16,7 @@
 			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center stretch">
 				<div fxFlex="10px"></div>
 				<div fxFlex="1 1 auto" *ngIf="j === selectedTrackIndex && player">
-					<img [ngStyle]="{'max-width': '100%', 'min-width': '150px', 'min-height': '150px'}" src="{{track.waveform_url}}" class="waveform" (click)="waveformClick($event)" />
+					<img imageloaded [ngStyle]="{'max-width': '100%', 'min-width': '150px', 'min-height': '150px'}" src="{{track.waveform_url}}" class="waveform" (click)="waveformClick($event)" />
 				</div>
 				<div fxFlex="10px"></div>
 			</div>
