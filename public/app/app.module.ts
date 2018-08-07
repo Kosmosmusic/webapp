@@ -9,9 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { JsonpModule} from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { APP_ROUTES } from './app.routes';
+
+import { AppRoutingModule } from './app.routing.module';
 
 /*
 *	Some material components rely on hammerjs
@@ -33,12 +32,13 @@ import { AppBookingDialog } from './components/app-booking.component';
 
 import { SoundcloudPlayerComponent } from './components/soundcloud-player.component';
 
-import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService } from './modules/translate/index';
+import { TranslateModule } from './modules/translate/index';
 
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
 import { CustomDeferredService } from './services/custom-deferred.service';
 import { CustomHttpHandlersService } from './services/custom-http-handlers.service';
 import { EventEmitterService } from './services/event-emitter.service';
+import { UserInterfaceUtilsService } from './services/user-interface-utils.service';
 
 import { GoogleApiService } from './services/google-api.service';
 import { FirebaseService } from './services/firebase.service';
@@ -56,16 +56,15 @@ import { ImageLoadedDirective } from './directives/image-loaded.directive';
 	declarations: [ AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
 									AppMixesComponent, AppVideosComponent, AppAboutComponent, SoundcloudPlayerComponent,
 									AppContactDialog, AppDemoDialog, AppBookingDialog,
-									IframeContentLoadedDirective, ImageLoadedDirective,
-									TranslatePipe
+									IframeContentLoadedDirective, ImageLoadedDirective
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
-									FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(APP_ROUTES)
+									FormsModule, ReactiveFormsModule, HttpClientModule, TranslateModule.forRoot(), AppRoutingModule
 								],
 	providers 	: [ { provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
-									{ provide: 'Window', useValue: window }, TRANSLATION_PROVIDERS, TranslateService,
-									CustomServiceWorkerService, CustomDeferredService, CustomHttpHandlersService, EventEmitterService,
+									{ provide: 'Window', useValue: window }, CustomServiceWorkerService, CustomDeferredService,
+									CustomHttpHandlersService, EventEmitterService, UserInterfaceUtilsService,
 									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendBookingRequestService,
 									EmailSubscriptionService, SoundcloudService, FacebookService
 								],

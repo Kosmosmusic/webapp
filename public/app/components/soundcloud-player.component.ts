@@ -1,4 +1,4 @@
-import { Component, Input, Inject, OnInit, OnDestroy, OnChanges, SimpleChanges, ElementRef, HostBinding } from '@angular/core';
+import { Component, Input, Inject, OnInit, OnDestroy, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -6,8 +6,10 @@ import { EventEmitterService } from '../services/event-emitter.service';
 import { FirebaseService } from '../services/firebase.service';
 import { SoundcloudService } from '../services/soundcloud.service';
 
+import { UserInterfaceUtilsService } from '../services/user-interface-utils.service';
+
 /**
- * Demo dialog.
+ * Soundcloud player component.
  */
 @Component({
 	selector: 'soundcloud-player',
@@ -25,6 +27,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	 * @param emitter Event emitter service - components interaction
 	 * @param firebaseService Service for making firebase requests
 	 * @param soundcloudService Soundcloud API wrapper
+	 * @param uiUtils User Interface Utilities Service
 	 * @param window Window reference
 	 */
 	constructor(
@@ -33,6 +36,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 		private emitter: EventEmitterService,
 		private firebaseService: FirebaseService,
 		private soundcloudService: SoundcloudService,
+		public uiUtils: UserInterfaceUtilsService,
 		@Inject('Window') private window: Window
 	) {
 		console.log('SoundcloudPlayerComponent constructor, el', this.el.nativeElement);

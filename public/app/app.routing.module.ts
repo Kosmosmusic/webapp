@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { AppIndexComponent } from './components/app-index.component';
 import { AppMasteringComponent } from './components/app-mastering.component';
 import { AppMixesComponent } from './components/app-mixes.component';
@@ -14,3 +15,12 @@ export const APP_ROUTES: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full'},
 	{ path: '**', redirectTo: 'index' }
 ];
+
+/**
+ * Application routing module.
+ */
+@NgModule({
+	imports: [ RouterModule.forRoot(APP_ROUTES) ],
+	exports: [ RouterModule ]
+})
+export class AppRoutingModule {}
