@@ -57,4 +57,5 @@ exports.config = {
 		showColors: true,
 		defaultTimeoutInterval: 5000000
 	}
+
 };

@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 import { SendEmailService } from '../services/send-email.service';
-import { EmailSubscriptionService } from '../services/email-subscription.service';
 
 import { TranslateService } from '../modules/translate/translate.service';
 
