@@ -19,7 +19,7 @@ GOOGLE_APIS_BROWSER_KEY=google_apis_browser_key
 GOOGLE_APIS_CLIENT_ID=google_apis_client_id
 ```
 
-TODO `PRIVILIGED_ACCESS_FIREBASE_URL` is admin user account id, leave it empty for now;
+TODO `PRIVILIGED_ACCESS_FIREBASE_UID` is admin user account id, leave it empty for now;
 
 alternatively a script `set-env.sh` can guide you through the process of setting environment variables, use it like
 

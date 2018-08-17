@@ -24,6 +24,7 @@ test/client/**/*.js.map
 
 # built client app files
 public/js/*.min.js
+public/js/*.min.js.map
 public/css/*.min.css
 public/webfonts/*.*
 !public/webfonts/*.gitkeep
