@@ -1,8 +1,11 @@
 <span fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start start">
-	<div fxFlex="50" fxFlex.xs="100" fxFlex.sm="100" class="mat-body-1" [ngStyle]="{'padding': '5px'}">
-		<p>{{ 'services.paragraph1' | translate }}</p>
-		<p>{{ 'services.paragraph2' | translate }}</p>
-		<p>{{ 'services.paragraph3' | translate }}</p>
+	<div fxFlex="50" fxFlex.xs="100" fxFlex.sm="100" fxLayout="row wrap" fxLayoutAlign="start start" class="mat-body-1" [ngStyle]="{'padding': '5px'}">
+		<div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" [ngStyle]="{'padding': '25px'}">
+			<img [ngStyle]="{'max-width': '275px', 'width': '90%'}" src="./img/kosmos_square.svg">
+		</div>
+		<p fxFlex="100">{{ 'services.paragraph1' | translate }}</p>
+		<p fxFlex="100">{{ 'services.paragraph2' | translate }}</p>
+		<p fxFlex="100">{{ 'services.paragraph3' | translate }}</p>
 	</div>
 	<soundcloud-player fxFlex="50" fxFlex.lt-md="100" [mode]="'kosmoslab'"></soundcloud-player>
 </span>
