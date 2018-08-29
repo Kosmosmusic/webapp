@@ -39,7 +39,7 @@
 		"@types/hammerjs": "^2.0.35",
 		"@types/jasmine": "^2.8.8",
 		"@types/jquery": "^3.3.6",
-		"@types/node": "^10.9.2",
+		"@types/node": "^10.9.3",
 		"components-font-awesome": "^5.0.6",
 		"core-js": "^2.5.7",
 		"dotenv": "^6.0.0",
