@@ -1,12 +1,12 @@
 import { Component, Input, Inject, OnInit, OnDestroy, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
 
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
 import { EventEmitterService } from '../services/event-emitter.service';
 import { FirebaseService } from '../services/firebase.service';
 import { SoundcloudService } from '../services/soundcloud.service';
 
 import { UserInterfaceUtilsService } from '../services/user-interface-utils.service';
+
+import { ISoundcloudPlaylist } from '../interfaces/index';
 
 /**
  * Soundcloud player component.
@@ -23,7 +23,6 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
 	/**
 	 * @param el Element reference
-	 * @param sanitizer DOM danitizer
 	 * @param emitter Event emitter service - components interaction
 	 * @param firebaseService Service for making firebase requests
 	 * @param soundcloudService Soundcloud API wrapper
@@ -32,7 +31,6 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	 */
 	constructor(
 		private el: ElementRef,
-		private sanitizer: DomSanitizer,
 		private emitter: EventEmitterService,
 		private firebaseService: FirebaseService,
 		private soundcloudService: SoundcloudService,
@@ -53,12 +51,15 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	@Input('mode') private mode: 'kosmosmusic'|'kosmoslab'|'playlist' = 'kosmosmusic';
 
 	/**
-	 * Predefined
+	 * Predefined ids.
 	 */
 	private predefinedIDs = {
 		user: {
 			kosmosmusic: '403059',
 			kosmoslab: '217740895'
+		},
+		playlist: {
+			mixes: '24529973'
 		}
 	};
 
@@ -70,17 +71,17 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	/**
 	 * Soundcloud playlist id.
 	 */
-	@Input('playlistId') private playlistId: string = '1275637';
+	@Input('playlistId') private playlistId: string = '24529973';
 
 	/**
 	 * Soundcloud user tracks from shared service.
 	 */
-	public tracks: any[] = this.soundcloudService.data.tracks.collection.slice();
+	public tracks: any[] = (this.soundcloudService.data.tracks.collection) ? this.soundcloudService.data.tracks.collection.slice() : [];
 
 	/**
 	 * Soundcloud playlist.
 	 */
-	public playlist: any = {};
+	public playlist: ISoundcloudPlaylist = this.soundcloudService.data.playlist || new ISoundcloudPlaylist();
 
 	/**
 	 * Selected track index.
@@ -112,30 +113,49 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	private loading: boolean = false;
 
 	/**
-	 * Loads more soundcloud tracks.
+	 * Loads more soundcloud tracks or a playlist.
 	 */
 	private loadMoreTracks(): void {
 		if (!this.noMoreTracks && !this.loading) {
 			this.loading = true;
 			this.emitter.emitSpinnerStartEvent();
-			console.log('this.tracks.length', this.tracks.length);
-			this.soundcloudService.getUserTracks(this.userId).then(
-				(collection: any[]) => {
-					console.log('current tracks, this tracks', this.tracks);
-					console.log('got more user tracks, collection', collection);
-					if (!collection.length) {
-						this.noMoreTracks = true;
+			if (/(kosmosmusic|kosmoslab)/.test(this.mode)) {
+				console.log('this.tracks.length', this.tracks.length);
+				this.soundcloudService.getUserTracks(this.userId).then(
+					(collection: any[]) => {
+						console.log('current tracks', this.tracks);
+						console.log('got more user tracks, collection', collection);
+						if (!collection.length) {
+							this.noMoreTracks = true;
+						}
+						this.tracks = this.soundcloudService.data.tracks.collection.slice();
+						this.loading = false;
+						this.emitter.emitSpinnerStopEvent();
+					},
+					(error: any) => {
+						console.log('soundcloudService.getUserTracks, error', error);
+						this.loading = false;
+						this.emitter.emitSpinnerStopEvent();
 					}
-					this.tracks = this.soundcloudService.data.tracks.collection.slice();
-					this.loading = false;
-					this.emitter.emitSpinnerStopEvent();
-				},
-				(error: any) => {
-					console.log('soundcloudService.getUserTracks, error', error);
-					this.loading = false;
-					this.emitter.emitSpinnerStopEvent();
-				}
-			);
+				);
+			} else if (/playlist/.test(this.mode)) {
+				console.log('this.playlist', this.playlist);
+				this.soundcloudService.getPlaylist(this.playlistId).then(
+					(playlist: ISoundcloudPlaylist) => {
+						console.log('current playlist', this.playlist);
+						console.log('new playlist value', playlist);
+						this.noMoreTracks = true;
+						this.playlist = this.soundcloudService.data.playlist;
+						this.loading = false;
+						this.emitter.emitSpinnerStopEvent();
+					},
+					(error: any) => {
+						console.log('soundcloudService.getUserTracks, error', error);
+						this.loading = false;
+						this.emitter.emitSpinnerStopEvent();
+					}
+				);
+			}
 		} else {
 			console.log('Soundcloud player: no more tracks');
 		}
@@ -276,17 +296,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	public ngOnInit(): void {
 		console.log('ngOnInit: SoundcloudPlayerComponent initialized');
 
-		if (/(kosmosmusic|kosmoslab)/.test(this.mode)) {
-			this.loadMoreTracks();
-		} else if (this.mode === 'playlist') {
-			this.soundcloudService.getPlaylist(this.playlistId).then(
-				(playlist: object) => {
-					console.log('got playlist', playlist);
-					this.playlist = playlist;
-				},
-				(error: any) => console.log('soundcloudService.getUserTracks, error', error)
-			);
-		}
+		this.loadMoreTracks();
 
 		const sub: any = this.emitter.getEmitter().subscribe((event: any) => {
 			console.log('SoundcloudPlayerComponent consuming event:', event);

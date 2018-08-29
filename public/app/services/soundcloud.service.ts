@@ -1,13 +1,13 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { CustomHttpHandlersService } from './custom-http-handlers.service';
 import { CustomDeferredService } from './custom-deferred.service';
 
-import { Observable } from 'rxjs';
 import { timeout, take, tap, map, catchError } from 'rxjs/operators';
 
-import { ISoundcloudTracksLinkedPartitioning } from '../interfaces';
+import { ISoundcloudTracksLinkedPartitioning } from '../interfaces/index';
+import { ISoundcloudPlaylist } from '../interfaces/index';
 
 declare let SC;
 
@@ -52,12 +52,9 @@ export class SoundcloudService {
 	/**
 	 * Shared Soundcloud data.
 	 */
-	public data: { tracks: ISoundcloudTracksLinkedPartitioning, playlist: any[] } = {
-		tracks: {
-			collection: [],
-			next_href: ''
-		},
-		playlist: []
+	public data: { tracks: ISoundcloudTracksLinkedPartitioning, playlist: ISoundcloudPlaylist } = {
+		tracks: new ISoundcloudTracksLinkedPartitioning(),
+		playlist: new ISoundcloudPlaylist()
 	};
 
 	/**
@@ -71,11 +68,8 @@ export class SoundcloudService {
 	 */
 	public resetServiceData(): void {
 		this.data = {
-			tracks: {
-				collection: [],
-				next_href: ''
-			},
-			playlist: []
+			tracks: new ISoundcloudTracksLinkedPartitioning(),
+			playlist: new ISoundcloudPlaylist()
 		};
 		this.noMoreTracks = false;
 	}
@@ -111,7 +105,7 @@ export class SoundcloudService {
 	 * Calls getTracksNextHref if data.tracks.next_href is truthy.
 	 * @param userId Soundcloud user id
 	 */
-	public getUserTracks(userId: string): Promise<any> {
+	public getUserTracks(userId: string): Promise<any[]> {
 		const def: CustomDeferredService<any> = new CustomDeferredService<any>();
 		if (this.noMoreTracks) {
 			// don't waste bandwidth, there's no more tracks
@@ -147,15 +141,16 @@ export class SoundcloudService {
 	 * Gets soundcloud playlist.
 	 * @param playlistId Soundcloud playlist id
 	 */
-	public getPlaylist(playlistId: string): Promise<any> {
+	public getPlaylist(playlistId: string): Promise<ISoundcloudPlaylist> {
 		const def: CustomDeferredService<any> = new CustomDeferredService<any>();
 		SC.get(`/playlists/${playlistId}`)
-			.then((playlist: any) => {
+			.then((playlist: ISoundcloudPlaylist) => {
 				playlist.description = this.processDescription(playlist.description);
 				playlist.tracks = playlist.tracks.map((track: any) => {
 					track.description = this.processDescription(track.description);
 					return track;
 				});
+				this.data.playlist = playlist;
 				def.resolve(playlist);
 			})
 			.catch((error: any) => def.reject(error));

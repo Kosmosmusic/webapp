@@ -1,6 +1,4 @@
-import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
-
-import { EventEmitterService } from '../services/event-emitter.service';
+import { Component, OnInit, OnDestroy, ElementRef, HostBinding } from '@angular/core';
 
 @Component({
 	selector: 'app-mixes',
@@ -12,23 +10,14 @@ import { EventEmitterService } from '../services/event-emitter.service';
 export class AppMixesComponent implements OnInit, OnDestroy {
 
 	constructor(
-		private emitter: EventEmitterService
+		private el: ElementRef
 	) {}
 
 	@HostBinding('fxLayout') public fxLayout: string = 'row';
 	@HostBinding('fxLayoutAlign') public fxLayoutAlign: string = 'start stretch';
 
-	/**
-	 * Should be called once iframe content finished loading.
-	 */
-	public contentLoaded(): void {
-		console.log('content loaded');
-		this.emitter.emitSpinnerStopEvent();
-	}
-
 	public ngOnInit(): void {
-		console.log('ngOnInit: AppMixesComponent initialized');
-		this.emitter.emitSpinnerStartEvent();
+		console.log('ngOnInit: AppMixesComponent initialized', this.el);
 	}
 
 	public ngOnDestroy(): void {
