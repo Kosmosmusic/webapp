@@ -28,7 +28,7 @@
 				<button mat-button (click)="playTrack(track, j)" matTooltip="{{ 'action.play' | translate }}" matTooltipPosition="above" matTooltipShowDelay="{{uiUtils.tooltipShowDelay}}">
 					<mat-icon class="material-icons" *ngIf="j !== selectedTrackIndex || !playbackInProgress()">play_arrow</mat-icon>
 					<mat-icon class="material-icons" *ngIf="j === selectedTrackIndex && playbackInProgress()">pause</mat-icon>
-					{{track.playback_count}}
+					<span *ngIf="track.playback_count">{{track.playback_count}}</span>
 				</button>
 				<a mat-button *ngIf="track.downloadable" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" matTooltipShowDelay="{{uiUtils.tooltipShowDelay}}" target=_blank>
 					<mat-icon class="material-icons">save</mat-icon> <span fxHide.lt-sm>{{ 'action.download' | translate }}</span>
@@ -37,7 +37,8 @@
 					<mat-icon class="material-icons">open_in_new</mat-icon> <span fxHide.lt-sm>{{track.purchase_title || ('action.buy' | translate)}}</span>
 				</a>
 				<button mat-button disabled="true">
-					<mat-icon class="material-icons">favorite</mat-icon> {{track.favoritings_count}}
+					<mat-icon class="material-icons">favorite</mat-icon>
+					<span *ngIf="track.favoritings_count">{{track.favoritings_count}}</span>
 				</button>
 			</div>
 		</div>
@@ -45,7 +46,7 @@
 			<button mat-button (click)="playTrack(track, j)" matTooltip="{{ 'action.play' | translate }}" matTooltipPosition="above" matTooltipShowDelay="{{uiUtils.tooltipShowDelay}}">
 				<mat-icon class="material-icons" *ngIf="j !== selectedTrackIndex || !playbackInProgress()">play_arrow</mat-icon>
 				<mat-icon class="material-icons" *ngIf="j === selectedTrackIndex && playbackInProgress()">pause</mat-icon>
-				{{track.playback_count}}
+				<span *ngIf="track.playback_count">{{track.playback_count}}</span>
 			</button>
 			<a mat-button *ngIf="track.downloadable" href="{{getLinkWithId(track.download_url)}}" matTooltip="{{ 'action.download' | translate}}" matTooltipPosition="above" matTooltipShowDelay="{{uiUtils.tooltipShowDelay}}" target=_blank>
 				<mat-icon class="material-icons">save</mat-icon> {{track.download_count}}
@@ -54,7 +55,8 @@
 				<mat-icon class="material-icons">open_in_new</mat-icon> {{'action.buy' | translate}}
 			</a>
 			<button mat-button disabled="true">
-				<mat-icon class="material-icons">favorite</mat-icon> {{track.favoritings_count}}
+				<mat-icon class="material-icons">favorite</mat-icon>
+				<span *ngIf="track.favoritings_count">{{track.favoritings_count}}</span>
 			</button>
 		</div>
 	</div>

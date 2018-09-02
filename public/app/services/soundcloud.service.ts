@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CustomHttpHandlersService } from './custom-http-handlers.service';
 import { CustomDeferredService } from './custom-deferred.service';
 
-import { timeout, take, tap, map, catchError } from 'rxjs/operators';
+import { timeout, take, map, catchError } from 'rxjs/operators';
 
 import { ISoundcloudTracksLinkedPartitioning } from '../interfaces/index';
 import { ISoundcloudPlaylist } from '../interfaces/index';
@@ -158,7 +158,7 @@ export class SoundcloudService {
 	}
 
 	/**
-	 * Provesses soundcloud playlist description.
+	 * Processes soundcloud playlist description.
 	 * Converts:
 	 * - \n to <br/>
 	 * - links to anchors
