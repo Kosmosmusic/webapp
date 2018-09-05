@@ -10,14 +10,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app.routing.module';
-
 /*
 *	Some material components rely on hammerjs
 *	CustomMaterialModule loads exact material modules
 */
 import '../../node_modules/hammerjs/hammer.js';
 import { CustomMaterialModule } from './modules/custom-material.module';
+
+import { AppRoutingModule } from './app.routing.module';
 
 import { AppComponent } from './app.component';
 import { AppNavComponent } from './components/app-nav.component';
@@ -33,6 +33,9 @@ import { AppBookingDialog } from './components/app-booking.component';
 import { SoundcloudPlayerComponent } from './components/soundcloud-player.component';
 
 import { TranslateModule } from './modules/translate/index';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
 import { CustomDeferredService } from './services/custom-deferred.service';
@@ -52,6 +55,8 @@ import { FacebookService } from './services/facebook.service';
 import { IframeContentLoadedDirective } from './directives/iframe-content-loaded.directive';
 import { ImageLoadedDirective } from './directives/image-loaded.directive';
 
+import { ENV } from './app.environment';
+
 @NgModule({
 	declarations: [ AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
 									AppMixesComponent, AppVideosComponent, AppAboutComponent, SoundcloudPlayerComponent,
@@ -60,10 +65,13 @@ import { ImageLoadedDirective } from './directives/image-loaded.directive';
 								],
 	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
-									FormsModule, ReactiveFormsModule, HttpClientModule, TranslateModule.forRoot(), AppRoutingModule
+									FormsModule, ReactiveFormsModule, HttpClientModule, TranslateModule.forRoot(),
+									AngularFireModule.initializeApp(ENV.firebase, 'kosmosmusic'), AngularFireDatabaseModule,
+									AppRoutingModule
 								],
 	providers 	: [ { provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
-									{ provide: 'Window', useValue: window }, CustomServiceWorkerService, CustomDeferredService,
+									{ provide: 'Window', useValue: window }, { provide: ENV, useValue: ENV },
+									CustomServiceWorkerService, CustomDeferredService,
 									CustomHttpHandlersService, EventEmitterService, UserInterfaceUtilsService,
 									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendBookingRequestService,
 									EmailSubscriptionService, SoundcloudService, FacebookService

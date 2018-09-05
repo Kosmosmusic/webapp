@@ -39,6 +39,7 @@
 		"@types/hammerjs": "^2.0.35",
 		"@types/jasmine": "^2.8.8",
 		"@types/node": "^10.9.4",
+		"angularfire2": "^5.0.0-rc.12",
 		"components-font-awesome": "^5.0.6",
 		"core-js": "^2.5.7",
 		"dotenv": "^6.0.0",
