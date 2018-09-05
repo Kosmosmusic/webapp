@@ -45,9 +45,9 @@ var staticAssets = [
 	'/public/webfonts/MaterialIcons-Regular.eot',
 	'/public/webfonts/MaterialIcons-Regular.woff',
 	'/public/webfonts/MaterialIcons-Regular.woff2',
-	'/public/img/body_bg.jpg',
 	'/public/img/kosmos_circle.svg',
 	'/public/img/kosmos_square.svg',
+	'/public/img/kosmos_square.jpg',
 	'/favicon.ico'
 ];
 

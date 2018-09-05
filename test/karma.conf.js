@@ -8,8 +8,6 @@ module.exports = function(config) {
 		basePath : '../',
 
 		files : [
-			'node_modules/jquery/dist/jquery.js',
-
 			'node_modules/firebase/firebase.js',
 
 			'node_modules/core-js/client/shim.js',

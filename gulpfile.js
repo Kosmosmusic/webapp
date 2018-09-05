@@ -275,8 +275,6 @@ gulp.task('pack-vendor-js', () => {
 		'./node_modules/reflect-metadata/Reflect.js',
 		'./node_modules/web-animations-js/web-animations.min.js',
 
-		'./node_modules/jquery/dist/jquery.js',
-
 		'./node_modules/firebase/firebase.js'
 	])
 		.pipe(plumber())

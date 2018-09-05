@@ -11,8 +11,6 @@ import { AppDemoDialog } from './components/app-demo.component';
 import { AppContactDialog } from './components/app-contact.component';
 import { AppBookingDialog } from './components/app-booking.component';
 
-declare let $: JQueryStatic;
-
 @Component({
 	selector: 'app',
 	templateUrl: '/app/views/app.html'
@@ -181,10 +179,19 @@ export class AppComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	/**
+	 * Removes UI initialization object, kind of splashscreen.
+	 */
+	private removeUIinit(): void {
+		const initUIobj: HTMLElement = this.window.document.getElementById('init');
+		console.log('initUIobj', initUIobj);
+		initUIobj.parentNode.removeChild(initUIobj);
+	}
+
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppComponent initialized');
 
-		$('#init').remove(); // remove initialization text
+		this.removeUIinit();
 
 		let sub: any = this.emitter.getEmitter().subscribe((event: any) => {
 			console.log('AppComponent, event:', event);
