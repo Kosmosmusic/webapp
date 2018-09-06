@@ -1,15 +1,32 @@
+/**
+ * @name getCacheName
+ * @member {Function}
+ * @summary Gets cache name.
+ * @description Gets build hash.
+ * @returns {Promise}
+ */
 function getCacheName() {
-	return new Promise(function(resolve/*, reject*/) {
+	return new Promise(function(resolve) {
 		fetch(self.registration.scope + 'hashsum.json').then(async function(response) {
 			var json = await response.json();
 			resolve('kosmosmusic-' + json.hashsum);
-		}).catch(function(/*error*/) {
+		}).catch(function() {
 			resolve('NA-' + new Date().getTime());
 		});
 	});
 }
+
+/**
+ * @name cacheName
+ * @summary Cache name.
+ * @description Cache name in format: tn-webapp-HASHSUM or NA-CURRENTTIME.
+ */
 var cacheName;
 
+/**
+ * @name staticAssets
+ * @summary Cached static assets.
+ */
 var staticAssets = [
 	'/public/index.html',
 	'/public/app/views/app.html',
@@ -51,88 +68,87 @@ var staticAssets = [
 	'/favicon.ico'
 ];
 
-self.addEventListener('install', function(event) {
-	console.log('>> serviceWorker, install event', event);
-	/*
-	*	use caching then force activation
-	*/
-	event.waitUntil(
-		getCacheName().then(function(gotCacheName) {
-			cacheName = gotCacheName;
-			console.log('cacheName', cacheName);
-			caches.open(cacheName).then(function(cache) {
-				return cache.addAll(staticAssets).then(function() {
-					console.log('>> serviceWorker, cached static assets');
-					self.skipWaiting();
-				});
-			});
-		})
-	);
-});
-
-self.addEventListener('activate', function(event) {
-	console.log('>> serviceWorker, activated event', event);
-	event.waitUntil(
-		caches.keys().then(function(keys) {
-			console.log('caches keys', keys);
-			keys.forEach(function(cacheKey) {
-				if (cacheKey !== cacheName) {
-					caches.delete(cacheKey);
-				}
-			});
-		})
-	);
-});
-
+/**
+ * @name updateCache
+ * @member {Function}
+ * @summary Updates cache.
+ * @description Deletes caches with keys matching a specific pattern.
+ * @returns {Promise}
+ */
 function updateCache() {
 	return new Promise(function(resolve) {
 		getCacheName().then(function(gotCacheName) {
-			console.log('updateCache, compare build hashes');
+			console.log('SW, updateCache: compare hashes, cacheName', cacheName, '| gotCacheName', gotCacheName);
 			if (cacheName !== gotCacheName) {
 				cacheName = gotCacheName;
-				console.log('updateCache, updating cache, cacheName', cacheName);
+				console.log('SW, updateCache: updating cache, cacheName', cacheName);
 
-				caches.keys().then(function(keys) {
-					keys.forEach(function(cacheKey) {
-						if (cacheKey !== cacheName) {
-							caches.delete(cacheKey);
-						}
-					});
-				}).then(function() {
+				clearCache().then(function() {
 					caches.open(cacheName).then(function(cache) {
 						cache.addAll(staticAssets).then(function() {
-							console.log('>> serviceWorker, updated cached static assets');
+							console.log('SW, updated cached static assets');
 							resolve();
 						});
 					});
 				});
 			} else {
-				console.log('updateCache. not need to do that, build hashes are the same');
+				console.log('SW, updateCache: not need, hashes are the same');
 				resolve();
 			}
 		});
 	});
 }
 
+/**
+ * @name clearCache
+ * @member {Function}
+ * @summary Clears cache.
+ * @description Deletes all caches with name different from current cache name.
+ * @returns {Promise}
+ */
+function clearCache() {
+	return caches.keys().then(function(keys) {
+		console.log('SW, clearCache: caches', caches);
+		keys.forEach(function(key) {
+			if (key !== cacheName) {
+				caches.delete(key);
+			}
+		});
+	});
+}
+
+/**
+ * Service worker install event listener.
+ */
+self.addEventListener('install', function(event) {
+	console.log('>> serviceWorker, install event', event);
+	event.waitUntil(
+		updateCache()
+	);
+});
+
+/**
+ * Service worker activate event listener.
+ */
+self.addEventListener('activate', function(event) {
+	console.log('SW, activated event', event);
+});
+
+/**
+ * Service worker fetch event listener.
+ */
 self.addEventListener('fetch', function(event) {
-	// console.log('>> serviceWorker, fetch event', event);
 	var request = event.request;
-	if (/index\.html$/.test(request.url)) {
-		// console.log('>> serviceWorker, should check cache update, this happens on initial page load when worker is already installed');
-		event.waitUntil(updateCache());
-		event.respondWith(fetch(request));
-	} else {
-		event.respondWith(caches.open(cacheName).then(function(cache) {
-			return cache.match(request).then(function(response) {
-				if (response) {
-					// console.log('>> serviceWorker returns cached respose on request', request);
-					return response;
-				} else {
-					return fetch(request);
-				}
-			}).catch(function(error) {
-				return error;
-			});
-		}));
-	}
+	event.respondWith(caches.open(cacheName).then(function(cache) {
+		return cache.match(request).then(function(response) {
+			if (response) {
+				console.log('SW, fetch: cached response on request', request);
+				return response;
+			} else {
+				return fetch(request);
+			}
+		}).catch(function(error) {
+			return error;
+		});
+	}));
 });
