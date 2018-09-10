@@ -70,8 +70,10 @@
 		'whatwg-fetch':													'npm:whatwg-fetch/fetch.js',
 		'@firebase/util':												'npm:@firebase/util/dist/index.cjs.js',
 		'@firebase/logger':											'npm:@firebase/logger/dist/index.cjs.js',
-		'angularfire2':													'npm:angularfire2/bundles/core.umd.js',
-		'angularfire2/database':								'npm:angularfire2/bundles/database.umd.js'
+		'@angular/fire':												'npm:@angular/fire/bundles/core.umd.js',
+		'@angular/fire/database':								'npm:@angular/fire/bundles/database.umd.js',
+		'angularfire2':													'npm:angularfire2',
+		'angularfire2/database':								'npm:angularfire2/database'
 	};
 	// how to load packages
 	var packages = {
@@ -84,7 +86,10 @@
 		'rxjs/testing': 								{ main: 'index', defaultExtension: 'js' },
 		'rxjs/util': 										{ main: 'index', defaultExtension: 'js' },
 		'rxjs/webSocket': 							{ main: 'index', defaultExtension: 'js' },
-		'rxjs/internal': 								{ main: 'Rx', defaultExtension: 'js' }
+		'rxjs/internal': 								{ main: 'Rx', defaultExtension: 'js' },
+
+		'angularfire2': 								{ main: 'index', defaultExtension: 'js' },
+		'angularfire2/database': 				{ main: 'index', defaultExtension: 'js' }
 	};
 
 	var config = {
