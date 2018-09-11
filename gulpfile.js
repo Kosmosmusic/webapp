@@ -363,12 +363,51 @@ gulp.task('lint', (done) => {
 */
 
 gulp.task('watch', () => {
-	gulp.watch(['./server.js', './app/**/*.js'], ['server']); // watch server and database changes, and restart server
-	gulp.watch(['./test/server/*.js'], ['server-test']); // watch server tests changes, and run tests
-	gulp.watch(['./gulpfile.js'], ['pack-vendor-js', 'pack-vendor-css', 'move-vendor-fonts']); // watch gulpfile changes, and repack vendor assets
-	gulp.watch('./public/app/scss/*.scss', ['sass-autoprefix-minify-css']); // watch app scss-source changes, and pack application css bundle
-	gulp.watch(['./public/app/*.ts', './public/app/**/*.ts', './test/client/**/*.ts', './tslint.json'], ['spawn-rebuild-app']); // watch app ts-source chages, and rebuild app js bundle
-	gulp.watch(['./*.js', './app/**/*.js', './test/*.js', './test/client/e2e/scenarios.js', './test/server/test.js', './.eslintignore', './.eslintrc.json'], ['eslint']); // watch js file changes, and lint
+	/**
+	 * Watch server source, restart server.
+	 */
+	gulp.watch([
+		'./server.js',
+		'./functions/*.js',
+		'./app/**/*.js'
+	], ['server', 'eslint']);
+	/**
+	 * Watch server tests, run tests.
+	 */
+	gulp.watch([
+		'./test/server/*.js'
+	], ['server-test', 'eslint']);
+	/**
+	 * Watch gulpfile, repack vendor assets.
+	 */
+	gulp.watch([
+		'./gulpfile.js'
+	], ['pack-vendor-js', 'pack-vendor-css', 'move-vendor-fonts', 'eslint']);
+	/**
+	 * Watch app scss, pack application css bundle.
+	 */
+	gulp.watch([
+		'./public/app/scss/*.scss'
+	], ['sass-autoprefix-minify-css']);
+	/**
+	 * Watch client ts-source, rebuild app js bundle.
+	 */
+	gulp.watch([
+		'./public/app/**/*.ts',
+		'./test/client/**/*.ts',
+		'./tsconfig.js',
+		'./tslint.json'
+	], ['spawn-rebuild-app']);
+	/**
+	 * Watch unwatched js files by previous watchers, lint.
+	 */
+	gulp.watch([
+		'./test/*.js',
+		'./test/systemjs*.js',
+		'./test/client/e2e/scenarios.js',
+		'./.eslintignore',
+		'./.eslintrc.json'
+	], ['eslint']);
 });
 
 /*
