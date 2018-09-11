@@ -283,13 +283,17 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	 * Resets player.
 	 * Is used when mode Input chanes.
 	 * Kills player, resets soundcloud service data.
+	 * @param onlyProgress if only progress interval should be reset
 	 */
-	private resetPlayer(): void {
-		this.playerKill();
-		this.soundcloudService.resetServiceData();
-		this.tracks = [];
-		this.playlist = new ISoundcloudPlaylist();
-		this.noMoreTracks = false;
+	private resetPlayer(onlyProgress?: boolean): void {
+		if (!onlyProgress) {
+			this.playerKill();
+			this.soundcloudService.resetServiceData();
+			this.tracks = [];
+			this.playlist = new ISoundcloudPlaylist();
+			this.noMoreTracks = false;
+		}
+		clearInterval(this.waveformProgressInterval);
 	}
 
 	/**
@@ -330,6 +334,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	 */
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: SoundcloudPlayerComponent destroyed');
+		this.resetPlayer(true);
 		if (this.subscriptions.length) {
 			for (const sub of this.subscriptions) {
 				sub.unsubscribe();
