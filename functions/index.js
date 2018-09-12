@@ -172,6 +172,62 @@ exports.sendDemo = functions.https.onRequest((req, res) => {
 });
 
 /**
+ * Fallback function if mail transporter returns an error on submitMasteringOrderOverEmail.
+ */
+function saveMasteringOrderToDB(email, link, domain, res) {
+	const entry = { email, link, domain };
+	admin.database().ref('/emails/masteringOrders').push(entry).then((snapshot) => {
+		res.status(200).json({success: 'Your message was successfully sent'});
+	}).catch((error) => {
+		res.status(500).send('Error: try again later, please');
+	});
+}
+
+/**
+ * Send a mastering order over email using nodemailer.
+ */
+function sendMasteringOrder(email, link, domain, res) {
+	const mailOptions = {
+		from: '"KOS.MOS.MUSIC 👥" <' + process.env.MAILER_EMAIL +'>',
+		to: process.env.MAILER_RECIPIENT_EMAIL_MASTERING,
+		subject: `KOS.MOS.MUSIC: mastering order ✔`,
+		text: `Soundcloud playlist link: ${link}\n\nFrom: ${email}\n\nMessage was sent from domain: ${domain}`,
+		html: `<p>Soundcloud playlist link: ${link}</p><p>From: ${email}</p><p>Message was sent from domain: ${domain}</p>`
+	};
+	mailTransporter.sendMail(mailOptions, (err, info) => {
+		if (err) {
+			// console.log('Mail transporter error:', err);
+			/*
+			*	do not report error to user yet
+			*	try recording message to DB first
+			*/
+			// res.status(500).send('Mail transporter error');
+			saveMasteringOrderToDB(email, link, domain, res);
+		} else {
+			// console.log('Message sent: ' + info.response);
+			res.status(200).json({success: 'Your message was successfully sent'});
+		}
+	});
+}
+
+/**
+ * Actual send a mastering order over email cloud function.
+ */
+exports.sendMasteringOrder = functions.https.onRequest((req, res) => {
+	if (req.method !== 'POST') {
+		res.status(403).json({error: 'Forbidden method'});
+	}
+	const email = req.body.email || '';
+	const link = req.body.link || '';
+	const domain = req.body.domain || '';
+	if (/\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && /http(s)?:\/\/\w+/.test(link) && domain.length) {
+		sendDemo(email, link, domain, res);
+	} else {
+		res.status(400).send('Missing mandatory request parameters or invalid values');
+	}
+});
+
+/**
  * Fallback function if mail transporter returns an error on sendBookingRequest.
  */
 function saveBookingRequestToDB(date, venueName, venueCapacity, venueAddress, venueWebsite,

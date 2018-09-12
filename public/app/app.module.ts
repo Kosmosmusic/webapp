@@ -29,6 +29,7 @@ import { AppAboutComponent } from './components/app-about.component';
 import { AppContactDialog } from './components/app-contact.component';
 import { AppDemoDialog } from './components/app-demo.component';
 import { AppBookingDialog } from './components/app-booking.component';
+import { AppMasteringDialog } from './components/app-mastering-dialog.component';
 
 import { SoundcloudPlayerComponent } from './components/soundcloud-player.component';
 
@@ -47,6 +48,7 @@ import { GoogleApiService } from './services/google-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SendEmailService } from './services/send-email.service';
 import { SendDemoService } from './services/send-demo.service';
+import { SendMasteringOrderService } from './services/send-mastering-order.service';
 import { SendBookingRequestService } from './services/send-booking-request.service';
 import { EmailSubscriptionService } from './services/email-subscription.service';
 import { SoundcloudService } from './services/soundcloud.service';
@@ -60,10 +62,10 @@ import { ENV } from './app.environment';
 @NgModule({
 	declarations: [ AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
 									AppMixesComponent, AppVideosComponent, AppAboutComponent, SoundcloudPlayerComponent,
-									AppContactDialog, AppDemoDialog, AppBookingDialog,
+									AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog,
 									IframeContentLoadedDirective, ImageLoadedDirective
 								],
-	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog ],
+	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog ],
 	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
 									FormsModule, ReactiveFormsModule, HttpClientModule, TranslateModule.forRoot(),
 									AngularFireModule.initializeApp(ENV.firebase, 'kosmosmusic'), AngularFireDatabaseModule,
@@ -73,8 +75,8 @@ import { ENV } from './app.environment';
 									{ provide: 'Window', useValue: window }, { provide: ENV, useValue: ENV },
 									CustomServiceWorkerService, CustomDeferredService,
 									CustomHttpHandlersService, EventEmitterService, UserInterfaceUtilsService,
-									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendBookingRequestService,
-									EmailSubscriptionService, SoundcloudService, FacebookService
+									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendMasteringOrderService,
+									SendBookingRequestService, EmailSubscriptionService, SoundcloudService, FacebookService
 								],
 	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
 	bootstrap 	: [ AppComponent ]

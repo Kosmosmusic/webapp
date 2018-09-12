@@ -10,6 +10,7 @@ import { FacebookService } from './services/facebook.service';
 import { AppDemoDialog } from './components/app-demo.component';
 import { AppContactDialog } from './components/app-contact.component';
 import { AppBookingDialog } from './components/app-booking.component';
+import { AppMasteringDialog } from './components/app-mastering-dialog.component';
 
 @Component({
 	selector: 'app',
@@ -123,6 +124,25 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 		this.dialogInstance.afterClosed().subscribe((result: any) => {
 			console.log('demo dialog closed with result', result);
+			this.dialogInstance = undefined;
+		});
+	}
+
+	/**
+	 * Shows mastering dialog.
+	 */
+	public showMasteringDialog(): void {
+		this.dialogInstance = this.dialog.open(AppMasteringDialog, {
+			height: '85vh',
+			width: '95vw',
+			maxWidth: '1680',
+			maxHeight: '1024',
+			autoFocus: true,
+			disableClose: false,
+			data: {}
+		});
+		this.dialogInstance.afterClosed().subscribe((result: any) => {
+			console.log('mastering dialog closed with result', result);
 			this.dialogInstance = undefined;
 		});
 	}

@@ -74,6 +74,23 @@
 				]
 			},
 			{
+				"source": "/sendMasteringOrder",
+				"headers": [
+					{
+						"key": "Cache-Control",
+						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+					},
+					{
+						"key": "Expires",
+						"value": "-1"
+					},
+					{
+						"key": "Pragme",
+						"value": "no-cache"
+					}
+				]
+			},
+			{
 				"source": "/sendBookingRequest",
 				"headers": [
 					{
@@ -118,6 +135,10 @@
 				"function": "sendDemo"
 			},
 			{
+				"source": "/sendMasteringOrder",
+				"function": "sendMasteringOrder"
+			},
+			{
 				"source": "/sendBookingRequest",
 				"function": "sendBookingRequest"
 			},
@@ -126,7 +147,7 @@
 				"function": "saveEmailSubscription"
 			},
 			{
-				"source": "**/!(sendEmail|sendDemo|sendBookingRequest|saveEmailSubscription)",
+				"source": "**/!(sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription)",
 				"destination": "/index.html"
 			}
 		]
