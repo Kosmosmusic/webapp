@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, HostBinding, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { EventEmitterService } from '../services/event-emitter.service';
@@ -24,10 +24,22 @@ export class AppVideosComponent implements OnInit, OnDestroy {
 	@HostBinding('fxLayout') public fxLayout: string = 'row';
 	@HostBinding('fxLayoutAlign') public fxLayoutAlign: string = 'start stretch';
 
+	/**
+	 * Channel data.
+	 */
 	private channelData: any;
+	/**
+	 * Channel uploads.
+	 */
 	private uploads: any;
+	/**
+	 * Playlist source url.
+	 */
 	public playlistSrc: SafeUrl;
 
+	/**
+	 * Gets channel data.
+	 */
 	private getChannelData(): Promise<any> {
 		const def = new CustomDeferredService<any>();
 		this.emitter.emitSpinnerStartEvent();
@@ -36,7 +48,10 @@ export class AppVideosComponent implements OnInit, OnDestroy {
 				this.channelData = data;
 				this.uploads = data.items[0].contentDetails.relatedPlaylists.uploads;
 				this.playlistSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/?listType=playlist&list=' + this.uploads + '&enablejsapi=1&origin=' + this.window.location.origin);
-				this.emitter.emitSpinnerStopEvent();
+				/**
+				 * Don't stop spinner at this point, it will be stopped when iframe loads.
+				 * this.emitter.emitSpinnerStopEvent();
+				 */
 				def.resolve();
 			},
 			(error: string) => {
@@ -48,11 +63,26 @@ export class AppVideosComponent implements OnInit, OnDestroy {
 		return def.promise;
 	}
 
+	/**
+	 * Youtube iframe widget loaded callback.
+	 * Stops spinner.
+	 * @param event iframe widget loaded callback event - iframe ElementRef
+	 */
+	public widgetLoaded(event: ElementRef): void {
+		console.log('widgetLoaded', event);
+		this.emitter.emitSpinnerStopEvent();
+	}
+
+	/**
+	 * Lifecycle hook called on component initialization.
+	 */
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppVideosComponent initialized');
 		this.getChannelData();
 	}
-
+	/**
+	 * Lifecycle hook called on component destruction.
+	 */
 	public ngOnDestroy(): void {
 		console.log('ngOnDestroy: AppVideosComponent destroyed');
 	}

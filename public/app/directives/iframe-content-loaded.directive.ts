@@ -23,7 +23,7 @@ export class IframeContentLoadedDirective implements OnInit {
 	 * Emits loaded event.
 	 */
 	private emitLoadedEvent(): void {
-		this.loadedCallback.emit(true);
+		this.loadedCallback.emit(this.el);
 	}
 
 	/**

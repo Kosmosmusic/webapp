@@ -70,9 +70,7 @@
 		'@firebase/util':												'npm:@firebase/util/dist/index.cjs.js',
 		'@firebase/logger':											'npm:@firebase/logger/dist/index.cjs.js',
 		'@angular/fire':												'npm:@angular/fire/bundles/core.umd.js',
-		'@angular/fire/database':								'npm:@angular/fire/bundles/database.umd.js',
-		'angularfire2':													'npm:angularfire2',
-		'angularfire2/database':								'npm:angularfire2/database'
+		'@angular/fire/database':								'npm:@angular/fire/bundles/database.umd.js'
 	};
 	// how to load packages
 	var packages = {
@@ -84,10 +82,7 @@
 		'rxjs/testing': 								{ main: 'index', defaultExtension: 'js' },
 		'rxjs/util': 										{ main: 'index', defaultExtension: 'js' },
 		'rxjs/webSocket': 							{ main: 'index', defaultExtension: 'js' },
-		'rxjs/internal': 								{ main: 'Rx', defaultExtension: 'js' },
-
-		'angularfire2': 								{ main: 'index', defaultExtension: 'js' },
-		'angularfire2/database': 				{ main: 'index', defaultExtension: 'js' }
+		'rxjs/internal': 								{ main: 'Rx', defaultExtension: 'js' }
 	};
 
 	var config = {
