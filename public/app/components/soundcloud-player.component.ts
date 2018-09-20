@@ -84,6 +84,24 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 	public playlist: ISoundcloudPlaylist = this.soundcloudService.data.playlist || new ISoundcloudPlaylist();
 
 	/**
+	 * Indicates quantity of playlist tracks to be rendered.
+	 */
+	public renderPlaylistTracks: number = 15;
+
+	/**
+	 * Rendered playlist.
+	 */
+	public renderedPlaylist: any[] = this.soundcloudService.data.playlist.tracks.slice(0, this.renderPlaylistTracks) || [];
+
+	/**
+	 * Renders more playlist tracks.
+	 */
+	private renderMorePlaylistTracks(): void {
+		this.renderPlaylistTracks = (this.playlist.tracks.length - this.renderPlaylistTracks > 25) ? this.renderPlaylistTracks + 25 : this.playlist.tracks.length;
+		this.renderedPlaylist = this.soundcloudService.data.playlist.tracks.slice(0, this.renderPlaylistTracks) || [];
+	}
+
+	/**
 	 * Selected track index.
 	 */
 	public selectedTrackIndex: number;
@@ -146,6 +164,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 						console.log('new playlist value', playlist);
 						this.noMoreTracks = true;
 						this.playlist = this.soundcloudService.data.playlist;
+						this.renderedPlaylist = this.soundcloudService.data.playlist.tracks.slice(0, this.renderPlaylistTracks) || [];
 						this.loading = false;
 						this.emitter.emitSpinnerStopEvent();
 					},
@@ -155,6 +174,8 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 						this.emitter.emitSpinnerStopEvent();
 					}
 				);
+			} else if (/playlist/.test(this.mode)) {
+				this.renderMorePlaylistTracks();
 			}
 		} else {
 			console.log('Soundcloud player: no more tracks');

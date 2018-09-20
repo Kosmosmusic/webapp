@@ -1,6 +1,6 @@
 <div fxLayout="row wrap" fxLayoutAlign="start start">
 	
-	<div fxFlex="100" *ngFor="let track of (mode === 'playlist' ? playlist.tracks : tracks); let j = index" id="soundcloud-track-{{j}}" fxLayout="row wrap" fxLayoutAlign="start stretch" [ngClass]="{selected: j === selectedTrackIndex}">
+	<div fxFlex="100" *ngFor="let track of (mode === 'playlist' ? renderedPlaylist : tracks); let j = index" id="soundcloud-track-{{j}}" fxLayout="row wrap" fxLayoutAlign="start stretch" [ngClass]="{selected: j === selectedTrackIndex}">
 		<mat-divider fxFlex="100"></mat-divider>
 		<div fxFlex="100" matTooltip="{{track.title}}" matTooltipPosition="below" matTooltipShowDelay="{{uiUtils.tooltipShowDelay}}" fxLayout="row">
 			<div fxFlex="1 1 auto" fxFlexOffset="10px" class="clamp-flex">{{track.title}}</div>
