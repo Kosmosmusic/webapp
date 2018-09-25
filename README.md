@@ -1,8 +1,8 @@
 # Kosmosmusic
 
-![build](https://travis-ci.org/rfprod/kosmosmusic.svg?branch=master)
+![TravisCI build status](https://travis-ci.org/rfprod/kosmosmusic.svg?branch=master)
 
-[![Build status](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_apis/build/status/KOS.MOS.MUSIC%20Gulp-CI)](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_build/latest?definitionId=1)
+[![Azure Pipelines build status](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_apis/build/status/KOS.MOS.MUSIC%20Gulp-CI)](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_build/latest?definitionId=1)
 
 ## Requirements
 
@@ -125,8 +125,8 @@ firebase deploy --only functions
 
 ## Documentation
 
-[`Firebase Web Setup`](https://firebase.google.com/docs/web/setup)
-[`Azure DevOps Services: JavaScript and Node.js`](https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/javascript?view=vsts&tabs=yaml)
+- [`Firebase Web Setup`](https://firebase.google.com/docs/web/setup)
+- [`Azure DevOps Services: JavaScript and Node.js`](https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/javascript?view=vsts&tabs=yaml)
 
 ## Licenses
 
