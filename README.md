@@ -4,6 +4,12 @@
 
 [![Build status](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_apis/build/status/KOS.MOS.MUSIC%20Gulp-CI)](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_build/latest?definitionId=1)
 
+## Requirements
+
+- [`Node.js`](https://nodejs.org/)
+- [`NPM`](https://nodejs.org/)
+- [`Git`](https://git-scm.com/)
+
 ### Client Environment variables
 
 these are required and used by a `gulp` task `pack-app-js`, variables should be stored in `.env` file in the project root
@@ -116,6 +122,11 @@ only functions
 ```
 firebase deploy --only functions
 ```
+
+## Documentation
+
+[`Firebase Web Setup`](https://firebase.google.com/docs/web/setup)
+[`Azure DevOps Services: JavaScript and Node.js`](https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/javascript?view=vsts&tabs=yaml)
 
 ## Licenses
 
