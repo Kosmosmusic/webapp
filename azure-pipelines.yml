@@ -14,8 +14,7 @@ steps:
 - script: |
     npm install -g npm@6.4.1
     npm update
-    npm install
-    npm install --previx ./functions
+    bash install.sh
     npm install -g typescript
     npm install -g gulp-cli
     npm install -g firebase-tools
