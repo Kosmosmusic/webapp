@@ -125,7 +125,8 @@ firebase deploy --only functions
 
 ## Documentation
 
-- [`Firebase Web Setup`](https://firebase.google.com/docs/web/setup)
+- [`Firebase: Web Setup`](https://firebase.google.com/docs/web/setup)
+- [`Firebase: Administrative Commands`](https://firebase.google.com/docs/cli/#administrative_commands)
 - [`Azure DevOps Services: JavaScript and Node.js`](https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/javascript?view=vsts&tabs=yaml)
 
 ## Licenses
