@@ -2,6 +2,8 @@
 
 ![build](https://travis-ci.org/rfprod/kosmosmusic.svg?branch=master)
 
+[![Build status](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_apis/build/status/KOS.MOS.MUSIC%20Gulp-CI)](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_build/latest?definitionId=1)
+
 ### Client Environment variables
 
 these are required and used by a `gulp` task `pack-app-js`, variables should be stored in `.env` file in the project root
