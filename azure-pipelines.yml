@@ -17,7 +17,7 @@ steps:
     npm install -g typescript
     npm install -g gulp-cli
     gulp compile-and-build
-    client-unit-test
+    gulp client-unit-test
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
