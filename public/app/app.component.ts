@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ElementRef, Inject, HostBinding } from '@
 import { MatIconRegistry, DateAdapter, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+
 import { EventEmitterService } from './services/event-emitter.service';
 import { TranslateService } from './modules/translate/index';
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
@@ -28,6 +30,8 @@ export class AppComponent implements OnInit, OnDestroy {
 	 * @param translateService Translate service - UI translation to predefined languages
 	 * @param facebookService Facebook service - Facebook JavaScrip SDK wrapper
 	 * @param serviceWorker Service worker service
+	 * @param media Observable media
+	 * @param window Browser window reference
 	 */
 	constructor(
 		private el: ElementRef,
@@ -39,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		private translate: TranslateService,
 		private facebookService: FacebookService,
 		private serviceWorker: CustomServiceWorkerService,
+		private media: ObservableMedia,
 		@Inject('Window') private window: Window
 	) {
 		this.toggleConsoleOutput();
@@ -208,6 +213,21 @@ export class AppComponent implements OnInit, OnDestroy {
 		initUIobj.parentNode.removeChild(initUIobj);
 	}
 
+	/**
+	 * Sidenav grid configuration object.
+	 */
+	public gridConfig: any = {
+		cols: '3',
+		rowHeight: '1:1'
+	};
+	/**
+	 * Sets sidenav config object values.
+	 */
+	private setGridConfig(cols: string, rowHeight?: string): void {
+		this.gridConfig.cols = cols;
+		this.gridConfig.rowHeight = (rowHeight) ? rowHeight : this.gridConfig.rowHeight;
+	}
+
 	public ngOnInit(): void {
 		console.log('ngOnInit: AppComponent initialized');
 
@@ -265,6 +285,21 @@ export class AppComponent implements OnInit, OnDestroy {
 		*/
 		this.matIconRegistry.addSvgIcon('logo-round', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_circle.svg'));
 		this.matIconRegistry.addSvgIcon('logo-square', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_square.svg'));
+
+		// subscribe to media chage events
+		sub = this.media.asObservable().subscribe((event: MediaChange) => {
+			// console.log('flex-layout media change event', event);
+			if (/(lg|xl)/.test(event.mqAlias)) {
+				this.setGridConfig('4', '2:1');
+			} else if (/(md)/.test(event.mqAlias)) {
+				this.setGridConfig('3', '1:1');
+			} else if (/(sm)/.test(event.mqAlias)) {
+				this.setGridConfig('2', '2:1');
+			} else {
+				this.setGridConfig('1', '2.5:1');
+			}
+		});
+		this.subscriptions.push(sub);
 	}
 
 	public ngOnDestroy(): void {

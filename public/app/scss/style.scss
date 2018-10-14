@@ -211,7 +211,7 @@ body {
 			mat-grid-tile {
 				&:hover {
 					cursor: pointer;
-					border: 1px dotted $black;
+					background-color: #ddd;
 				}
 			}
 		}

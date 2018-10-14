@@ -2,18 +2,31 @@
 
 <mat-sidenav-container fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start stretch">
 	<mat-sidenav #appSidenav mode="over" [(opened)]="sidenavOpened">
-		<mat-grid-list cols="3" rowHeight="1:1">
-			<mat-grid-tile>
-				<a href="https://twitter.com/intent/tweet?screen_name=SMC_PR&text=Check%20out%20KOS.MOS.MUSIC%20webapp%20https://kosmosmusic-51fd1.firebaseapp.com/" class="twitter-mention-button" data-show-count="false" target="_blank">Tweet to @SMC_PR</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<mat-grid-list [cols]="gridConfig.cols" [rowHeight]="gridConfig.rowHeight">
+			<mat-grid-tile fxLayout="row" fxLayoutAlign="start stretch">
+				<a fxFlex [ngStyle]="{height: '100%'}" href="https://twitter.com/intent/tweet?screen_name=SMC_PR&text=Check%20out%20KOS.MOS.MUSIC%20webapp%20https://kosmosmusic-51fd1.firebaseapp.com/" class="twitter-mention-button" data-show-count="false" target="_blank" fxLayout="row wrap" fxLayoutAlign="center center">
+					<mat-icon fxFlex="0 1 auto" fontSet="fab" fontIcon="fa-twitter" class="material-icons-fab"></mat-icon>
+					<span fxFlex="100" [ngStyle]="{'text-align': 'center'}">@SMC_PR</span>
+				</a>
+				<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</mat-grid-tile>
-			<mat-grid-tile>
-				<div class="fb-share-button" data-href="https://kosmosmusic-51fd1.firebaseapp.com/" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkosmosmusic-51fd1.firebaseapp.com&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+			<mat-grid-tile fxLayout="row" fxLayoutAlign="start stretch">
+				<a fxFlex [ngStyle]="{height: '100%'}" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkosmosmusic-51fd1.firebaseapp.com&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" fxLayout="row wrap" fxLayoutAlign="center center">
+					<mat-icon fxFlex="0 1 auto" fontSet="fab" fontIcon="fa-facebook-f" class="material-icons-fab"></mat-icon>
+					<span fxFlex="100" [ngStyle]="{'text-align': 'center'}">Share</span>
+				</a>
 			</mat-grid-tile>
-			<mat-grid-tile>
-				<a href="http://vk.com/share.php?url=https://kosmosmusic-51fd1.firebaseapp.com" target="_blank">VK Share</a>
+			<mat-grid-tile fxLayout="row" fxLayoutAlign="start stretch">
+				<a fxFlex [ngStyle]="{height: '100%'}" href="http://vk.com/share.php?url=https://kosmosmusic-51fd1.firebaseapp.com" target="_blank" fxLayout="row wrap" fxLayoutAlign="center center">
+					<mat-icon fxFlex="0 1 auto" fontSet="fab" fontIcon="fa-vk" class="material-icons-fab"></mat-icon>
+					<span fxFlex="100" [ngStyle]="{'text-align': 'center'}">Share</span>
+				</a>
 			</mat-grid-tile>
-			<mat-grid-tile>
-				<a class="tumblr-share-button" href="https://www.tumblr.com/share?url=https://kosmosmusic-51fd1.firebaseapp.com" target="_blank">Tumblr Share</a>
+			<mat-grid-tile fxLayout="row" fxLayoutAlign="start stretch">
+				<a fxFlex [ngStyle]="{height: '100%'}" class="tumblr-share-button" href="https://www.tumblr.com/share?url=https://kosmosmusic-51fd1.firebaseapp.com" target="_blank" fxLayout="row wrap" fxLayoutAlign="center center">
+					<mat-icon fxFlex="0 1 auto" fontSet="fab" fontIcon="fa-tumblr" class="material-icons-fab"></mat-icon>
+					<span fxFlex="100" [ngStyle]="{'text-align': 'center'}">Share</span>
+				</a>
 			</mat-grid-tile>
 		</mat-grid-list>
 	</mat-sidenav>
