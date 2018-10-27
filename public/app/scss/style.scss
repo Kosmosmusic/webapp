@@ -161,17 +161,21 @@ body {
 	margin: 0;
 	padding: 0;
 
+	$scrollbarWidth: 10px;
+
 	::-webkit-scrollbar {
 		background-color: rgb(255, 255, 255);
-		width: 8px;
+		width: $scrollbarWidth;
 	}
 
 	::-webkit-scrollbar-track {
-		-webkit-box-shadow: inset 0 0 2px #00acc1;
+		box-shadow: inset 0 0 2px $primary;
+		-webkit-box-shadow: inset 0 0 2px $primary;
 	}
 
 	::-webkit-scrollbar-thumb {
-		-webkit-box-shadow: inset 0 0 48px #038c9c;
+		box-shadow: inset 0 0 48px $primary;
+		-webkit-box-shadow: inset 0 0 48px $primary;
 	}
 
 	/*
@@ -188,25 +192,6 @@ body {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-	}
-
-	$scrollbarWidth: 10px;
-
-	mat-dialog-container {
-		.mat-dialog-content::-webkit-scrollbar {
-			background-color: rgb(255, 255, 255);
-			width: $scrollbarWidth;
-		}
-
-		.mat-dialog-content::-webkit-scrollbar-track {
-			box-shadow: inset 0 0 2px $primary;
-			-webkit-box-shadow: inset 0 0 2px $primary;
-		}
-
-		.mat-dialog-content::-webkit-scrollbar-thumb {
-			box-shadow: inset 0 0 48px $primary;
-			-webkit-box-shadow: inset 0 0 48px $primary;
-		}
 	}
 
 	app {
