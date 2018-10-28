@@ -26,9 +26,9 @@ import { AppMasteringComponent } from './components/app-mastering.component';
 import { AppMixesComponent } from './components/app-mixes.component';
 import { AppVideosComponent } from './components/app-videos.component';
 import { AppAboutComponent } from './components/app-about.component';
-import { AppContactDialog } from './components/app-contact.component';
-import { AppDemoDialog } from './components/app-demo.component';
-import { AppBookingDialog } from './components/app-booking.component';
+import { AppContactDialog } from './components/app-contact-dialog.component';
+import { AppDemoDialog } from './components/app-demo-dialog.component';
+import { AppBookingDialog } from './components/app-booking-dialog.component';
 import { AppMasteringDialog } from './components/app-mastering-dialog.component';
 
 import { SoundcloudPlayerComponent } from './components/soundcloud-player.component';

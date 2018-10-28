@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Inject } from '@angular/core';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
 /**
  * Replaces image with app logo if its loading results in an error

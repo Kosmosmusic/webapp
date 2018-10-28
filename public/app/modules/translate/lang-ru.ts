@@ -1,6 +1,8 @@
 export const LANG_RU_NAME = 'ru';
 
-// keys map for Russian language
+/**
+ * Russian UI dictionary.
+ */
 export const LANG_RU_TRANSLATIONS = {
 	title: 'KOS.MOS.MUSIC',
 	home: 'Дом',

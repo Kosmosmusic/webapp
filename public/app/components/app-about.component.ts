@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CustomDeferredService } from '../services/custom-deferred.service';
 import { FirebaseService } from '../services/firebase.service';
 import { EmailSubscriptionService } from '../services/email-subscription.service';
 
-import { AppContactDialog } from './app-contact.component';
+import { AppContactDialog } from './app-contact-dialog.component';
 
 import { TranslateService } from '../modules/translate/translate.service';
 

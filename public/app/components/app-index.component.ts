@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, Inject, ViewChild, Renderer2 } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
 import { EventEmitterService } from '../services/event-emitter.service';

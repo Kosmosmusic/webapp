@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, Inject, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Inject } from '@angular/core';
 import { MatIconRegistry, DateAdapter, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -9,9 +9,9 @@ import { TranslateService } from './modules/translate/index';
 import { CustomServiceWorkerService } from './services/custom-service-worker.service';
 import { FacebookService } from './services/facebook.service';
 
-import { AppDemoDialog } from './components/app-demo.component';
-import { AppContactDialog } from './components/app-contact.component';
-import { AppBookingDialog } from './components/app-booking.component';
+import { AppDemoDialog } from './components/app-demo-dialog.component';
+import { AppContactDialog } from './components/app-contact-dialog.component';
+import { AppBookingDialog } from './components/app-booking-dialog.component';
 import { AppMasteringDialog } from './components/app-mastering-dialog.component';
 
 @Component({

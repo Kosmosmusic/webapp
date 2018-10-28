@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { TRANSLATIONS } from './translations'; // injection token reference
+import { TRANSLATIONS } from './translations';
 
 @Injectable()
 export class TranslateService {

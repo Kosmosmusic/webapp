@@ -1,6 +1,8 @@
 export const LANG_EN_NAME = 'en';
 
-// keys map for English language
+/**
+ * English UI dictionary.
+ */
 export const LANG_EN_TRANSLATIONS = {
 	title: 'KOS.MOS.MUSIC',
 	home: 'Home',
