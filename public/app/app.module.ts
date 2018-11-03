@@ -32,6 +32,7 @@ import { AppBookingDialog } from './components/app-booking-dialog.component';
 import { AppMasteringDialog } from './components/app-mastering-dialog.component';
 
 import { SoundcloudPlayerComponent } from './components/soundcloud-player.component';
+import { BassdrivePlayerComponent } from './components/bassdrive-player.component';
 
 import { TranslateModule } from './modules/translate/index';
 
@@ -60,25 +61,31 @@ import { ImageLoadedDirective } from './directives/image-loaded.directive';
 import { ENV } from './app.environment';
 
 @NgModule({
-	declarations: [ AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
-									AppMixesComponent, AppVideosComponent, AppAboutComponent, SoundcloudPlayerComponent,
-									AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog,
-									IframeContentLoadedDirective, ImageLoadedDirective
-								],
-	entryComponents: [ AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog ],
-	imports 		: [ BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
-									FormsModule, ReactiveFormsModule, HttpClientModule, TranslateModule.forRoot(),
-									AngularFireModule.initializeApp(ENV.firebase, 'kosmosmusic'), AngularFireDatabaseModule,
-									AppRoutingModule
-								],
-	providers 	: [ { provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
-									{ provide: 'Window', useValue: window }, { provide: ENV, useValue: ENV },
-									CustomServiceWorkerService, CustomDeferredService,
-									CustomHttpHandlersService, EventEmitterService, UserInterfaceUtilsService,
-									GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendMasteringOrderService,
-									SendBookingRequestService, EmailSubscriptionService, SoundcloudService, FacebookService
-								],
-	schemas 		: [ CUSTOM_ELEMENTS_SCHEMA ],
-	bootstrap 	: [ AppComponent ]
+	declarations: [
+		AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
+		AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
+		AppDemoDialog, AppBookingDialog, AppMasteringDialog,
+		SoundcloudPlayerComponent, BassdrivePlayerComponent,
+		IframeContentLoadedDirective, ImageLoadedDirective
+	],
+	entryComponents: [
+		AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog
+	],
+	imports: [
+		BrowserModule, BrowserAnimationsModule, FlexLayoutModule, CustomMaterialModule,
+		FormsModule, ReactiveFormsModule, HttpClientModule, TranslateModule.forRoot(),
+		AngularFireModule.initializeApp(ENV.firebase, 'kosmosmusic'), AngularFireDatabaseModule,
+		AppRoutingModule
+	],
+	providers: [
+		{ provide: APP_BASE_HREF, useValue: '/' }, { provide: LocationStrategy, useClass: PathLocationStrategy },
+		{ provide: 'Window', useValue: window }, { provide: ENV, useValue: ENV },
+		CustomServiceWorkerService, CustomDeferredService,
+		CustomHttpHandlersService, EventEmitterService, UserInterfaceUtilsService,
+		GoogleApiService, FirebaseService, SendEmailService, SendDemoService, SendMasteringOrderService,
+		SendBookingRequestService, EmailSubscriptionService, SoundcloudService, FacebookService
+	],
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+	bootstrap: [ AppComponent ]
 })
 export class AppModule {}

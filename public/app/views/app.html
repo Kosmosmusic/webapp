@@ -47,7 +47,9 @@
 			<mat-icon class="material-icons" title="open sidenav" *ngIf="!sidenavOpened">flip_to_front</mat-icon>
 			<mat-icon class="material-icons" title="open sidenav" *ngIf="sidenavOpened">flip_to_back</mat-icon>
 		</button>
-		<span fxFlex="1 1 auto"></span>
+		<span fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="center center">
+			<bassdrive-player fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="center center"></bassdrive-player>
+		</span>
 		<button mat-button (click)="showMasteringDialog()" [fxHide.xs]="true" [fxHide.sm]="true">
 			<mat-icon class="material-icons">equalizer</mat-icon> {{ 'services.open' | translate }}
 		</button>
