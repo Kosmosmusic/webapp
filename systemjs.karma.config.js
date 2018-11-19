@@ -1,12 +1,12 @@
-/*
-*	SystemJS configuration for Angular 6
-*/
+/**
+ * SystemJS configuration for Angular 7
+ */
 (function (global) { // eslint-disable-line no-unused-vars
 
 	var paths = {
 		'npm:': './base/node_modules/'
 	};
-	// packages locations
+
 	var map = {
 		'app': 																	'./base/public/app',
 		'mocks': 																'./base/test/client/mocks',
@@ -40,6 +40,7 @@
 		'@angular/flex-layout/server': 					'npm:@angular/flex-layout/bundles/flex-layout-server.umd.js',
 		'@angular/flex-layout/grid': 						'npm:@angular/flex-layout/bundles/flex-layout-grid.umd.js',
 		'@angular/material': 										'npm:@angular/material/bundles/material.umd.js',
+		'@angular/material/core': 							'npm:@angular/material/bundles/material-core.umd.js',
 		'@angular/cdk': 												'npm:@angular/cdk/bundles/cdk.umd.js',
 		'@angular/cdk/a11y': 										'npm:@angular/cdk/bundles/cdk-a11y.umd.js',
 		'@angular/cdk/accordion': 							'npm:@angular/cdk/bundles/cdk-accordion.umd.js',
@@ -59,21 +60,20 @@
 		'@angular/cdk/text-field': 							'npm:@angular/cdk/bundles/cdk-text-field.umd.js',
 		'@angular/cdk/tree': 										'npm:@angular/cdk/bundles/cdk-tree.umd.js',
 		'@angular/material-moment-adapter': 		'npm:@angular/material-moment-adapter/bundles/material-moment-adapter.umd.js',
-		'moment': 															'npm:moment/min/moment-with-locales.min.js', // reconfig reference: https://github.com/angular/material2/commit/9545427c73627f0cf91b5086efd5d727459fc44f
+		'moment': 															'npm:moment/min/moment-with-locales.min.js',
 		'firebase':															'npm:firebase/firebase.js',
 		'firebase/app':													'npm:firebase/app/dist/index.cjs.js',
 		'firebase/database':										'npm:firebase/database/dist/index.cjs.js',
 		'@firebase/app':												'npm:@firebase/app/dist/index.cjs.js',
 		'@firebase/database':										'npm:@firebase/database/dist/index.cjs.js',
 		'@firebase/polyfill':										'npm:@firebase/polyfill/dist/index.cjs.js',
-		//'promise-polyfill':											'npm:promise-polyfill/dist/polyfill.min.js',
 		'whatwg-fetch':													'npm:whatwg-fetch/fetch.js',
 		'@firebase/util':												'npm:@firebase/util/dist/index.cjs.js',
 		'@firebase/logger':											'npm:@firebase/logger/dist/index.cjs.js',
 		'@angular/fire':												'npm:@angular/fire/bundles/core.umd.js',
 		'@angular/fire/database':								'npm:@angular/fire/bundles/database.umd.js'
 	};
-	// how to load packages
+
 	var packages = {
 		'app': 													{ main: 'app', defaultExtension: 'js' },
 		'mocks': 												{ main: 'index', defaultExtension: 'js' },
@@ -90,8 +90,7 @@
 	var config = {
 		paths: paths,
 		map: map,
-		packages: packages,
-		transplier: 'babel'
+		packages: packages
 	};
 
 	System.config(config);
