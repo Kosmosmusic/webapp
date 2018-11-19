@@ -221,7 +221,7 @@ exports.sendMasteringOrder = functions.https.onRequest((req, res) => {
 	const link = req.body.link || '';
 	const domain = req.body.domain || '';
 	if (/\w{2,}@\w{2,}(\.)?\w{2,}/.test(email) && /http(s)?:\/\/\w+/.test(link) && domain.length) {
-		sendDemo(email, link, domain, res);
+		sendMasteringOrder(email, link, domain, res);
 	} else {
 		res.status(400).send('Missing mandatory request parameters or invalid values');
 	}
@@ -385,4 +385,23 @@ exports.saveEmailSubscription = functions.https.onRequest((req, res) => {
 	} else {
 		res.status(400).send('Missing mandatory request parameters or invalid values');
 	}
+});
+
+const request = require('request');
+
+/**
+ * Bassdrive proxy.
+ */
+exports.bassdriveProxy = functions.https.onRequest((req, res) => {
+	if (req.method !== 'GET') {
+		res.status(403).json({error: 'Forbidden method'});
+	}
+	request('http://bassdrive.radioca.st:80/;stream/1', {}, (error, response/*, body*/) => {
+		if (error) {
+			res.status(500).json({ error: error});
+		} else {
+			res.body = response.body;
+			res.status(200).end();
+		}
+	});
 });

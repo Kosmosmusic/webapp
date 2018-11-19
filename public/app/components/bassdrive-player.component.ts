@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 /**
  * Bassdrive player component.
@@ -18,6 +19,7 @@ export class BassdrivePlayerComponent implements OnInit, OnDestroy {
 	 */
 	constructor(
 		private el: ElementRef,
+		private sanitizer: DomSanitizer,
 		@Inject('Window') private window: Window
 	) {
 		console.log('BassdrivePlayerComponent constructor, el', this.el.nativeElement);
@@ -27,6 +29,12 @@ export class BassdrivePlayerComponent implements OnInit, OnDestroy {
 	 * Component subscriptions.
 	 */
 	private subscriptions: any[] = [];
+
+	/**
+	 * Stream url.
+	 */
+	// public streamUtl: SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://bassdrive.radioca.st:80/;stream/1');
+	public streamUtl: SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.window.location.origin + '/bassdriveProxy');
 
 	/**
 	 * Player view child reference.

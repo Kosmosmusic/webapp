@@ -51,7 +51,7 @@
 						"value": "-1"
 					},
 					{
-						"key": "Pragme",
+						"key": "Pragma",
 						"value": "no-cache"
 					}
 				]
@@ -68,7 +68,7 @@
 						"value": "-1"
 					},
 					{
-						"key": "Pragme",
+						"key": "Pragma",
 						"value": "no-cache"
 					}
 				]
@@ -85,7 +85,7 @@
 						"value": "-1"
 					},
 					{
-						"key": "Pragme",
+						"key": "Pragma",
 						"value": "no-cache"
 					}
 				]
@@ -102,7 +102,7 @@
 						"value": "-1"
 					},
 					{
-						"key": "Pragme",
+						"key": "Pragma",
 						"value": "no-cache"
 					}
 				]
@@ -119,7 +119,24 @@
 						"value": "-1"
 					},
 					{
-						"key": "Pragme",
+						"key": "Pragma",
+						"value": "no-cache"
+					}
+				]
+			},
+			{
+				"source": "/bassdriveProxy",
+				"headers": [
+					{
+						"key": "Cache-Control",
+						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+					},
+					{
+						"key": "Expires",
+						"value": "-1"
+					},
+					{
+						"key": "Pragma",
 						"value": "no-cache"
 					}
 				]
@@ -147,7 +164,11 @@
 				"function": "saveEmailSubscription"
 			},
 			{
-				"source": "**/!(sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription)",
+				"source": "/bassdriveProxy",
+				"function": "bassdriveProxy"
+			},
+			{
+				"source": "**/!(sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription|bassdriveProxy)",
 				"destination": "/index.html"
 			}
 		]
