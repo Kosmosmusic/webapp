@@ -396,12 +396,12 @@ exports.bassdriveProxy = functions.https.onRequest((req, res) => {
 	if (req.method !== 'GET') {
 		res.status(403).json({error: 'Forbidden method'});
 	}
-	request('http://bassdrive.radioca.st:80/;stream/1', {}, (error, response/*, body*/) => {
+	request('//bassdrive.radioca.st:80/;stream/1', {}, (error, response/*, body*/) => {
 		if (error) {
 			res.status(500).json({ error: error});
 		} else {
 			res.body = response.body;
-			res.status(200).end();
+			res.status(200).send(body);
 		}
 	});
 });
