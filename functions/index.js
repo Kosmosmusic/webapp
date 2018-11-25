@@ -387,7 +387,8 @@ exports.saveEmailSubscription = functions.https.onRequest((req, res) => {
 	}
 });
 
-const request = require('request');
+const radio = require('radio-stream');
+const radioClients = [];
 
 /**
  * Bassdrive proxy.
@@ -396,5 +397,27 @@ exports.bassdriveProxy = functions.https.onRequest((req, res) => {
 	if (req.method !== 'GET') {
 		res.status(403).json({error: 'Forbidden method'});
 	}
-	request('http://bassdrive.radioca.st:80/;stream/1').pipe(res);
+	const shoutCastUrl = 'http://bassdrive.radioca.st:80/;stream/1';
+	const stream = radio.createReadStream(shoutCastUrl);
+	stream.on('connect', () => {
+		console.log('Radio stream connected');
+		console.log('stream.headers', stream.headers);
+	});
+	stream.on('data', (chunk) => {
+		// process.stdout.write('chunk', chunk);
+		if (radioClients.length) {
+			for (const item in radioClients) {
+				radioClients[item].write(chunk);
+			}
+		}
+	});
+	stream.on('metadata', (title) => {
+		console.log('title', title);
+	});
+	res.writeHead(200, {
+		'Content-Type': 'audio/mpeg',
+		'Transfer-Encoding': 'chunked'
+	});
+	radioClients.push(res);
+	console.log('Client connected, streaming');
 });
