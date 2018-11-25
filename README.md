@@ -103,6 +103,10 @@ To use Gmail you may need to configure [Allow Less Secure Apps](https://www.goog
   * `Step 2: Exchange authorization code for tokens`: hit `Exchange authorization code for tokens`, and use `Refresh token` value as a `MAILER_REFRESH_TOKEN`;
   * that's all, assign `MAILER_ACCESS_TOKEN` value `empty` like `MAILER_ACCESS_TOKEN=empty`.
 
+##### Bassdrive proxy demo
+
+Run it like `node functions/bassdrive-proxy-demo/bassdrive-proxy.js`, it will start on `http://localhost:8080`. Player demo: `http://localhost:8080/index.html`.
+
 #### Deploy
 
 deploy the whole project

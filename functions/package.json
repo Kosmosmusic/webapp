@@ -6,7 +6,8 @@
     "shell": "firebase experimental:functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+		"bassdrive-proxy-demo": "node functions/bassdrive-proxy-demo/bassdrive-proxy.js"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
