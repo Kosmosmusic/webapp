@@ -1,176 +1,197 @@
 {
-	"hosting": {
-		"public": "public",
-		"ignore": [
-			"firebase.json",
-			"**/.*",
-			"**/node_modules/**",
-			"public/app/components",
-			"public/app/directives",
-			"public/app/interfaces",
-			"public/app/modules",
-			"public/app/pipes",
-			"public/app/scss",
-			"public/app/services",
-			"public/app/*.*",
-			"test/**",
-			"logs/**"
-		],
-		"headers": [
-			{
-				"source": "**",
-				"headers": [
-					{
-						"key": "Access-Control-Allow-Origin",
-						"value": "https://kosmosmusic-51fd1.firebaseapp.com https://kosmosmusic.ru"
-					},
-					{
-						"key": "Access-Control-Allow-Methods",
-						"value": "GET,PUT,POST,DELETE,OPTIONS,HEAD"
-					}
-				]
-			},
-			{
-				"source": "**/*.@(jpg|jpeg|gif|png|svg)",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "max-age=7200"
-					}
-				]
-			},
-			{
-				"source": "/sendEmail",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
-					},
-					{
-						"key": "Expires",
-						"value": "-1"
-					},
-					{
-						"key": "Pragma",
-						"value": "no-cache"
-					}
-				]
-			},
-			{
-				"source": "/sendDemo",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
-					},
-					{
-						"key": "Expires",
-						"value": "-1"
-					},
-					{
-						"key": "Pragma",
-						"value": "no-cache"
-					}
-				]
-			},
-			{
-				"source": "/sendMasteringOrder",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
-					},
-					{
-						"key": "Expires",
-						"value": "-1"
-					},
-					{
-						"key": "Pragma",
-						"value": "no-cache"
-					}
-				]
-			},
-			{
-				"source": "/sendBookingRequest",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
-					},
-					{
-						"key": "Expires",
-						"value": "-1"
-					},
-					{
-						"key": "Pragma",
-						"value": "no-cache"
-					}
-				]
-			},
-			{
-				"source": "/saveEmailSubscription",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
-					},
-					{
-						"key": "Expires",
-						"value": "-1"
-					},
-					{
-						"key": "Pragma",
-						"value": "no-cache"
-					}
-				]
-			},
-			{
-				"source": "/bassdriveProxy",
-				"headers": [
-					{
-						"key": "Cache-Control",
-						"value": "public, no-cache, no-store, must-ravalidate, max-age=0"
-					},
-					{
-						"key": "Expires",
-						"value": "-1"
-					},
-					{
-						"key": "Pragma",
-						"value": "no-cache"
-					}
-				]
-			}
-		],
-		"rewrites": [
-			{
-				"source": "/sendEmail",
-				"function": "sendEmail"
-			},
-			{
-				"source": "/sendDemo",
-				"function": "sendDemo"
-			},
-			{
-				"source": "/sendMasteringOrder",
-				"function": "sendMasteringOrder"
-			},
-			{
-				"source": "/sendBookingRequest",
-				"function": "sendBookingRequest"
-			},
-			{
-				"source": "/saveEmailSubscription",
-				"function": "saveEmailSubscription"
-			},
-			{
-				"source": "/bassdriveProxy",
-				"function": "bassdriveProxy"
-			},
-			{
-				"source": "**/!(sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription|bassdriveProxy)",
-				"destination": "/index.html"
-			}
-		]
-	}
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "e2e/**",
+      "src/**"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://kosmosmusic-51fd1.firebaseapp.com https://kosmosmusic.ru"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET,PUT,POST,DELETE,OPTIONS,HEAD"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=7200"
+          }
+        ]
+      },
+      {
+        "source": "/(kosmosmusic|coverage|documentation)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/sendEmail",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/sendDemo",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/sendMasteringOrder",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/sendBookingRequest",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/saveEmailSubscription",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/bassdriveProxy",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, no-cache, no-store, must-ravalidate, max-age=0"
+          },
+          {
+            "key": "Expires",
+            "value": "-1"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/sendEmail",
+        "function": "sendEmail"
+      },
+      {
+        "source": "/sendDemo",
+        "function": "sendDemo"
+      },
+      {
+        "source": "/sendMasteringOrder",
+        "function": "sendMasteringOrder"
+      },
+      {
+        "source": "/sendBookingRequest",
+        "function": "sendBookingRequest"
+      },
+      {
+        "source": "/saveEmailSubscription",
+        "function": "saveEmailSubscription"
+      },
+      {
+        "source": "/bassdriveProxy",
+        "function": "bassdriveProxy"
+      },
+      {
+        "source": "/kosmosmusic",
+        "destination": "/kosmosmusic/index.html"
+      },
+      {
+        "source": "/coverage",
+        "destination": "/coverage/kosmosmusic/index.html"
+      },
+      {
+        "source": "/documentation",
+        "destination": "/documentation/index.html"
+      },
+      {
+        "source": "**/!(*.*|sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription|bassdriveProxy|coverage|documentation|kosmosmusic)",
+        "destination": "/kosmosmusic/index.html"
+      }
+    ]
+  }
 }
