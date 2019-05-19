@@ -39,7 +39,10 @@
     "set-env": "bash shell/set-env.sh",
     "prestart": "npm install && npm run set-client-app-env",
     "start": "node server.js & ng serve",
-    "test": "ng test"
+    "test": "ng test",
+    "test-single-run": "ng test kosmosmusic --watch=false",
+    "test-single-run-and-report": "ng test kosmosmusic --watch=false --code-coverage",
+    "test-single-run-and-report-to-dist": "ng test kosmosmusic --watch=false --code-coverage && cp -r ./coverage ./dist/coverage"
   },
   "dependencies": {
     "@angular/animations": "7.2.15",
