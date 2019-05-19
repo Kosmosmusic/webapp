@@ -1,7 +1,5 @@
 # Kosmosmusic
 
-![TravisCI build status](https://travis-ci.org/rfprod/kosmosmusic.svg?branch=master)
-
 [![Azure Pipelines Build Status](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_apis/build/status/KOS.MOS.MUSIC-CI)](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_build/latest?definitionId=2)
 
 ## Requirements
