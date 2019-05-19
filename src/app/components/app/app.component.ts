@@ -286,8 +286,8 @@ export class AppComponent implements OnInit, OnDestroy {
     /*
     * add svgs
     */
-    this.matIconRegistry.addSvgIcon('logo-round', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_circle.svg'));
-    this.matIconRegistry.addSvgIcon('logo-square', this.domSanitizer.bypassSecurityTrustResourceUrl('/img/kosmos_square.svg'));
+    this.matIconRegistry.addSvgIcon('logo-round', this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_circle.svg'));
+    this.matIconRegistry.addSvgIcon('logo-square', this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_square.svg'));
 
     // subscribe to media chage events
     sub = this.media.asObservable().subscribe((event: MediaChange) => {
