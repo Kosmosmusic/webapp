@@ -10,8 +10,8 @@ node_modules/
 
 # logs
 *.log
-logs/*
-!logs/*.gitkeep
+coverage/*
+!coverage/*.gitkeep
 
 # compiled client app
 public/app/*.js
