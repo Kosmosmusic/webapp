@@ -1,4 +1,5 @@
 import {
+  IEnvironmentInterface,
   ISoundcloudENVInterface,
   IFirebaseENVInterface,
   IGoogleApiENVInterface
@@ -7,7 +8,7 @@ import {
 /**
  * Application environment as a constant.
  */
-export const ENV = {
+export const ENV: IEnvironmentInterface = {
   soundcloud: {
     clientId: 'SOUNDCLOUD_CLIENT_ID'
   },

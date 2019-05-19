@@ -16,6 +16,7 @@ const targetPath = `./src/app/app.environment.ts`;
  * Environment file config.
  */
 let envConfigFile = `import {
+  IEnvironmentInterface,
   ISoundcloudENVInterface,
   IFirebaseENVInterface,
   IGoogleApiENVInterface
@@ -24,7 +25,7 @@ let envConfigFile = `import {
 /**
  * Application environment as a constant.
  */
-export const ENV = {
+export const ENV: IEnvironmentInterface = {
   soundcloud: {
     clientId: 'SOUNDCLOUD_CLIENT_ID'
   },
@@ -88,6 +89,7 @@ if (!reset) {
    * Environment file config.
    */
   envConfigFile = `import {
+  IEnvironmentInterface,
   ISoundcloudENVInterface,
   IFirebaseENVInterface,
   IGoogleApiENVInterface
@@ -96,7 +98,7 @@ if (!reset) {
 /**
  * Application environment as a constant.
  */
-export const ENV = {
+export const ENV: IEnvironmentInterface = {
   soundcloud: {
     clientId: '${process.env.SOUNDCLOUD_CLIENT_ID}'
   },

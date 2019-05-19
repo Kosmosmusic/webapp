@@ -3,8 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { CustomHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
 
-import { ENV } from 'src/app/app.environment';
-
 import {
   IEnvironmentInterface,
   IGoogleApiENVInterface
@@ -19,7 +17,7 @@ export class GoogleApiService {
   constructor(
     private http: HttpClient,
     private handlers: CustomHttpHandlersService,
-    @Inject(ENV) private environment: IEnvironmentInterface
+    @Inject('ENV') private environment: IEnvironmentInterface
   ) {
     console.log('GoogleApiService constructor');
   }

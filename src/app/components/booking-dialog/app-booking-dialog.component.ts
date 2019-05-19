@@ -10,6 +10,7 @@ import {
 } from 'src/app/services/index';
 
 import { TranslateService } from 'src/app/modules/translate/translate.service';
+import { IBookingForm } from 'src/app/interfaces/forms/booking-form.interface';
 
 /**
  * Booking dialog.
@@ -49,7 +50,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
   /**
    * Email form.
    */
-  public bookingForm: FormGroup;
+  public bookingForm: IBookingForm;
 
   /**
    * Resets email form group.
@@ -79,7 +80,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
       phone: ['', Validators.compose([Validators.required, Validators.pattern(/\+\d\s[\d\s-]+/)])],
       website: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/.+/)])],
       domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
-    });
+    }) as IBookingForm;
   }
 
   /**
@@ -158,7 +159,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
    * Closes dialog.
    * @param [result] result returned to parent component
    */
-  private closeDialog(result?: any) {
+  public closeDialog(result?: any) {
     /*
     *	report result if it was commonly closed, or modified and closed, deleted,
     *	or optional use result is provided

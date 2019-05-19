@@ -48,7 +48,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * Soundcloud player mode.
    */
-  @Input('mode') private mode: 'kosmosmusic'|'kosmoslab'|'playlist' = 'kosmosmusic';
+  @Input('mode') public mode: 'kosmosmusic'|'kosmoslab'|'playlist' = 'kosmosmusic';
 
   /**
    * Predefined ids.

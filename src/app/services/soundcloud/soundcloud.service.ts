@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { CustomHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
@@ -10,7 +10,7 @@ import {
   ISoundcloudTracksLinkedPartitioning,
   ISoundcloudPlaylist
 } from 'src/app/interfaces/index';
-import { ENV } from 'src/app/app.environment';
+import { IEnvironmentInterface } from 'src/app/interfaces';
 
 declare let SC;
 
@@ -23,7 +23,8 @@ export class SoundcloudService {
    */
   constructor(
     private http: HttpClient,
-    private handlers: CustomHttpHandlersService
+    private handlers: CustomHttpHandlersService,
+    @Inject('ENV') private ENV: IEnvironmentInterface
   ) {
     console.log('SoundcloudService constructor');
     this.init();
@@ -32,8 +33,11 @@ export class SoundcloudService {
   /**
    * Soundcloud client id.
    */
-  private options: { client_id, redirect_uri } = {
-    client_id: ENV.soundcloud.clientId,
+  private options: {
+    client_id: string,
+    redirect_uri: string
+  } = {
+    client_id: this.ENV.soundcloud.clientId,
     redirect_uri: 'http://dnbhub.com/callback.html' // TODO: replace callback url after API key issue
   };
 

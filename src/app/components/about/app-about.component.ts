@@ -12,6 +12,7 @@ import {
 import { AppContactDialog } from 'src/app/components/contact-dialog/app-contact-dialog.component';
 
 import { TranslateService } from 'src/app/modules/translate/translate.service';
+import { IEmailSubscriptionForm } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-about',
@@ -44,7 +45,24 @@ export class AppAboutComponent implements OnInit, OnDestroy {
   /**
    * Company details object.
    */
-  public details: { links?: object, soundcloudUserId?: number, text?: string, title?: string, widgetLink?: string } = {};
+  public details: {
+    links?: {
+      soundcloud: string;
+      rss: string;
+      mixcloud: string;
+      twitter: string;
+      facebook: string;
+      youtube: string;
+      instagram: string;
+      bandcamp: string;
+      vkontakte: string;
+      telegram: string;
+    },
+    soundcloudUserId?: number,
+    text?: string,
+    title?: string,
+    widgetLink?: string
+  } = {};
 
   /**
    * Gets company details from firebase.
@@ -99,7 +117,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
   /**
    * Subscription form.
    */
-  public subscriptionForm: FormGroup;
+  public subscriptionForm: IEmailSubscriptionForm;
 
   /**
    * Resets email signup form.
@@ -109,7 +127,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])],
       b_3eeba7cfe8388b91c662bdf95_8cca3229c8: ['']
-    });
+    }) as IEmailSubscriptionForm;
   }
 
   /**

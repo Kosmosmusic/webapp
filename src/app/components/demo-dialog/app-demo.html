@@ -27,7 +27,7 @@
 		<div>
 			<span fxFlex fxHide="true">
 				<mat-toolbar class="controls" fxLayout.xs="row wrap" fxLayoutAlign="center center">
-					<button mat-button tabindex="-1" type="submit" [disabled]="demoForm.invalid || demoForm.pristine" [attr.aria-label]="submit" color="accent">
+					<button mat-button tabindex="-1" type="submit" [disabled]="demoForm.invalid || demoForm.pristine" attr.aria-label="submit" color="accent">
 						<mat-icon class="metarial-icons">done</mat-icon> {{ 'form.submit' | translate }}
 					</button>
 				</mat-toolbar>

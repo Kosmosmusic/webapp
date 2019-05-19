@@ -9,6 +9,7 @@ import {
 } from 'src/app/services/index';
 
 import { TranslateService } from 'src/app/modules/translate/translate.service';
+import { IEmailForm } from 'src/app/interfaces';
 
 /**
  * Contact dialog.
@@ -48,7 +49,7 @@ export class AppContactDialog implements OnInit, OnDestroy {
   /**
    * Email form.
    */
-  public emailForm: FormGroup;
+  public emailForm: IEmailForm;
 
   /**
    * Resets email form group.
@@ -60,7 +61,7 @@ export class AppContactDialog implements OnInit, OnDestroy {
       header: ['', Validators.compose([Validators.required, Validators.pattern(/\w{4,}/)])],
       message: ['', Validators.compose([Validators.required, Validators.pattern(/[\w\s_-]{50,}/)])],
       domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
-    });
+    }) as IEmailForm;
   }
 
   /**
@@ -138,7 +139,7 @@ export class AppContactDialog implements OnInit, OnDestroy {
    * Closes dialog.
    * @param [result] result returned to parent component
    */
-  private closeDialog(result?: any) {
+  public closeDialog(result?: any) {
     /*
     *	report result if it was commonly closed, or modified and closed, deleted,
     *	or optional use result is provided

@@ -8,7 +8,7 @@ export const TRANSLATIONS = new InjectionToken('translations');
 /**
  * Translate module dictionaries.
  */
-const dictionary = {
+export const dictionary = {
   [LANG_EN_NAME]: LANG_EN_TRANSLATIONS,
   [LANG_RU_NAME]: LANG_RU_TRANSLATIONS
 };

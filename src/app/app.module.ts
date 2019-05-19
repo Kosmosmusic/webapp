@@ -42,7 +42,7 @@ import { TranslateModule } from 'src/app/modules/translate/index';
 import { AppServicesModule } from 'src/app/services/services.module';
 import { AppDirectivesModule } from 'src/app/directives/directives.module';
 
-import { ENV } from 'src/app/app.environment';
+import { ENV, AppEnvironmentConfig } from 'src/app/app.environment';
 
 @NgModule({
   declarations: [
@@ -73,7 +73,7 @@ import { ENV } from 'src/app/app.environment';
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: 'Window', useValue: window },
-    { provide: ENV, useValue: ENV }
+    { provide: 'ENV', useValue: new AppEnvironmentConfig() }
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

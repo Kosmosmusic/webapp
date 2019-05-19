@@ -1,35 +1,53 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
 # dependencies
-node_modules/
+/node_modules
+/functions/node_modules
 
-# firebase cache
-.firebase/
-
-# environment variables
-*.env
-.*.env
+# environment
+/.env
+/functions/.env
 
 # logs
 *.log
 coverage/*
 !coverage/*.gitkeep
 
-# compiled client app
-public/app/*.js
-public/app/*.js.map
-public/app/**/*.js
-public/app/**/*.js.map
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+.firebase/
+*.launch
+.settings/
+*.sublime-workspace
 
-# compiled client tests
-test/client/*.js
-test/client/*.js.map
-test/client/**/*.js
-test/client/**/*.js.map
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# built client app files
-public/js/*.min.js
-public/js/*.min.js.map
-public/css/*.min.css
-public/webfonts/*.*
-!public/webfonts/*.gitkeep
-public/SHA1SUMS.json
-public/hashsum.json
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+!/coverage/.gitkeep
+/documentation/*
+!/documentation/.gitkeep
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db

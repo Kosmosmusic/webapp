@@ -9,6 +9,7 @@ import {
 } from 'src/app/services/index';
 
 import { TranslateService } from 'src/app/modules/translate/translate.service';
+import { IMasteringOrderForm } from 'src/app/interfaces/forms/mastering-order-form.interface';
 
 /**
  * Demo dialog.
@@ -46,7 +47,7 @@ export class AppDemoDialog implements OnInit, OnDestroy {
   /**
    * Email form.
    */
-  public demoForm: FormGroup;
+  public demoForm: IMasteringOrderForm;
 
   /**
    * Resets email form group.
@@ -56,7 +57,7 @@ export class AppDemoDialog implements OnInit, OnDestroy {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       link: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/\w+/)])],
       domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
-    });
+    }) as IMasteringOrderForm;
   }
 
   /**
@@ -134,7 +135,7 @@ export class AppDemoDialog implements OnInit, OnDestroy {
    * Closes dialog.
    * @param [result] result returned to parent component
    */
-  private closeDialog(result?: any) {
+  public closeDialog(result?: any) {
     /*
     *	report result if it was commonly closed, or modified and closed, deleted,
     *	or optional use result is provided
