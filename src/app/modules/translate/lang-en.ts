@@ -16,6 +16,9 @@ export const LANG_EN_TRANSLATIONS = {
     en: 'English',
     ru: 'Russian'
   },
+  menu: {
+    contact: 'Contact us'
+  },
   contact: {
     open: 'Send message',
     title: 'Contact form',

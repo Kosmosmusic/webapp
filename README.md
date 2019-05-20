@@ -10,7 +10,7 @@
 
 ### Client Environment variables
 
-these are required and used by a `gulp` task `pack-app-js`, variables should be stored in `.env` file in the project root
+these are required and used by a `src/set-env.ts`, variables should be stored in `.env` file in the project root
 
 ```
 SOUNDCLOUD_CLIENT_ID=soundcloud_client_id
@@ -27,10 +27,10 @@ GOOGLE_APIS_CLIENT_ID=google_apis_client_id
 
 TODO `PRIVILIGED_ACCESS_FIREBASE_UID` is admin user account id, leave it empty for now;
 
-alternatively a script `set-env.sh` can guide you through the process of setting environment variables, use it like
+alternatively a script `bash/set-env.sh` can guide you through the process of setting environment variables, use it like
 
 ```
-bash ./set-env.sh
+bash shell/set-env.sh
 ```
 or
 ```
@@ -130,6 +130,32 @@ firebase deploy --only functions
 - [`Firebase: Web Setup`](https://firebase.google.com/docs/web/setup)
 - [`Firebase: Administrative Commands`](https://firebase.google.com/docs/cli/#administrative_commands)
 - [`Azure DevOps Services: JavaScript and Node.js`](https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/javascript?view=vsts&tabs=yaml)
+
+## Some package scripts overview
+
+```
+build - build everything
+build-prod - build production app
+build-prod-firebase - build production app for firebase
+express-prod - start node server in production mode
+install-firebase - install firebase dependencies
+install-global - install global dependencies
+install-local - install local dependencies
+install-project - install project dependencies
+lint - lint codebase
+ng-build - build default project
+ng-build-prod - build default production project
+ng-build-prod-firebase - build default production project for firebase
+reset-client-app-env - reset client application environment 
+set-client-app-env - set client application environment
+set-env - set environment variables
+prestart - prestart hook
+start": "node server.js & ng serve",
+test - execute tests in continuous mode
+test-single-run - single tests execution
+test-single-run-and-report - single tests execution, and report generation
+test-single-run-and-report-to-dist - single tests execution, and report generation to dist
+```
 
 ## Licenses
 

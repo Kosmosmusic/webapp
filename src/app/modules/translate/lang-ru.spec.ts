@@ -24,6 +24,9 @@ describe('TranslateService dictionary: lang-ru', () => {
         en: 'Английский',
         ru: 'Русский'
       },
+      menu: {
+        contact: 'Свяжитесь с нами'
+      },
       contact: {
         open: 'Отправить сообщение',
         title: 'Контактная форма',
