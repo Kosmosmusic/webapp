@@ -6,8 +6,9 @@ export const LANG_RU_NAME = 'ru';
 export const LANG_RU_TRANSLATIONS = {
   title: 'KOS.MOS.MUSIC',
   home: 'Дом',
-  releases: 'Саундклауд',
-  mastering: 'Мастеринг',
+  releases: 'Лейбл',
+  mastering: 'Лаборатория',
+  events: 'Вечеринки',
   mixes: 'Миксы',
   videos: 'Видео',
   about: 'Информация',

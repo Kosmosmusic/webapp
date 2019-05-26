@@ -1,7 +1,7 @@
 import {
   LANG_RU_NAME,
   LANG_RU_TRANSLATIONS
-} from 'src/app/modules/translate/lang-ru';
+} from 'src/app/modules/translate/ru/lang-ru';
 
 describe('TranslateService dictionary: lang-ru', () => {
 
@@ -14,8 +14,9 @@ describe('TranslateService dictionary: lang-ru', () => {
     expect(LANG_RU_TRANSLATIONS).toEqual(jasmine.objectContaining({
       title: 'KOS.MOS.MUSIC',
       home: 'Дом',
-      releases: 'Саундклауд',
-      mastering: 'Мастеринг',
+      releases: 'Лейбл',
+      mastering: 'Лаборатория',
+      events: 'Вечеринки',
       mixes: 'Миксы',
       videos: 'Видео',
       about: 'Информация',

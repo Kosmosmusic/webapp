@@ -1,7 +1,7 @@
 import {
   LANG_EN_NAME,
   LANG_EN_TRANSLATIONS
-} from 'src/app/modules/translate/lang-en';
+} from 'src/app/modules/translate/en/lang-en';
 
 describe('TranslateService dictionary: lang-en', () => {
 
@@ -14,11 +14,12 @@ describe('TranslateService dictionary: lang-en', () => {
     expect(LANG_EN_TRANSLATIONS).toEqual(jasmine.objectContaining({
       title: 'KOS.MOS.MUSIC',
       home: 'Home',
-      releases: 'Soundcloud',
-      mastering: 'Mastering',
+      releases: 'Label',
+      mastering: 'Lab',
+      events: 'Events',
       mixes: 'Mixes',
       videos: 'Videos',
-      about: 'About',
+      about: 'Information',
       language: {
         title: 'Language',
         en: 'English',

@@ -43,13 +43,26 @@ import { AppServicesModule } from 'src/app/services/services.module';
 import { AppDirectivesModule } from 'src/app/directives/directives.module';
 
 import { ENV, AppEnvironmentConfig } from 'src/app/app.environment';
+import { AppEventsComponent } from './components/events/app-events.component';
 
 @NgModule({
   declarations: [
-    AppComponent, AppNavComponent, AppIndexComponent, AppMasteringComponent,
-    AppMixesComponent, AppVideosComponent, AppAboutComponent, AppContactDialog,
-    AppDemoDialog, AppBookingDialog, AppMasteringDialog,
-    SoundcloudPlayerComponent, BassdrivePlayerComponent
+    AppComponent,
+    AppNavComponent,
+    AppIndexComponent,
+    AppMasteringComponent,
+    AppEventsComponent,
+    AppMixesComponent,
+    AppVideosComponent,
+    AppAboutComponent,
+    // dialogs
+    AppContactDialog,
+    AppDemoDialog,
+    AppBookingDialog,
+    AppMasteringDialog,
+    // players
+    SoundcloudPlayerComponent,
+    BassdrivePlayerComponent
   ],
   entryComponents: [
     AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog

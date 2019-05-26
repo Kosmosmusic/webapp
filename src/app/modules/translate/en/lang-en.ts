@@ -6,11 +6,12 @@ export const LANG_EN_NAME = 'en';
 export const LANG_EN_TRANSLATIONS = {
   title: 'KOS.MOS.MUSIC',
   home: 'Home',
-  releases: 'Soundcloud',
-  mastering: 'Mastering',
+  releases: 'Label',
+  mastering: 'Lab',
+  events: 'Events',
   mixes: 'Mixes',
   videos: 'Videos',
-  about: 'About',
+  about: 'Information',
   language: {
     title: 'Language',
     en: 'English',

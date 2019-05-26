@@ -61,13 +61,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * TODO action
-   */
-  public activateSomething(): void {
-    console.log('TODO activate something');
-  }
-
-  /**
    * Show spinner observable.
    */
   public showSpinner$: Observable<boolean> = this.spinner.showSpinner$.pipe(untilDestroyed(this));
@@ -227,8 +220,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     console.log('ngOnInit: AppComponent initialized');
-
-    this.spinner.startSpinner();
 
     this.removeUIinit();
 

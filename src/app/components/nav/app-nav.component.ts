@@ -23,7 +23,7 @@ export class AppNavComponent implements OnInit, OnDestroy {
 
   private subscriptions: any[] = [];
 
-  public navButtonsState: boolean[] = [false, false, false, false, false];
+  public navButtonsState: boolean[] = [false, false, false, false, false, false];
 
   public supportedLanguages: any[] = [
     { key: 'en', name: 'English' },
@@ -45,12 +45,14 @@ export class AppNavComponent implements OnInit, OnDestroy {
       index = '0';
     } else if (path === 'mastering') {
       index = '1';
-    } else if (path === 'mixes') {
+    } else if (path === 'events') {
       index = '2';
-    } else if (path === 'videos') {
+    } else if (path === 'mixes') {
       index = '3';
-    } else if (path === 'about') {
+    } else if (path === 'videos') {
       index = '4';
+    } else if (path === 'about') {
+      index = '5';
     }
     for (const b in this.navButtonsState) {
       if (typeof this.navButtonsState[b] === 'boolean') {

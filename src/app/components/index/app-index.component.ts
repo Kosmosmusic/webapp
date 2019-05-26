@@ -30,14 +30,13 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
     class: 'mat-body-1'
   }
 })
-export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppIndexComponent implements OnInit, OnDestroy {
 
   /**
    * @param media Observable media
    * @param emitter Event emitter service - components interaction
    * @param renderer Application renderer
    * @param firebaseService Service for making firebase requests
-   * @param facebookService Facebook API wrapper
    * @param soundcloudService Soundcloud API wrapper
    * @param window Window reference
    */
@@ -46,7 +45,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
     private emitter: EventEmitterService,
     private renderer: Renderer2,
     private firebaseService: FirebaseService,
-    private facebookService: FacebookService,
     private soundcloudService: SoundcloudService,
     @Inject('Window') private window: Window
   ) {
@@ -107,19 +105,8 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.media.asObservable().pipe(untilDestroyed(this)).subscribe((event: MediaChange) => {
       console.log('flex-layout media change event', event);
 
-      if (/(xs|sm)/.test(previousMqAlias) && /!(xs|sm)/.test(event.mqAlias)) {
-        this.facebookService.renderFacebookWidget();
-      }
-
       previousMqAlias = event.mqAlias;
     });
-  }
-  /**
-   * Lifecycle hook called after component view is initialized.
-   */
-  public ngAfterViewInit(): void {
-    console.log('ngAfterViewInit: AppIndexComponent view initialized');
-    this.facebookService.renderFacebookWidget();
   }
   /**
    * Lifecycle hook called after component is destroyed.
