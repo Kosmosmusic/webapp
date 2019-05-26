@@ -17,6 +17,7 @@ import { AppMasteringDialog } from 'src/app/components/mastering-dialog/app-mast
 import { Observable } from 'rxjs';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { AppSpinnerService } from 'src/app/services';
+import { take } from 'rxjs/operators';
 
 /**
  * Application root component.
@@ -58,8 +59,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     this.toggleConsoleOutput();
   }
-
-  private subscriptions: any[] = [];
 
   /**
    * TODO action
@@ -125,7 +124,7 @@ export class AppComponent implements OnInit, OnDestroy {
       disableClose: false,
       data: {}
     });
-    this.dialogInstance.afterClosed().subscribe((result: any) => {
+    this.dialogInstance.afterClosed().pipe(take(1)).subscribe((result: any) => {
       console.log('demo dialog closed with result', result);
       this.dialogInstance = undefined;
     });
@@ -144,7 +143,7 @@ export class AppComponent implements OnInit, OnDestroy {
       disableClose: false,
       data: {}
     });
-    this.dialogInstance.afterClosed().subscribe((result: any) => {
+    this.dialogInstance.afterClosed().pipe(take(1)).subscribe((result: any) => {
       console.log('mastering dialog closed with result', result);
       this.dialogInstance = undefined;
     });
@@ -233,7 +232,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.removeUIinit();
 
-    let sub: any = this.emitter.getEmitter().subscribe((event: any) => {
+    this.emitter.getEmitter().pipe(untilDestroyed(this)).subscribe((event: any) => {
       console.log('AppComponent, event:', event);
       if (event.spinner) {
         if (event.spinner === 'start') {
@@ -253,12 +252,10 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.subscriptions.push(sub);
 
-    sub = this.dateAdapter.localeChanges.subscribe(() => {
+    this.dateAdapter.localeChanges.pipe(untilDestroyed(this)).subscribe(() => {
       console.log('dateAdapter.localeChanges, changed according to the language');
     });
-    this.subscriptions.push(sub);
 
     /*
     * check preferred language, respect preference if dictionary exists
@@ -287,7 +284,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.matIconRegistry.addSvgIcon('logo-square', this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_square.svg'));
 
     // subscribe to media chage events
-    sub = this.media.asObservable().subscribe((event: MediaChange) => {
+    this.media.asObservable().pipe(untilDestroyed(this)).subscribe((event: MediaChange) => {
       // console.log('flex-layout media change event', event);
       if (/(lg|xl)/.test(event.mqAlias)) {
         this.setGridConfig('4', '2:1');
@@ -299,17 +296,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.setGridConfig('1', '2.5:1');
       }
     });
-    this.subscriptions.push(sub);
   }
 
   public ngOnDestroy(): void {
     console.log('ngOnDestroy: AppComponent destroyed');
     this.emitter.emitEvent({serviceWorker: 'deinitialize'});
-    if (this.subscriptions.length) {
-      for (const sub of this.subscriptions) {
-        sub.unsubscribe();
-      }
-    }
   }
 
 }
