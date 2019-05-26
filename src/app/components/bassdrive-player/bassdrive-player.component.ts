@@ -17,15 +17,13 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class BassdrivePlayerComponent implements OnInit, OnDestroy {
 
   /**
-   * @param el Element reference
    * @param window Window reference
    */
   constructor(
-    private el: ElementRef,
     private sanitizer: DomSanitizer,
     @Inject('Window') private window: Window
   ) {
-    console.log('BassdrivePlayerComponent constructor, el', this.el.nativeElement);
+    console.log('BassdrivePlayerComponent constructor, el');
   }
 
   /**

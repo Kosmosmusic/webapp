@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatIconRegistry, DateAdapter, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,10 +14,13 @@ import { AppContactDialog } from 'src/app/components/contact-dialog/app-contact-
 import { AppBookingDialog } from 'src/app/components/booking-dialog/app-booking-dialog.component';
 import { AppMasteringDialog } from 'src/app/components/mastering-dialog/app-mastering-dialog.component';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { AppSpinnerService } from 'src/app/services';
 
+/**
+ * Application root component.
+ */
 @Component({
   selector: 'app',
   templateUrl: './app.html',
@@ -28,7 +31,6 @@ import { AppSpinnerService } from 'src/app/services';
 export class AppComponent implements OnInit, OnDestroy {
 
   /**
-   * @param el Element reference
    * @param matIconRegistry Material icons registry
    * @param dateAdapter Material moment date adapter
    * @param dialog Reusable dialog
@@ -42,7 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param window Browser window reference
    */
   constructor(
-    private el: ElementRef,
     private matIconRegistry: MatIconRegistry,
     private dateAdapter: DateAdapter<any>,
     private dialog: MatDialog,

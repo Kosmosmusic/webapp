@@ -1,5 +1,14 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, Inject, ViewChild, Renderer2 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ElementRef,
+  Inject,
+  ViewChild,
+  Renderer2
+} from '@angular/core';
+
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
 import {
@@ -9,6 +18,11 @@ import {
   SoundcloudService
 } from 'src/app/services/index';
 
+import { untilDestroyed } from 'ngx-take-until-destroy';
+
+/**
+ * Application index component.
+ */
 @Component({
   selector: 'app-index',
   templateUrl: './app-index.html',
@@ -19,8 +33,6 @@ import {
 export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
-   * @param el Element reference
-   * @param sanitizer DOM danitizer
    * @param media Observable media
    * @param emitter Event emitter service - components interaction
    * @param renderer Application renderer
@@ -30,8 +42,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param window Window reference
    */
   constructor(
-    private el: ElementRef,
-    private sanitizer: DomSanitizer,
     private media: ObservableMedia,
     private emitter: EventEmitterService,
     private renderer: Renderer2,
@@ -42,11 +52,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     // console.log('this.el.nativeElement:', this.el.nativeElement);
   }
-
-  /**
-   * Component subscriptions.
-   */
-  private subscriptions: any[] = [];
 
   @ViewChild('content') private content: ElementRef;
 
@@ -94,30 +99,26 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.bindToContentScrollEvent();
 
-    let sub: any = this.emitter.getEmitter().subscribe((event: any) => {
+    this.emitter.getEmitter().pipe(untilDestroyed(this)).subscribe((event: any) => {
       console.log('AppIndexComponent consuming event:', event);
     });
-    this.subscriptions.push(sub);
 
     let previousMqAlias: string = '';
-    sub = this.media.asObservable().subscribe((event: MediaChange) => {
+    this.media.asObservable().pipe(untilDestroyed(this)).subscribe((event: MediaChange) => {
       console.log('flex-layout media change event', event);
 
       if (/(xs|sm)/.test(previousMqAlias) && /!(xs|sm)/.test(event.mqAlias)) {
-        // rerender facebook widget
         this.facebookService.renderFacebookWidget();
       }
 
       previousMqAlias = event.mqAlias;
     });
-    this.subscriptions.push(sub);
   }
   /**
    * Lifecycle hook called after component view is initialized.
    */
   public ngAfterViewInit(): void {
     console.log('ngAfterViewInit: AppIndexComponent view initialized');
-    // rerender facebook widget
     this.facebookService.renderFacebookWidget();
   }
   /**
@@ -125,12 +126,6 @@ export class AppIndexComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public ngOnDestroy(): void {
     console.log('ngOnDestroy: AppIndexComponent destroyed');
-    if (this.subscriptions.length) {
-      for (const sub of this.subscriptions) {
-        sub.unsubscribe();
-      }
-    }
-    // reset Soundcloud shared data
     this.soundcloudService.resetServiceData();
   }
 }

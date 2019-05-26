@@ -70,6 +70,7 @@ describe('TranslateService dictionary: lang-en', () => {
             website: 'Promoter website'
           },
           invalid: {
+            date: 'Choose date',
             venue: {
               name: 'Min length: 1 symbol',
               capacity: 'Min value: 1',

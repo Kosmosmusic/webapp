@@ -3,9 +3,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import {
-  EventEmitterService,
   CustomDeferredService,
-  SendBookingRequestService
+  SendBookingRequestService,
+  AppSpinnerService
 } from 'src/app/services/index';
 
 import { TranslateService } from 'src/app/modules/translate/translate.service';
@@ -27,7 +27,6 @@ export class AppBookingDialog implements OnInit, OnDestroy {
    * @param data Dialog data provided by parent controller
    * @param dialogRef Dialog reference
    * @param fb Form builder - user input procession
-   * @param emitter Event emitter service
    * @param translateService Translate service - UI translation to predefined languages
    * @param sendBookingRequestService Send booking request service - sends a booking request to specified email address by calling cloud functions
    * @param window Window reference
@@ -36,15 +35,13 @@ export class AppBookingDialog implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AppBookingDialog>,
     private fb: FormBuilder,
-    private emitter: EventEmitterService,
     private translateService: TranslateService,
     private sendBookingRequestService: SendBookingRequestService,
+    private spinner: AppSpinnerService,
     @Inject('Window') private window: Window
   ) {
     console.log('AppBookingDialog constructor', this.data);
   }
-
-  private subscriptions: any[] = [];
 
   /**
    * Email form.
@@ -78,7 +75,7 @@ export class AppBookingDialog implements OnInit, OnDestroy {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       phone: ['', Validators.compose([Validators.required, Validators.pattern(/\+\d\s[\d\s-]+/)])],
       website: ['', Validators.compose([Validators.required, Validators.pattern(/http(s)?:\/\/.+/)])],
-      domain: [this.window.location.origin, Validators.compose([Validators.required, Validators.pattern(/.+/)])]
+      domain: [this.window.location.origin, Validators.compose([Validators.required])]
     }) as IBookingForm;
   }
 
@@ -100,51 +97,28 @@ export class AppBookingDialog implements OnInit, OnDestroy {
   public feedback: string;
 
   /**
-   * Dialog loading state.
-   */
-  private loading: boolean = false;
-  /**
-   * Use in templates to get loaded state.
-   */
-  public loaded(): boolean {
-    return !this.loading;
-  }
-
-  /**
-   * Starts progress.
-   */
-  private startProgress(): void {
-    this.loading = true;
-  }
-  /**
-   * Stops progress.
-   */
-  private stopProgress(): void {
-    this.loading = false;
-  }
-
-  /**
    * Sends email.
    */
   public sendBookingRequest(): Promise<boolean> {
     const def = new CustomDeferredService<boolean>();
-    this.emitter.emitProgressStartEvent();
+    this.spinner.startSpinner();
     const formData: any = this.bookingForm.value;
     console.log('formData', formData);
     this.sendBookingRequestService.sendBookingRequest(formData).subscribe(
       (data: any) => {
         console.log('sendBookingRequest, data:', data);
-        this.emitter.emitProgressStopEvent();
+        this.spinner.stopSpinner();
+
         def.resolve(true);
-        this.feedback = this.translateService.instant('booing.result.success');
+        this.feedback = this.translateService.instant('booking.result.success');
         setTimeout(() => {
           this.closeDialog();
         }, 1500);
       },
       (error: any) => {
         console.log('sendBookingRequest, error', error);
-        this.feedback = this.translateService.instant('booing.result.fail');
-        this.emitter.emitProgressStopEvent();
+        this.feedback = this.translateService.instant('booking.result.fail');
+        this.spinner.stopSpinner();
         def.reject(false);
       },
       () => {
@@ -157,12 +131,10 @@ export class AppBookingDialog implements OnInit, OnDestroy {
   /**
    * Closes dialog.
    * @param [result] result returned to parent component
+   * Reports result if it was commonly closed, or modified and closed, deleted, or optional use result is provided parent controller should listen to this event
    */
   public closeDialog(result?: any) {
     /*
-    *	report result if it was commonly closed, or modified and closed, deleted,
-    *	or optional use result is provided
-    *	parent controller should listen to this event
     */
     result = (result) ? result : 'closed';
     this.dialogRef.close(result);
@@ -174,30 +146,11 @@ export class AppBookingDialog implements OnInit, OnDestroy {
   public ngOnInit(): void {
     console.log('ngOnInit: AppBookingDialog initialized');
     this.resetEmailForm();
-
-    const sub: any = this.emitter.getEmitter().subscribe((event: any) => {
-      console.log('AppBookingDialog consuming event:', event);
-      if (event.progress) {
-        if (event.progress === 'start') {
-          console.log('AppBookingDialog, starting progress');
-          this.startProgress();
-        } else if (event.progress === 'stop') {
-          console.log('AppBookingDialog, stopping progress');
-          this.stopProgress();
-        }
-      }
-    });
-    this.subscriptions.push(sub);
   }
   /**
    * Lifecycle hook called after component is destroyed.
    */
   public ngOnDestroy(): void {
     console.log('ngOnDestroy: AppBookingDialog destroyed');
-    if (this.subscriptions.length) {
-      for (const sub of this.subscriptions) {
-        sub.unsubscribe();
-      }
-    }
   }
 }

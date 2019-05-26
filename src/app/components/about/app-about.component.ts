@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import {
-  EventEmitterService,
   CustomDeferredService,
   FirebaseService,
   EmailSubscriptionService,
@@ -27,7 +26,6 @@ export class AppAboutComponent implements OnInit, OnDestroy {
   /**
    * @param dialog Reusable dialog
    * @param fb Form builder
-   * @param emitter Event emitter service
    * @param translateService Translate service - UI translation to predefined languages
    * @param firebaseService Firebase interaction service
    * @param emailSubscriptionService Email subscription service - saves subscribers' email to database
@@ -37,7 +35,6 @@ export class AppAboutComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private emitter: EventEmitterService,
     private translateService: TranslateService,
     private firebaseService: FirebaseService,
     private emailSubscriptionService: EmailSubscriptionService,

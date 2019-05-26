@@ -62,6 +62,7 @@ export const LANG_RU_TRANSLATIONS = {
         website: 'Web-сайт промоутера'
       },
       invalid: {
+        date: 'Выберите дату',
         venue: {
           name: 'Мин длина: 1 символ',
           capacity: 'Мин значение: 1',

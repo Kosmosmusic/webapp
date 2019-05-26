@@ -8,12 +8,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AppSpinnerService {
 
   /**
-   * Indicates if progress spinner should be shown.
+   * Indicates if application spinner should be shown.
    */
   private showSpinner: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
-   * Show spinner observable.
+   * Show application spinner observable.
    */
   public showSpinner$: Observable<boolean> = this.showSpinner.asObservable();
 

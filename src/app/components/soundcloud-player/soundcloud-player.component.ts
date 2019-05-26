@@ -23,7 +23,6 @@ import { AppSpinnerService } from 'src/app/services';
 export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
-   * @param el Element reference
    * @param emitter Event emitter service - components interaction
    * @param firebaseService Service for making firebase requests
    * @param soundcloudService Soundcloud API wrapper
@@ -32,7 +31,6 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
    * @param window Window reference
    */
   constructor(
-    private el: ElementRef,
     private emitter: EventEmitterService,
     private firebaseService: FirebaseService,
     private soundcloudService: SoundcloudService,
@@ -40,7 +38,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
     private spinner: AppSpinnerService,
     @Inject('Window') private window: Window
   ) {
-    console.log('SoundcloudPlayerComponent constructor, el', this.el.nativeElement);
+    console.log('SoundcloudPlayerComponent constructor');
   }
 
   /**

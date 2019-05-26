@@ -62,6 +62,7 @@ export const LANG_EN_TRANSLATIONS = {
         website: 'Promoter website'
       },
       invalid: {
+        date: 'Choose date',
         venue: {
           name: 'Min length: 1 symbol',
           capacity: 'Min value: 1',

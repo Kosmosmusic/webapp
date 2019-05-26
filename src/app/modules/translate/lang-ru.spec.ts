@@ -70,6 +70,7 @@ describe('TranslateService dictionary: lang-ru', () => {
             website: 'Web-сайт промоутера'
           },
           invalid: {
+            date: 'Выберите дату',
             venue: {
               name: 'Мин длина: 1 символ',
               capacity: 'Мин значение: 1',
