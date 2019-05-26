@@ -14,6 +14,10 @@ import { AppContactDialog } from 'src/app/components/contact-dialog/app-contact-
 import { AppBookingDialog } from 'src/app/components/booking-dialog/app-booking-dialog.component';
 import { AppMasteringDialog } from 'src/app/components/mastering-dialog/app-mastering-dialog.component';
 
+import { Observable, BehaviorSubject } from 'rxjs';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { AppSpinnerService } from 'src/app/services';
+
 @Component({
   selector: 'app',
   templateUrl: './app.html',
@@ -34,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param facebookService Facebook service - Facebook JavaScrip SDK wrapper
    * @param serviceWorker Service worker service
    * @param media Observable media
+   * @param spinner Application spinner service
    * @param window Browser window reference
    */
   constructor(
@@ -47,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private facebookService: FacebookService,
     private serviceWorker: CustomServiceWorkerService,
     private media: ObservableMedia,
+    private spinner: AppSpinnerService,
     @Inject('Window') private window: Window
   ) {
     this.toggleConsoleOutput();
@@ -62,21 +68,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Indicates if progress spinner should be shown.
+   * Show spinner observable.
    */
-  public showSpinner: boolean = false;
-  /**
-   * Shows spinner.
-   */
-  private startSpinner(): void {
-    this.showSpinner = true;
-  }
-  /**
-   * Hides spinner.
-   */
-  private stopSpinner(): void {
-    this.showSpinner = false;
-  }
+  public showSpinner$: Observable<boolean> = this.spinner.showSpinner$.pipe(untilDestroyed(this));
 
   public sidenavOpened: boolean = false;
 
@@ -234,6 +228,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     console.log('ngOnInit: AppComponent initialized');
 
+    this.spinner.startSpinner();
+
     this.removeUIinit();
 
     let sub: any = this.emitter.getEmitter().subscribe((event: any) => {
@@ -241,10 +237,10 @@ export class AppComponent implements OnInit, OnDestroy {
       if (event.spinner) {
         if (event.spinner === 'start') {
           console.log('AppComponent, starting spinner');
-          this.startSpinner();
+          this.spinner.startSpinner();
         } else if (event.spinner === 'stop') {
           console.log('AppComponent, stopping spinner');
-          this.stopSpinner();
+          this.spinner.stopSpinner();
         }
       }
       if (event.lang) {

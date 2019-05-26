@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 
-import { EventEmitterService } from 'src/app/services/event-emitter/event-emitter.service';
+import { AppSpinnerService } from 'src/app/services';
 
 @Component({
   selector: 'app-mastering',
@@ -11,32 +11,32 @@ import { EventEmitterService } from 'src/app/services/event-emitter/event-emitte
 })
 export class AppMasteringComponent implements OnInit, OnDestroy {
 
-	/**
-	 * @param emitter Event emitter service
-	 */
-	constructor(
-		private emitter: EventEmitterService
-	) {}
+  /**
+   * @param spinner Application spinner service
+   */
+  constructor(
+    private spinner: AppSpinnerService
+  ) {}
 
-	@HostBinding('fxLayout') public fxLayout: string = 'row';
-	@HostBinding('fxLayoutAlign') public fxLayoutAlign: string = 'start stretch';
+  @HostBinding('fxLayout') public fxLayout: string = 'row';
+  @HostBinding('fxLayoutAlign') public fxLayoutAlign: string = 'start stretch';
 
-	/**
-	 * Should be called once iframe content finished loading.
-	 */
-	public contentLoaded(): void {
-		console.log('content loaded');
-		this.emitter.emitSpinnerStopEvent();
-	}
+  /**
+   * Should be called once iframe content finished loading.
+   */
+  public contentLoaded(): void {
+    console.log('content loaded');
+    this.spinner.stopSpinner();
+  }
 
-	public details: any = {};
+  public details: any = {};
 
-	public ngOnInit(): void {
-		console.log('ngOnInit: AppMasteringComponent initialized');
-		this.emitter.emitSpinnerStartEvent();
-	}
+  public ngOnInit(): void {
+    console.log('ngOnInit: AppMasteringComponent initialized');
+    this.spinner.startSpinner();
+  }
 
-	public ngOnDestroy(): void {
-		console.log('ngOnDestroy: AppMasteringComponent destroyed');
-	}
+  public ngOnDestroy(): void {
+    console.log('ngOnDestroy: AppMasteringComponent destroyed');
+  }
 }

@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import {
   EventEmitterService,
   CustomDeferredService,
   FirebaseService,
-  EmailSubscriptionService
+  EmailSubscriptionService,
+  AppSpinnerService
 } from 'src/app/services/index';
 
 import { AppContactDialog } from 'src/app/components/contact-dialog/app-contact-dialog.component';
@@ -30,6 +31,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
    * @param translateService Translate service - UI translation to predefined languages
    * @param firebaseService Firebase interaction service
    * @param emailSubscriptionService Email subscription service - saves subscribers' email to database
+   * @param spinner Application spinner service
    * @param window Window reference
    */
   constructor(
@@ -39,6 +41,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private firebaseService: FirebaseService,
     private emailSubscriptionService: EmailSubscriptionService,
+    private spinner: AppSpinnerService,
     @Inject('Window') private window: Window
   ) {}
 
@@ -69,7 +72,7 @@ export class AppAboutComponent implements OnInit, OnDestroy {
    */
   private getDetails(): Promise<any> {
     const def = new CustomDeferredService<any>();
-    this.emitter.emitSpinnerStartEvent();
+    this.spinner.startSpinner();
     this.firebaseService.getDB('about', false)
       .then((snapshot) => {
         console.log('getDetails, about', snapshot.val());
@@ -79,12 +82,12 @@ export class AppAboutComponent implements OnInit, OnDestroy {
         keys.forEach((key) => {
           this.details[key] = response[key];
         });
-        this.emitter.emitSpinnerStopEvent();
+        this.spinner.stopSpinner();
         def.resolve();
       })
       .catch((error) => {
         console.log('getDetails, error', error);
-        this.emitter.emitSpinnerStopEvent();
+        this.spinner.stopSpinner();
         def.reject();
       });
     return def.promise;
@@ -140,18 +143,18 @@ export class AppAboutComponent implements OnInit, OnDestroy {
    */
   public subscribeToMailingList(): Promise<boolean> {
     const def = new CustomDeferredService<boolean>();
-    this.emitter.emitProgressStartEvent();
+    this.spinner.startSpinner();
     const formData: any = this.subscriptionForm.value;
     this.emailSubscriptionService.subscribe(formData).subscribe(
       (data: any) => {
         console.log('subscribeToMailingList, data:', data);
-        this.emitter.emitProgressStopEvent();
+        this.spinner.stopSpinner();
         this.feedback = this.translateService.instant('subscribe.result.success');
         def.resolve(true);
       },
       (error: any) => {
         console.log('subscribeToMailingList, error', error);
-        this.emitter.emitProgressStopEvent();
+        this.spinner.stopSpinner();
         this.feedback = this.translateService.instant('subscribe.result.fail');
         setTimeout(() => {
           this.feedback = '';

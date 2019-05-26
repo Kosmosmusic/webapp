@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import {
   EventEmitterService,
   CustomDeferredService,
-  SendBookingRequestService,
-  EmailSubscriptionService
+  SendBookingRequestService
 } from 'src/app/services/index';
 
 import { TranslateService } from 'src/app/modules/translate/translate.service';

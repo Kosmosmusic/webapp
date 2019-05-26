@@ -15,6 +15,7 @@ import { SendBookingRequestService } from 'src/app/services/send-booking-request
 import { EmailSubscriptionService } from 'src/app/services/email-subscription/email-subscription.service';
 import { SoundcloudService } from 'src/app/services/soundcloud/soundcloud.service';
 import { FacebookService } from 'src/app/services/facebook/facebook.service';
+import { AppSpinnerService } from './spinner/spinner.service';
 
 @NgModule({})
 export class AppServicesModule {
@@ -25,6 +26,7 @@ export class AppServicesModule {
         CustomServiceWorkerService,
         CustomDeferredService,
         CustomHttpHandlersService,
+        AppSpinnerService,
         EventEmitterService,
         UserInterfaceUtilsService,
         GoogleApiService,

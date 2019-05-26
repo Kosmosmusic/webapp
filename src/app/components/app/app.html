@@ -1,3 +1,5 @@
+<mat-progress-bar id="spinner" *ngIf="showSpinner$ | async" mode="indeterminate"></mat-progress-bar>
+
 <app-nav fxFlex="0 1 auto"></app-nav>
 
 <mat-sidenav-container fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start stretch">
@@ -31,10 +33,6 @@
     </mat-grid-list>
   </mat-sidenav>
   <mat-sidenav-content fxFlex="100" fxLayout="row" fxLayoutAlign="start stretch">
-
-    <span id="spinner" *ngIf="showSpinner">
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-    </span>
 
     <router-outlet></router-outlet>
 

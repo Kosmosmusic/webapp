@@ -7,6 +7,7 @@ import { SoundcloudService } from 'src/app/services/soundcloud/soundcloud.servic
 import { UserInterfaceUtilsService } from 'src/app/services/ui-utils/user-interface-utils.service';
 
 import { ISoundcloudPlaylist } from 'src/app/interfaces/soundcloud/soundcloud-playlist.interface';
+import { AppSpinnerService } from 'src/app/services';
 
 /**
  * Soundcloud player component.
@@ -27,6 +28,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
    * @param firebaseService Service for making firebase requests
    * @param soundcloudService Soundcloud API wrapper
    * @param uiUtils User Interface Utilities Service
+   * @param spinner Application spinner service
    * @param window Window reference
    */
   constructor(
@@ -35,6 +37,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
     private firebaseService: FirebaseService,
     private soundcloudService: SoundcloudService,
     public uiUtils: UserInterfaceUtilsService,
+    private spinner: AppSpinnerService,
     @Inject('Window') private window: Window
   ) {
     console.log('SoundcloudPlayerComponent constructor, el', this.el.nativeElement);
@@ -136,7 +139,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
   private loadMoreTracks(): void {
     if (!this.noMoreTracks && !this.loading) {
       this.loading = true;
-      this.emitter.emitSpinnerStartEvent();
+      this.spinner.startSpinner();
       if (/(kosmosmusic|kosmoslab)/.test(this.mode)) {
         console.log('this.tracks.length', this.tracks.length);
         this.soundcloudService.getUserTracks(this.userId).then(
@@ -148,12 +151,12 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
             }
             this.tracks = this.soundcloudService.data.tracks.collection.slice();
             this.loading = false;
-            this.emitter.emitSpinnerStopEvent();
+            this.spinner.stopSpinner();
           },
           (error: any) => {
             console.log('soundcloudService.getUserTracks, error', error);
             this.loading = false;
-            this.emitter.emitSpinnerStopEvent();
+            this.spinner.stopSpinner();
           }
         );
       } else if (/playlist/.test(this.mode)) {
@@ -166,12 +169,12 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
             this.playlist = this.soundcloudService.data.playlist;
             this.renderedPlaylist = this.soundcloudService.data.playlist.tracks.slice(0, this.renderPlaylistTracks) || [];
             this.loading = false;
-            this.emitter.emitSpinnerStopEvent();
+            this.spinner.stopSpinner();
           },
           (error: any) => {
             console.log('soundcloudService.getUserTracks, error', error);
             this.loading = false;
-            this.emitter.emitSpinnerStopEvent();
+            this.spinner.stopSpinner();
           }
         );
       } else if (/playlist/.test(this.mode)) {
@@ -214,7 +217,7 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
       // kill player if exists
       this.playerKill();
       this.selectTrack(trackIndex);
-      this.emitter.emitSpinnerStartEvent();
+      this.spinner.startSpinner();
       this.soundcloudService.streamTrack(track.id).then(
         (player: any) => {
           console.log('soundcloudService.streamTrack, player: ', player);
@@ -248,11 +251,11 @@ export class SoundcloudPlayerComponent implements OnInit, OnDestroy, OnChanges {
           setTimeout(() => {
             this.player.play();
             this.reportWaveformProgress();
-            this.emitter.emitSpinnerStopEvent();
+            this.spinner.stopSpinner();
           }, 1000);
         },
         (error: any) => {
-          this.emitter.emitSpinnerStopEvent();
+          this.spinner.stopSpinner();
         }
       );
     } else {

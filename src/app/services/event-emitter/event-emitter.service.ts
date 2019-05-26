@@ -23,22 +23,6 @@ export class EventEmitterService {
   }
 
   /**
-   * Emits progress spinner start event.
-   */
-  public emitSpinnerStartEvent(): void {
-    console.log('root spinner start event emitted');
-    this.emitter.emit({spinner: 'start'});
-  }
-
-  /**
-   * Emits progress spinner stop event.
-   */
-  public emitSpinnerStopEvent(): void {
-    console.log('root spinner stop event emitted');
-    this.emitter.emit({spinner: 'stop'});
-  }
-
-  /**
    * Emits progress bar start event.
    * Progress pars should be used locally in dialogs and similar.
    */

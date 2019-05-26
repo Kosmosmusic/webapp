@@ -1,8 +1,24 @@
 <mat-toolbar color="primary">
-  <span fxLayout="row" fxLayoutAlign="start stretch">
-    <mat-icon svgIcon="logo-square" class="material-icons" alt="{{ 'title' | translate }}" title="{{ 'title' | translate  }}"></mat-icon>
+  <span
+    fxFlex="0 1 auto"
+    fxLayout="row"
+    fxLayoutAlign="start stretch">
+    <mat-icon
+      svgIcon="logo-square"
+      class="material-icons"
+      alt="{{ 'title' | translate }}"
+      title="{{ 'title' | translate  }}">
+    </mat-icon>
   </span>
-  <span fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="center center" class="nohover" fxShow fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+  <span
+    fxFlex="1 1 auto"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    class="nohover"
+    fxShow
+    fxHide.md="true"
+    fxHide.lg="true"
+    fxHide.xl="true">
     <span fxFlex="0 1 auto" *ngIf="navButtonsState[0]">
       {{ 'title' | translate }}
     </span>
@@ -19,7 +35,12 @@
       {{ 'about' | translate }}
     </span>
   </span>
-  <span class="mat-toolbar-tools" fxFlex="0 1 auto" fxFlex.gt-sm="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly center">
+  <span
+    class="mat-toolbar-tools"
+    fxFlex="0 1 auto"
+    fxFlex.gt-sm="1 1 auto"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center">
 
     <button [routerLink]="['index']" mat-button [color]="navButtonsState[0] ? 'accent' : null" [fxHide.xs]="true" [fxHide.sm]="true" matTooltip="{{ 'home' | translate }}" matTooltipPosition="below">
       <mat-icon fontSet="fas" fontIcon="fa-home" class="material-icons-fas"></mat-icon>
@@ -48,10 +69,10 @@
       <button mat-menu-item *ngFor="let lang of supportedLanguages" [ngClass]="{selected: isLanguageSelected(lang.key)}" (click)="selectLanguage(lang.key)">{{ 'language.' + lang.key | translate}}</button>
     </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="mobileMenu" [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
+    <button mat-icon-button [matMenuTriggerFor]="mobileMenu" fxShow [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
       <mat-icon fontSet="fas" fontIcon="fa-ellipsis-v" class="material-icons-fas"></mat-icon>
     </button>
-    <mat-menu #mobileMenu="matMenu" [fxHide.md]="true" [fxHide.lg]="true">
+    <mat-menu #mobileMenu="matMenu" fxShow [fxHide.md]="true" [fxHide.lg]="true" [fxHide.xl]="true">
       <span [routerLink]="['index']" (click)="switchNavButtons($event, 'index')" mat-menu-item [disabled]="navButtonsState[0]">
         <mat-icon fontSet="fas" fontIcon="fa-home" class="material-icons-fas"></mat-icon> {{ 'home' | translate }}
       </span>
@@ -81,5 +102,18 @@
       </span>
     </mat-menu>
 
+  </span>
+  <span
+    fxFlex="0 1 auto"
+    fxLayout="row"
+    fxLayoutAlign="start stretch"
+    fxShow
+    fxHide.lt-md="true">
+    <mat-icon
+      svgIcon="logo-square"
+      class="material-icons"
+      alt="{{ 'title' | translate }}"
+      title="{{ 'title' | translate  }}">
+    </mat-icon>
   </span>
 </mat-toolbar>

@@ -17,3 +17,4 @@ export * from 'src/app/services/send-booking-request/send-booking-request.servic
 export * from 'src/app/services/email-subscription/email-subscription.service';
 export * from 'src/app/services/soundcloud/soundcloud.service';
 export * from 'src/app/services/facebook/facebook.service';
+export * from 'src/app/services/spinner/spinner.service';
