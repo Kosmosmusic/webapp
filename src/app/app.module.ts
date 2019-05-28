@@ -44,6 +44,7 @@ import { AppDirectivesModule } from 'src/app/directives/directives.module';
 
 import { ENV, AppEnvironmentConfig } from 'src/app/app.environment';
 import { AppEventsComponent } from './components/events/app-events.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import { AppEventsComponent } from './components/events/app-events.component';
     AppRoutingModule
   ],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: APP_BASE_HREF, useValue: environment.baseHref },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: 'Window', useValue: window },
     { provide: 'ENV', useValue: new AppEnvironmentConfig() }
