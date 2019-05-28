@@ -26,15 +26,18 @@
       {{ 'mastering' | translate }}
     </span>
     <span fxFlex="0 1 auto" *ngIf="navButtonsState[2]">
-      {{ 'events' | translate }}
+      {{ 'releases' | translate }}
     </span>
     <span fxFlex="0 1 auto" *ngIf="navButtonsState[3]">
-      {{ 'mixes' | translate }}
+      {{ 'events' | translate }}
     </span>
     <span fxFlex="0 1 auto" *ngIf="navButtonsState[4]">
-      {{ 'videos' | translate }}
+      {{ 'mixes' | translate }}
     </span>
     <span fxFlex="0 1 auto" *ngIf="navButtonsState[5]">
+      {{ 'videos' | translate }}
+    </span>
+    <span fxFlex="0 1 auto" *ngIf="navButtonsState[6]">
       {{ 'about' | translate }}
     </span>
   </span>
@@ -72,9 +75,22 @@
     </button>
     <button
       mat-button
+      [routerLink]="['releases']"
+      (click)="switchNavButtons($event, 'releases')"
+      [color]="navButtonsState[2] ? 'accent' : null"
+      [fxHide.xs]="true"
+      [fxHide.sm]="true"
+      matTooltip="{{ 'releases' | translate }}"
+      matTooltipPosition="below">
+
+      <mat-icon fontSet="fas" fontIcon="fa-file-audio" class="material-icons-fas"></mat-icon>
+      {{ 'releases' | translate }}
+    </button>
+    <button
+      mat-button
       [routerLink]="['events']"
       (click)="switchNavButtons($event, 'events')"
-      [color]="navButtonsState[2] ? 'accent' : null"
+      [color]="navButtonsState[3] ? 'accent' : null"
       [fxHide.xs]="true"
       [fxHide.sm]="true"
       matTooltip="{{ 'events' | translate }}"
@@ -87,7 +103,7 @@
       mat-button
       [routerLink]="['mixes']"
       (click)="switchNavButtons($event, 'mixes')"
-      [color]="navButtonsState[3] ? 'accent' : null"
+      [color]="navButtonsState[4] ? 'accent' : null"
       [fxHide.xs]="true"
       [fxHide.sm]="true"
       matTooltip="{{ 'mixes' | translate }}"
@@ -100,7 +116,7 @@
       mat-button
       [routerLink]="['videos']"
       (click)="switchNavButtons($event, 'videos')"
-      [color]="navButtonsState[4] ? 'accent' : null"
+      [color]="navButtonsState[5] ? 'accent' : null"
       [fxHide.xs]="true"
       [fxHide.sm]="true"
       matTooltip="{{ 'videos' | translate }}"
@@ -113,7 +129,7 @@
       mat-button
       [routerLink]="['about']"
       (click)="switchNavButtons($event, 'about')"
-      [color]="navButtonsState[5] ? 'accent' : null"
+      [color]="navButtonsState[6] ? 'accent' : null"
       [fxHide.xs]="true"
       [fxHide.sm]="true"
       matTooltip="{{ 'about' | translate }}"
@@ -155,19 +171,22 @@
       <span [routerLink]="['mastering']" (click)="switchNavButtons($event, 'mastering')" mat-menu-item [disabled]="navButtonsState[1]">
         <mat-icon fontSet="fas" fontIcon="fa-file-audio" class="material-icons-fas"></mat-icon> {{ 'mastering' | translate }}
       </span>
-      <span [routerLink]="['events']" (click)="switchNavButtons($event, 'events')" mat-menu-item [disabled]="navButtonsState[2]">
+      <span [routerLink]="['releases']" (click)="switchNavButtons($event, 'releases')" mat-menu-item [disabled]="navButtonsState[2]">
+        <mat-icon fontSet="fas" fontIcon="fa-file-audio" class="material-icons-fas"></mat-icon> {{ 'releases' | translate }}
+      </span>
+      <span [routerLink]="['events']" (click)="switchNavButtons($event, 'events')" mat-menu-item [disabled]="navButtonsState[3]">
         <mat-icon fontSet="fas" fontIcon="fa-calendar" class="material-icons-fas"></mat-icon> {{ 'events' | translate }}
       </span>
       <mat-divider></mat-divider>
-      <span [routerLink]="['mixes']" (click)="switchNavButtons($event, 'mixes')" mat-menu-item [disabled]="navButtonsState[3]">
+      <span [routerLink]="['mixes']" (click)="switchNavButtons($event, 'mixes')" mat-menu-item [disabled]="navButtonsState[4]">
         <mat-icon fontSet="fab" fontIcon="fa-mixcloud" class="material-icons-fab"></mat-icon> {{ 'mixes' | translate }}
       </span>
       <mat-divider></mat-divider>
-      <span [routerLink]="['videos']" (click)="switchNavButtons($event, 'videos')" mat-menu-item [disabled]="navButtonsState[4]">
+      <span [routerLink]="['videos']" (click)="switchNavButtons($event, 'videos')" mat-menu-item [disabled]="navButtonsState[5]">
         <mat-icon fontSet="fab" fontIcon="fa-youtube" class="material-icons-fab"></mat-icon> {{ 'videos' | translate }}
       </span>
       <mat-divider></mat-divider>
-      <span [routerLink]="['about']" (click)="switchNavButtons($event, 'about')" mat-menu-item [disabled]="navButtonsState[5]">
+      <span [routerLink]="['about']" (click)="switchNavButtons($event, 'about')" mat-menu-item [disabled]="navButtonsState[6]">
         <mat-icon fontSet="fas" fontIcon="fa-info" class="material-icons-fas"></mat-icon> {{ 'about' | translate }}
       </span>
       <mat-divider></mat-divider>

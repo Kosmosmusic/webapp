@@ -23,7 +23,7 @@ export class AppNavComponent implements OnInit, OnDestroy {
 
   private subscriptions: any[] = [];
 
-  public navButtonsState: boolean[] = [false, false, false, false, false, false];
+  public navButtonsState: boolean[] = [false, false, false, false, false, false, false];
 
   public supportedLanguages: any[] = [
     { key: 'en', name: 'English' },
@@ -45,14 +45,16 @@ export class AppNavComponent implements OnInit, OnDestroy {
       index = '0';
     } else if (path === 'mastering') {
       index = '1';
-    } else if (path === 'events') {
+    } else if (path === 'releases') {
       index = '2';
-    } else if (path === 'mixes') {
+    } else if (path === 'events') {
       index = '3';
-    } else if (path === 'videos') {
+    } else if (path === 'mixes') {
       index = '4';
-    } else if (path === 'about') {
+    } else if (path === 'videos') {
       index = '5';
+    } else if (path === 'about') {
+      index = '6';
     }
     for (const b in this.navButtonsState) {
       if (typeof this.navButtonsState[b] === 'boolean') {
@@ -92,7 +94,6 @@ export class AppNavComponent implements OnInit, OnDestroy {
 
   private routerSubscribe(): void {
     const sub: any = this.router.events.subscribe((event: any) => {
-      // console.log(' > ROUTER EVENT:', event);
       if (event instanceof NavigationEnd) {
         console.log(' > ROUTER > NAVIGATION END, event', event);
         this.switchNavButtons(event);

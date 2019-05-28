@@ -26,6 +26,7 @@ import { AppComponent } from 'src/app/components/app/app.component';
 import { AppNavComponent } from 'src/app/components/nav/app-nav.component';
 import { AppIndexComponent } from 'src/app/components/index/app-index.component';
 import { AppMasteringComponent } from 'src/app/components/mastering/app-mastering.component';
+import { AppReleasesComponent } from 'src/app/components/releases/app-releases.component';
 import { AppMixesComponent } from 'src/app/components/mixes/app-mixes.component';
 import { AppVideosComponent } from 'src/app/components/videos/app-videos.component';
 import { AppAboutComponent } from 'src/app/components/about/app-about.component';
@@ -52,6 +53,7 @@ import { environment } from 'src/environments/environment';
     AppNavComponent,
     AppIndexComponent,
     AppMasteringComponent,
+    AppReleasesComponent,
     AppEventsComponent,
     AppMixesComponent,
     AppVideosComponent,
