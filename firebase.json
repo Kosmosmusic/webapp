@@ -181,6 +181,10 @@
         "destination": "/kosmosmusic/index.html"
       },
       {
+        "source": "/assets",
+        "destination": "/kosmosmusic/assets"
+      },
+      {
         "source": "/coverage",
         "destination": "/coverage/kosmosmusic/index.html"
       },
