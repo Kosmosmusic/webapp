@@ -32,7 +32,6 @@
     "ng": "ng",
     "ng-build": "ng build",
     "ng-build-prod": "ng build --prod",
-    "ng-build-prod-firebase": "ng build --prod --baseHref /kosmosmusic/",
     "pre-e2e": "npm run update-webdriver",
     "reset-client-app-env": "npx ts-node -O '{ \"module\": \"commonjs\", \"typeRoots\": [\"node_modules/@types\"] }' src/set-env.ts --reset=true",
     "set-client-app-env": "npx ts-node -O '{ \"module\": \"commonjs\", \"typeRoots\": [\"node_modules/@types\"] }' src/set-env.ts",

@@ -32,7 +32,7 @@
         ]
       },
       {
-        "source": "/(kosmosmusic|coverage|documentation)",
+        "source": "/(coverage|documentation)",
         "headers": [
           {
             "key": "Cache-Control",
@@ -177,14 +177,6 @@
         "function": "bassdriveProxy"
       },
       {
-        "source": "/kosmosmusic",
-        "destination": "/kosmosmusic/index.html"
-      },
-      {
-        "source": "/assets",
-        "destination": "/kosmosmusic/assets"
-      },
-      {
         "source": "/coverage",
         "destination": "/coverage/kosmosmusic/index.html"
       },
@@ -193,8 +185,8 @@
         "destination": "/documentation/index.html"
       },
       {
-        "source": "**/!(*.*|sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription|bassdriveProxy|coverage|documentation|kosmosmusic)",
-        "destination": "/kosmosmusic/index.html"
+        "source": "**/!(*.*|sendEmail|sendDemo|sendMasteringOrder|sendBookingRequest|saveEmailSubscription|bassdriveProxy|coverage|documentation)",
+        "destination": "/index.html"
       }
     ]
   }
