@@ -14,7 +14,7 @@
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",
-            "value": "https://kosmosmusic-51fd1.firebaseapp.com https://kosmosmusic.ru"
+            "value": "https://kosmosmusic-51fd1.firebaseapp.com https://kosmosmusic-51fd1.web.app https://kosmosmusic.ru"
           },
           {
             "key": "Access-Control-Allow-Methods",
