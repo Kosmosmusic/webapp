@@ -3,8 +3,7 @@ import {
   IFirebaseEnvInterface,
   IGoogleApiEnvInterface,
   ISoundcloudEnvInterface,
-} from 'src/app/interfaces/index';
-
+} from './interfaces/app-environment/app-environment.interface';
 /**
  * Application environment as a constant.
  */

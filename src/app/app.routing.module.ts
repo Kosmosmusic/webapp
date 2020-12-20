@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppAboutComponent } from 'src/app/components/about/app-about.component';
 import { AppIndexComponent } from 'src/app/components/index/index.component';
-import { AppMasteringComponent } from 'src/app/components/mastering/app-mastering.component';
+import { AppMasteringComponent } from 'src/app/components/mastering/mastering.component';
 import { AppMixesComponent } from 'src/app/components/mixes/app-mixes.component';
 import { AppVideosComponent } from 'src/app/components/videos/app-videos.component';
 
