@@ -1,32 +1,21 @@
-import {
-  TranslateService,
-  TranslatePipe
-} from 'src/app/modules/translate/index';
-
-// translation definitions
-import {
-  LANG_EN_NAME,
-  LANG_EN_TRANSLATIONS
-} from 'src/app/modules/translate/lang-en';
-
-import {
-  LANG_RU_NAME,
-  LANG_RU_TRANSLATIONS
-} from 'src/app/modules/translate/lang-ru';
+import { LANG_EN_NAME, LANG_EN_TRANSLATIONS } from './lang-en';
+import { LANG_RU_NAME, LANG_RU_TRANSLATIONS } from './lang-ru';
+import { AppTranslatePipe } from './translate.pipe';
+import { AppTranslateService } from './translate.service';
+import { SUPPORTED_LANGUAGE_KEY } from './translations.interface';
 
 const dictionary = {
   [LANG_EN_NAME]: LANG_EN_TRANSLATIONS,
-  [LANG_RU_NAME]: LANG_RU_TRANSLATIONS
+  [LANG_RU_NAME]: LANG_RU_TRANSLATIONS,
 };
 
-describe('TranslatePipe', () => {
-
-  let service: TranslateService;
-  let pipe: TranslatePipe;
+describe('AppTranslatePipe', () => {
+  let service: AppTranslateService;
+  let pipe: AppTranslatePipe;
 
   beforeEach(() => {
-    service = new TranslateService(dictionary);
-    pipe = new TranslatePipe(service);
+    service = new AppTranslateService(dictionary);
+    pipe = new AppTranslatePipe(service);
   });
 
   it('should be defined', () => {
@@ -38,15 +27,14 @@ describe('TranslatePipe', () => {
   });
 
   it('instant() should return provided key if no translation is available', () => {
-    expect(pipe.transform('title', [])).toEqual('title');
+    expect(pipe.transform('title')).toEqual('title');
   });
 
   it('transform() should return instant translation of a dictionary key', () => {
-    expect(pipe.transform('', null)).toBeUndefined();
-    service.use('ru');
-    expect(pipe.transform('releases', [])).toEqual('Саундклауд');
-    service.use('en');
-    expect(pipe.transform('releases', [])).toEqual('Soundcloud');
+    expect(pipe.transform('')).toBeUndefined();
+    service.use(SUPPORTED_LANGUAGE_KEY.RUSSIAN);
+    expect(pipe.transform('releases')).toEqual('Саундклауд');
+    service.use(SUPPORTED_LANGUAGE_KEY.ENGLISH);
+    expect(pipe.transform('releases')).toEqual('Soundcloud');
   });
-
 });

@@ -1,98 +1,242 @@
-import { NgModule } from '@angular/core';
+import { OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import {
-  // form controls
-  MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatRadioModule,
-  // navigation
-  MatMenuModule, MatSidenavModule, MatToolbarModule,
-  // layout
-  MatListModule, MatGridListModule, MatCardModule, MatStepperModule, MatTabsModule, MatExpansionModule,
-  // buttons and indicators
-  MatButtonModule, MatButtonToggleModule, MatChipsModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule,
-  // popups and modals
-  MatDialogModule, MatTooltipModule, MatSnackBarModule,
-  // data table
-  MatTableModule, MatSortModule, MatPaginatorModule,
-  // misc
-  MatOptionModule, MatRippleModule,
-  // divider
-  MatDividerModule,
-  // icons
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+  MatOptionModule,
+  MatRippleModule,
+} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {
+  MAT_TOOLTIP_DEFAULT_OPTIONS,
+  MatTooltipDefaultOptions,
+  MatTooltipModule,
+} from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MatMomentDateAdapterOptions,
+  MatMomentDateModule,
+} from '@angular/material-moment-adapter';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+import { AppHammerGestureConfig } from './hammerjs-gesture.config';
+
+/**
+ * Returns mat tooltip options.
+ */
+export function matTooltipOptions(): MatTooltipDefaultOptions {
+  const options: MatTooltipDefaultOptions = {
+    showDelay: 500,
+    hideDelay: 150,
+    touchendHideDelay: 500,
+  };
+  return options;
+}
+
+/**
+ * Material moment date adapter options factory.
+ */
+export function matMomentDateAdapterOptionsFactory(): MatMomentDateAdapterOptions {
+  return {
+    useUtc: false,
+  };
+}
+
+const CUSTOM_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
+/**
+ * Custom Material Module providers.
+ */
+export const customMaterialModuleProviders: Provider[] = [
   MatIconRegistry,
-  // tree
-  MatTreeModule
-} from '@angular/material';
+  {
+    provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+    useFactory: matTooltipOptions,
+  },
+  {
+    provide: MAT_DATE_LOCALE,
+    useValue: 'en',
+  },
+  {
+    provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+    useFactory: matMomentDateAdapterOptionsFactory,
+  },
+  { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+  { provide: HAMMER_GESTURE_CONFIG, useClass: AppHammerGestureConfig },
+  {
+    provide: OverlayConfig,
+    useFactory: () =>
+      new OverlayConfig({
+        direction: 'ltr',
+      }),
+  },
+];
 
-import { OverlayModule } from '@angular/cdk/overlay';
-
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-
+/**
+ * Custom material module without providers.
+ * Exports material modules only.
+ */
 @NgModule({
-  /*
-  *	note:
-  *	it is ok not to use forRoot() here to achieve single depencendy injection tree for the MatIconRegistry provider,
-  *	so that all instances of it are the same, because it should be used only once in the app module to register
-  *	all font class aliases.
-  *
-  *	forRoot is used like so when declared:
-  *
-  *	export class SharedModule {
-  *	  static forRoot(): ModuleWithProviders {
-  *	    return {
-  *	      ngModule: SharedModule,
-  *	      providers: [CounterService]
-  *	    };
-  *	  }
-  *	}
-  *
-  * and then imported in the parent module like:
-  *
-  *	SharedModule.forRoot()
-  *
-  */
-  providers: [ MatIconRegistry ],
   imports: [
-    // form controls
-    MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatMomentDateModule, MatInputModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatRadioModule,
-    // navigation
-    MatMenuModule, MatSidenavModule, MatToolbarModule,
-    // layout
-    MatListModule, MatGridListModule, MatCardModule, MatStepperModule, MatTabsModule, MatExpansionModule,
-    // buttons and indicators
-    MatButtonModule, MatButtonToggleModule, MatChipsModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule,
-    // popups and modals
-    MatDialogModule, MatTooltipModule, MatSnackBarModule,
-    // data table
-    MatTableModule, MatSortModule, MatPaginatorModule,
-    // misc
-    MatOptionModule, MatRippleModule,
-    // divider
+    // Form controls
+    MatAutocompleteModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatRadioModule,
+    // Navigation
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    // Layout
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    // Buttons and indicators
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    // Popups and modals
+    MatDialogModule,
+    MatSnackBarModule,
+    MatBottomSheetModule,
+    MatTooltipModule,
+    // Data table
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    // Misc
+    MatOptionModule,
+    MatRippleModule,
+    // Divider
     MatDividerModule,
-    // cdk
+    // Tree
+    MatTreeModule,
+    // Badge
+    MatBadgeModule,
+    // CDK
     OverlayModule,
-    // tree
-    MatTreeModule
+    // Portal
+    PortalModule,
+    // Scrolling
+    ScrollingModule,
   ],
   exports: [
-    // form controls
-    MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatMomentDateModule, MatInputModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatRadioModule,
-    // navigation
-    MatMenuModule, MatSidenavModule, MatToolbarModule,
-    // layout
-    MatListModule, MatGridListModule, MatCardModule, MatStepperModule, MatTabsModule, MatExpansionModule,
-    // buttons and indicators
-    MatButtonModule, MatButtonToggleModule, MatChipsModule, MatIconModule, MatProgressSpinnerModule, MatProgressBarModule,
-    // popups and modals
-    MatDialogModule, MatTooltipModule, MatSnackBarModule,
-    // data table
-    MatTableModule, MatSortModule, MatPaginatorModule,
-    // misc
-    MatOptionModule, MatRippleModule,
-    // divider
+    // Form controls
+    MatAutocompleteModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatRadioModule,
+    // Navigation
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    // Layout
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    // Buttons and indicators
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    // Popups and modals
+    MatDialogModule,
+    MatSnackBarModule,
+    MatBottomSheetModule,
+    MatTooltipModule,
+    // Data table
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    // Misc
+    MatOptionModule,
+    MatRippleModule,
+    // Divider
     MatDividerModule,
-    // cdk
+    // Tree
+    MatTreeModule,
+    // Badge
+    MatBadgeModule,
+    // CDK
     OverlayModule,
-    // tree
-    MatTreeModule
-  ]
+    // Portal
+    PortalModule,
+    // Scrolling
+    ScrollingModule,
+  ],
 })
-export class CustomMaterialModule {}
+export class AppMaterialModule {
+  public static forRoot(): ModuleWithProviders<AppMaterialModule> {
+    return {
+      ngModule: AppMaterialModule,
+      providers: customMaterialModuleProviders,
+    };
+  }
+}

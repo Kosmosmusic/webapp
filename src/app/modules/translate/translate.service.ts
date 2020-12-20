@@ -1,39 +1,33 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { TRANSLATIONS } from './translations';
+import { IDictionaryObject, IUiDictionary, SUPPORTED_LANGUAGE_KEY } from './translations.interface';
 
 @Injectable()
-export class TranslateService {
-
-  constructor(
-    @Inject(TRANSLATIONS) private _translations: any
-  ) {}
+export class AppTranslateService {
+  constructor(@Inject(TRANSLATIONS) private readonly translations: IUiDictionary) {}
 
   /**
    * Current language.
    */
-  private _currentLanguage: string;
+  private language: SUPPORTED_LANGUAGE_KEY = SUPPORTED_LANGUAGE_KEY.ENGLISH;
 
   /**
    * Current language getter.
    */
-  public get currentLanguage(): string {
-    /*
-    *	public method for
-    *	current language retrieval
-    */
-    return this._currentLanguage;
+  public get currentLanguage() {
+    return this.language;
   }
 
   /**
    * Current language setter.
    */
-  public use(key: string): void {
-    this._currentLanguage = key;
+  public use(key: SUPPORTED_LANGUAGE_KEY): void {
+    this.language = key;
   }
 
   /**
-   * Primate method for translation resolution.
+   * Private method for translation resolution.
    *
    * If key contains dots '.', it will be parsed as a sequence of keys, e.g.:
    * translate('page.title') reads a translations dictionary like so { page: { title: 'page title value' } }.
@@ -44,30 +38,26 @@ export class TranslateService {
    * @param key dictionary key
    */
   private translate(key: string): string {
-    if (this._translations[this.currentLanguage]) {
-      let translation = undefined as any;
-      const keys = key.split('.') as string[];
-      searchString:
-      for (const k of keys) {
-        if (!translation) {
-          if (this._translations[this.currentLanguage][k]) {
-            translation = this._translations[this.currentLanguage][k];
-          } else {
-            break searchString;
-          }
-        } else {
-          if (translation[k]) {
-            translation = translation[k];
-          } else {
-            translation = undefined;
-            break searchString;
-          }
-        }
+    const dictionary = this.translations[this.language];
+
+    const keys = key.split('.');
+
+    let dictionaryTree = { ...dictionary };
+    let translation: string | IDictionaryObject | undefined;
+
+    for (const k of keys) {
+      if (typeof dictionaryTree[k] === 'undefined') {
+        translation = key;
+      } else if (typeof dictionaryTree[k] === 'string') {
+        translation = dictionaryTree[k];
+      } else {
+        dictionaryTree = dictionaryTree[k] as IDictionaryObject;
       }
-      translation = (!translation || typeof translation !== 'string') ? key as string : translation;
-      return translation;
     }
-    return key;
+
+    translation = typeof translation !== 'string' ? key : translation;
+
+    return translation;
   }
 
   /**
@@ -76,5 +66,4 @@ export class TranslateService {
   public instant(key: string) {
     return this.translate(key);
   }
-
 }

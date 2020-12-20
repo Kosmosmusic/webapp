@@ -1,17 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TranslateService } from './translate.service';
+
+import { AppTranslateService } from './translate.service';
 
 @Pipe({
   name: 'translate',
-  pure: false // false updates values on language change
+  pure: false, // false updates values on language change
 })
-export class TranslatePipe implements PipeTransform {
+export class AppTranslatePipe implements PipeTransform {
+  constructor(private readonly translate: AppTranslateService) {}
 
-  constructor(private _translate: TranslateService) {}
-
-  public transform(value: string, args?: any[]): any {
-    if (!value) { return; }
-    return this._translate.instant(value);
+  public transform(value: string) {
+    if (!value) {
+      return 'no_value';
+    }
+    return this.translate.instant(value);
   }
-
 }

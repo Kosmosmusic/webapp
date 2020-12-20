@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # colours definitions
 
 # Black        0;30     Dark Gray     1;30

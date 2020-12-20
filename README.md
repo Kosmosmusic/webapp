@@ -1,6 +1,4 @@
-# Kosmosmusic
-
-[![Azure Pipelines Build Status](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_apis/build/status/KOS.MOS.MUSIC-CI)](https://rfprod.visualstudio.com/KOS.MOS.MUSIC/_build/latest?definitionId=2)
+# Kosmosmusic Webapp
 
 ## Requirements
 
@@ -32,7 +30,9 @@ alternatively a script `bash/set-env.sh` can guide you through the process of se
 ```
 bash shell/set-env.sh
 ```
+
 or
+
 ```
 npm run set-env
 ```
@@ -94,12 +94,13 @@ To use Gmail you may need to configure [Allow Less Secure Apps](https://www.goog
 2. `creation of creadentials is optional if you already did it earlier`: being authenticated under gmail address from `step 1` create creadentials via [google developers console](https://console.developers.google.com/apis/credentials), choose `OAuth client ID` when selecting credentials type, use `Client ID` as a value for `MAILER_CLIENT_ID` environment variable;
 3. use `Client Secret` value from created creadentials as a `MAILER_CLIENT_SECRET` variable value;
 4. to get `MAILER_REFRESH_TOKEN` value do the following:
-  * go to [googleoauth 2.0 playground](https://developers.google.com/oauthplayground);
-  * hit cog `settings` button to the right;
-  * check `Use your own credentials`, and fill in `OAuth Client ID`, and `OAuth Client secret`, which were obtained in the previous steps;
-  * `Step 1: Select & authorize APIs`: scroll down to `Gmail API v1`, expand it, select `https://mail.google.com`;
-  * `Step 2: Exchange authorization code for tokens`: hit `Exchange authorization code for tokens`, and use `Refresh token` value as a `MAILER_REFRESH_TOKEN`;
-  * that's all, assign `MAILER_ACCESS_TOKEN` value `empty` like `MAILER_ACCESS_TOKEN=empty`.
+
+- go to [googleoauth 2.0 playground](https://developers.google.com/oauthplayground);
+- hit cog `settings` button to the right;
+- check `Use your own credentials`, and fill in `OAuth Client ID`, and `OAuth Client secret`, which were obtained in the previous steps;
+- `Step 1: Select & authorize APIs`: scroll down to `Gmail API v1`, expand it, select `https://mail.google.com`;
+- `Step 2: Exchange authorization code for tokens`: hit `Exchange authorization code for tokens`, and use `Refresh token` value as a `MAILER_REFRESH_TOKEN`;
+- that's all, assign `MAILER_ACCESS_TOKEN` value `empty` like `MAILER_ACCESS_TOKEN=empty`.
 
 ##### Bassdrive proxy demo
 
@@ -146,7 +147,7 @@ lint - lint codebase
 ng-build - build default project
 ng-build-prod - build default production project
 ng-build-prod-firebase - build default production project for firebase
-reset-client-app-env - reset client application environment 
+reset-client-app-env - reset client application environment
 set-client-app-env - set client application environment
 set-env - set environment variables
 prestart - prestart hook
@@ -159,4 +160,4 @@ test-single-run-and-report-to-dist - single tests execution, and report generati
 
 ## Licenses
 
-* [`Kosmosmusic`](LICENSE)
+- [`Kosmosmusic`](LICENSE)
