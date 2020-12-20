@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
-import { FacebookService } from 'src/app/services';
+
+import { AppFacebookService } from '../../services/facebook/facebook.service';
 
 @Component({
   selector: 'app-events',
@@ -10,7 +11,7 @@ import { FacebookService } from 'src/app/services';
 export class AppEventsComponent implements AfterViewInit {
   @HostBinding('class.mat-body-1') public readonly matBody1 = true;
 
-  constructor(private readonly facebookService: FacebookService) {}
+  constructor(private readonly facebookService: AppFacebookService) {}
 
   public ngAfterViewInit(): void {
     this.facebookService.renderFacebookWidget();

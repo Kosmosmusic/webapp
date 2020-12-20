@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { take, tap } from 'rxjs/operators';
-import { AppSpinnerService } from 'src/app/services';
 
-import { AppMasteringDialog } from '../mastering-dialog/app-mastering-dialog.component';
+import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { AppMasteringDialogComponent } from '../mastering-dialog/mastering-dialog.component';
 
 @Component({
   selector: 'app-mastering',
@@ -28,7 +28,7 @@ export class AppMasteringComponent implements OnInit {
   /**
    * Reusable modal dialog instance.
    */
-  private dialogInstance?: MatDialogRef<AppMasteringDialog>;
+  private dialogInstance?: MatDialogRef<AppMasteringDialogComponent>;
 
   /**
    * Should be called once iframe content finished loading.
@@ -41,7 +41,7 @@ export class AppMasteringComponent implements OnInit {
    * Shows mastering dialog.
    */
   public showMasteringDialog(): void {
-    this.dialogInstance = this.dialog.open(AppMasteringDialog, {
+    this.dialogInstance = this.dialog.open(AppMasteringDialogComponent, {
       height: '85vh',
       width: '95vw',
       maxWidth: '1680',

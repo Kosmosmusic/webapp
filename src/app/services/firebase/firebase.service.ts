@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFireDatabase } from '@angular/fire/database';
 
-@Injectable()
-export class FirebaseService {
+@Injectable({
+  providedIn: 'root',
+})
+export class AppFirebaseService {
+  constructor(private readonly fireDb: AngularFireDatabase) {}
 
-  constructor(
-    private fireDB: AngularFireDatabase
-  ) {}
-
-  public getDB(collection: 'about'|'mastering'|'bandcamp', refOnly: boolean): any {
-    return (!refOnly) ? this.fireDB.database.ref('/' + collection).once('value') : this.fireDB.database.ref('/' + collection);
+  public getListItem<T = unknown>(collection: 'about' | 'mastering' | 'bandcamp') {
+    return this.fireDb.object<T>('/' + collection);
   }
-
 }

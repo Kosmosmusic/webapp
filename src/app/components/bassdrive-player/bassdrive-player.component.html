@@ -1,0 +1,11 @@
+<audio fxFlex="0 1 auto" #player preload="none">
+  <source [src]="streamUtl" type="audio/mp3" />
+  Your browser does not support the audio element.
+</audio>
+<img src="/assets/img/bassdrive.png" />
+<button mat-icon-button *ngIf="isPaused()" (click)="play()">
+  <mat-icon class="material-icons">play_circle_outline</mat-icon>
+</button>
+<button mat-icon-button *ngIf="!isPaused()" (click)="pause()">
+  <mat-icon class="material-icons">pause_circle_outline</mat-icon>
+</button>

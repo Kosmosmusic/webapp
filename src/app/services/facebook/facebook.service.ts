@@ -1,15 +1,13 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 /**
  * Controls Facebook JavaScript SDK.
  */
-@Injectable()
-export class FacebookService {
-
-  constructor(
-    @Inject('Window') private window: Window
-  ) {
-    console.log('FacebookService constructor');
+@Injectable({
+  providedIn: 'root',
+})
+export class AppFacebookService {
+  constructor(@Inject('Window') private readonly window: Window) {
     this.initFacebookJsSDK();
   }
 
@@ -38,7 +36,7 @@ export class FacebookService {
    * - https://blog.brunoscopelliti.com/facebook-authentication-in-your-angularjs-web-app/
    */
   private initFacebookJsSDK(): void {
-    const id: string = 'facebook-jssdk';
+    const id = 'facebook-jssdk';
     const doc: Document = this.window.document;
     const ref: any = this.createFbRoot();
     console.log('ref', ref);
@@ -49,25 +47,10 @@ export class FacebookService {
     const js: any = doc.createElement('script');
     js.id = id;
     js.async = true;
-    js.src = 'https://connect.facebook.net/en_US/sdk.js#status=1&xfbml=1&version=v3.0&appId=477209839373369&channelUrl=channel.html';
+    js.src =
+      'https://connect.facebook.net/en_US/sdk.js#status=1&xfbml=1&version=v3.0&appId=477209839373369&channelUrl=channel.html';
 
     ref.parentNode.insertBefore(js, ref);
-  }
-
-  /**
-   * TODO:client removeFbJsSDK method is not used by the moment, it should be either public, or controlled by event emitter.
-   * Removes facebook sdk, and optionally fb-root (not used for now, see ngOnDestroy hook).
-   */
-  private removeFbJsSDK(): void {
-    const id: string = 'facebook-jssdk';
-    const doc: Document = this.window.document;
-    const ref: any = doc.getElementById('fb-root');
-    const js: any = doc.getElementById('facebook-jssdk');
-    // removed both script and fb-root
-    if (js) {
-      ref.parentNode.removeChild(js); // sdk script
-      // ref.parentNode.removeChild(ref); // fb-root
-    }
   }
 
   /**

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppAboutComponent } from 'src/app/components/about/app-about.component';
+import { AppAboutComponent } from 'src/app/components/about/about.component';
 import { AppIndexComponent } from 'src/app/components/index/index.component';
 import { AppMasteringComponent } from 'src/app/components/mastering/mastering.component';
-import { AppMixesComponent } from 'src/app/components/mixes/app-mixes.component';
-import { AppVideosComponent } from 'src/app/components/videos/app-videos.component';
+import { AppMixesComponent } from 'src/app/components/mixes/mixes.component';
+import { AppVideosComponent } from 'src/app/components/videos/videos.component';
 
 import { AppEventsComponent } from './components/events/events.component';
-import { AppReleasesComponent } from './components/releases/app-releases.component';
+import { AppReleasesComponent } from './components/releases/releases.component';
 
 export const APP_ROUTES: Routes = [
   { path: 'index', component: AppIndexComponent },

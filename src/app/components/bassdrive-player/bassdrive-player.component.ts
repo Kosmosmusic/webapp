@@ -1,4 +1,11 @@
-import { Component, Inject, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostBinding,
+  Inject,
+  ViewChild,
+} from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 /**
@@ -6,48 +13,42 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
  */
 @Component({
   selector: 'bassdrive-player',
-  templateUrl: './bassdrive-player.html',
-  styleUrls: [
-    './bassdrive-player.scss'
-  ],
-  host: {
-    class: 'mat-body-1'
-  }
+  templateUrl: './bassdrive-player.component.html',
+  styleUrls: ['./bassdrive-player.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BassdrivePlayerComponent implements OnInit, OnDestroy {
+export class AppBassdrivePlayerComponent {
+  @HostBinding('class.mat-body-1') public readonly matBody1 = true;
 
-  /**
-   * @param window Window reference
-   */
   constructor(
-    private sanitizer: DomSanitizer,
-    @Inject('Window') private window: Window
-  ) {
-    console.log('BassdrivePlayerComponent constructor, el');
-  }
-
-  /**
-   * Component subscriptions.
-   */
-  private subscriptions: any[] = [];
+    private readonly sanitizer: DomSanitizer,
+    @Inject('Window') private readonly window: Window,
+  ) {}
 
   /**
    * Stream url.
    */
   // public streamUtl: SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://bassdrive.radioca.st:80/;stream/1');
-  public streamUtl: SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.window.location.origin + '/bassdriveProxy');
+  public streamUtl: SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+    this.window.location.origin + '/bassdriveProxy',
+  );
 
   /**
    * Player view child reference.
    */
-  @ViewChild('player') private player: ElementRef;
+  @ViewChild('player') private readonly player!: ElementRef;
 
   /**
    * Starts playback.
    */
   public play(): void {
-    if (this.player.nativeElement.paused) {
-      this.player.nativeElement.play();
+    const nativeElement = this.player.nativeElement as HTMLElement & {
+      paused: boolean;
+      play: () => unknown;
+      pause: () => unknown;
+    };
+    if (nativeElement.paused) {
+      nativeElement.play();
     }
   }
 
@@ -55,8 +56,13 @@ export class BassdrivePlayerComponent implements OnInit, OnDestroy {
    * Pauses playback.
    */
   public pause(): void {
-    if (!this.player.nativeElement.paused) {
-      this.player.nativeElement.pause();
+    const nativeElement = this.player.nativeElement as HTMLElement & {
+      paused: boolean;
+      play: () => unknown;
+      pause: () => unknown;
+    };
+    if (!nativeElement.paused) {
+      nativeElement.pause();
     }
   }
 
@@ -64,25 +70,11 @@ export class BassdrivePlayerComponent implements OnInit, OnDestroy {
    * Indicates is player is paused.
    */
   public isPaused(): boolean {
-    return this.player.nativeElement.paused;
-  }
-
-  /**
-   * Lifecycle hook called after component is initialized.
-   */
-  public ngOnInit(): void {
-    console.log('ngOnInit: BassdrivePlayerComponent initialized, player', this.player);
-    console.log('player.nativeElement', this.player.nativeElement);
-  }
-  /**
-   * Lifecycle hook called after component is destroyed.
-   */
-  public ngOnDestroy(): void {
-    console.log('ngOnDestroy: BassdrivePlayerComponent destroyed');
-    if (this.subscriptions.length) {
-      for (const sub of this.subscriptions) {
-        sub.unsubscribe();
-      }
-    }
+    const nativeElement = this.player.nativeElement as HTMLElement & {
+      paused: boolean;
+      play: () => unknown;
+      pause: () => unknown;
+    };
+    return nativeElement.paused;
   }
 }

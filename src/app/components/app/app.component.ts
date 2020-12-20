@@ -11,10 +11,10 @@ import { take, tap } from 'rxjs/operators';
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { SUPPORTED_LANGUAGE_KEY } from '../../modules/translate/translations.interface';
 import { AppSpinnerService } from '../../services/spinner/spinner.service';
-import { AppBookingDialog } from '../booking-dialog/app-booking-dialog.component';
-import { AppContactDialog } from '../contact-dialog/app-contact-dialog.component';
-import { AppDemoDialog } from '../demo-dialog/app-demo-dialog.component';
-import { AppMasteringDialog } from '../mastering-dialog/app-mastering-dialog.component';
+import { AppBookingDialogComponent } from '../booking-dialog/booking-dialog.component';
+import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
+import { AppDemoDialogComponent } from '../demo-dialog/demo-dialog.component';
+import { AppMasteringDialogComponent } from '../mastering-dialog/mastering-dialog.component';
 
 /**
  * Application root component.
@@ -57,7 +57,10 @@ export class AppComponent implements OnInit {
    * Reusable modal dialog instance.
    */
   private dialogInstance?: MatDialogRef<
-    AppDemoDialog | AppMasteringDialog | AppContactDialog | AppBookingDialog
+    | AppDemoDialogComponent
+    | AppMasteringDialogComponent
+    | AppContactDialogComponent
+    | AppBookingDialogComponent
   >;
 
   /**
@@ -93,7 +96,7 @@ export class AppComponent implements OnInit {
    * Shows demo dialog.
    */
   public showDemoDialog(): void {
-    this.dialogInstance = this.dialog.open(AppDemoDialog, {
+    this.dialogInstance = this.dialog.open(AppDemoDialogComponent, {
       height: '85vh',
       width: '95vw',
       maxWidth: '1680',
@@ -117,7 +120,7 @@ export class AppComponent implements OnInit {
    * Shows mastering dialog.
    */
   public showMasteringDialog(): void {
-    this.dialogInstance = this.dialog.open(AppMasteringDialog, {
+    this.dialogInstance = this.dialog.open(AppMasteringDialogComponent, {
       height: '85vh',
       width: '95vw',
       maxWidth: '1680',
@@ -141,7 +144,7 @@ export class AppComponent implements OnInit {
    * Shows contact dialog.
    */
   public showContactDialog(): void {
-    this.dialogInstance = this.dialog.open(AppContactDialog, {
+    this.dialogInstance = this.dialog.open(AppContactDialogComponent, {
       height: '85vh',
       width: '95vw',
       maxWidth: '1680',
@@ -165,7 +168,7 @@ export class AppComponent implements OnInit {
    * Shows booking dialog.
    */
   public showBookingDialog(): void {
-    this.dialogInstance = this.dialog.open(AppBookingDialog, {
+    this.dialogInstance = this.dialog.open(AppBookingDialogComponent, {
       height: '85vh',
       width: '95vw',
       maxWidth: '1680',

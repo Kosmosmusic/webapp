@@ -51,30 +51,27 @@ export class AppVideosComponent implements OnInit {
    */
   private getChannelData() {
     this.spinner.startSpinner();
-    return this.googleAPI
-      .getChannelData()
-      .pipe(
-        tap(
-          (data: any) => {
-            this.channelData = data;
-            this.uploads = data.items[0].contentDetails.relatedPlaylists.uploads;
-            this.playlistSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
-              'https://www.youtube.com/embed/?listType=playlist&list=' +
-                this.uploads +
-                '&enablejsapi=1&origin=' +
-                this.window.location.origin,
-            );
-            /**
-             * Don't stop spinner at this point, it will be stopped when iframe loads.
-             * this.spinner.stopSpinner();
-             */
-          },
-          (error: string) => {
-            this.spinner.stopSpinner();
-          },
-        ),
-      )
-      .subscribe();
+    return this.googleAPI.getChannelData().pipe(
+      tap(
+        (data: any) => {
+          this.channelData = data;
+          this.uploads = data.items[0].contentDetails.relatedPlaylists.uploads;
+          this.playlistSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
+            'https://www.youtube.com/embed/?listType=playlist&list=' +
+              this.uploads +
+              '&enablejsapi=1&origin=' +
+              this.window.location.origin,
+          );
+          /**
+           * Don't stop spinner at this point, it will be stopped when iframe loads.
+           * this.spinner.stopSpinner();
+           */
+        },
+        (error: string) => {
+          this.spinner.stopSpinner();
+        },
+      ),
+    );
   }
 
   /**
@@ -86,10 +83,7 @@ export class AppVideosComponent implements OnInit {
     this.spinner.stopSpinner();
   }
 
-  /**
-   * Lifecycle hook called on component initialization.
-   */
   public ngOnInit(): void {
-    void this.getChannelData();
+    void this.getChannelData().subscribe();
   }
 }
