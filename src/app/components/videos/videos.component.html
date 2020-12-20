@@ -1,0 +1,10 @@
+<iframe
+  fxFlex="100"
+  fxFlexFill
+  scrolling="no"
+  frameborder="0"
+  *ngIf="playlistSrc"
+  [src]="playlistSrc"
+  [contentLoaded]
+  (loadedCallback)="widgetLoaded($event)"
+></iframe>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { concat, Observable, throwError } from 'rxjs';
 
-import { Observable, concat, throwError } from 'rxjs';
-
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CustomHttpHandlersService {
-
   /**
    * Extracts object from response.
    */
@@ -24,8 +24,11 @@ export class CustomHttpHandlersService {
    */
   public handleError(error: any): Observable<any> {
     console.log('error', error);
-    const errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    const errMsg = error.message
+      ? error.message
+      : error.status
+      ? `${error.status} - ${error.statusText}`
+      : 'Server error';
     console.log('errMsg', errMsg);
     return concat(throwError(errMsg));
   }
@@ -33,12 +36,12 @@ export class CustomHttpHandlersService {
   /**
    * Timeout value for all requests in milliseconds.
    */
-  private timeout: number = 10000;
+  private readonly timeout = 10000;
+
   /**
    * Public method to get request timeout value.
    */
   public timeoutValue(): number {
     return this.timeout;
   }
-
 }

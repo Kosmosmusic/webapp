@@ -1,0 +1,87 @@
+<h2 mat-dialog-title>{{ 'services.title' | translate }}</h2>
+
+<mat-dialog-content>
+  <div *ngIf="feedback$ | async as feedback" fxLayout="row" fxLayoutAlign="center center">
+    <span fxFlex="0 1 auto">{{ feedback }}</span>
+  </div>
+
+  <p>{{ 'services.requirements' | translate }}</p>
+
+  <form
+    fxLayout="row wrap"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="10px"
+    [formGroup]="orderForm"
+    (ngSubmit)="submitForm()"
+    novalidate
+    class="mat-body-2"
+  >
+    <mat-form-field fxFlex="100">
+      <input
+        matInput
+        type="text"
+        name="email"
+        [formControl]="orderForm.controls.email"
+        placeholder="{{ 'form.email' | translate }}"
+      />
+      <mat-error *ngIf="orderForm.controls.email.invalid" class="mat-body-1">
+        {{ 'form.invalid.email' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="100">
+      <input
+        matInput
+        type="text"
+        name="name"
+        [formControl]="orderForm.controls.link"
+        placeholder="{{ 'form.link' | translate }}"
+      />
+      <mat-error *ngIf="orderForm.controls.link.invalid" class="mat-body-1">
+        {{ 'form.invalid.link' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <span fxFlex fxHide="true">
+        <mat-toolbar class="controls" fxLayout.xs="row wrap" fxLayoutAlign="center center">
+          <button
+            mat-button
+            tabindex="-1"
+            type="submit"
+            [disabled]="orderForm.invalid || orderForm.pristine"
+            attr.aria-label="submit"
+            color="accent"
+          >
+            <mat-icon class="metarial-icons">done</mat-icon> {{ 'form.submit' | translate }}
+          </button>
+        </mat-toolbar>
+      </span>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="center center">
+  <button
+    mat-button
+    tabindex="-1"
+    type="button"
+    (click)="submitForm()"
+    [disabled]="orderForm.invalid || orderForm.pristine"
+    matTooltip="{{ 'action.confirm' | translate }}"
+    color="accent"
+  >
+    <mat-icon class="metarial-icons">done</mat-icon
+    ><span [fxHide.xs]="true"> {{ 'action.confirm' | translate }}</span>
+  </button>
+
+  <button
+    mat-button
+    tabindex="-1"
+    type="button"
+    (click)="closeDialog()"
+    matTooltip="{{ 'action.close' | translate }}"
+  >
+    <mat-icon class="metarial-icons">close</mat-icon>
+    <span [fxHide.xs]="true"> {{ 'action.close' | translate }}</span>
+  </button>
+</mat-dialog-actions>

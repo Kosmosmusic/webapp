@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # colours
 source shell/colors.sh
 # DEFAULT, BLACK, DARK_GRAY, RED, LIGHT_RED, GREEN, LIGHT_GREEN, BROWN, YELLOW,
@@ -9,7 +11,7 @@ if [ 1 -gt $# ]; then
   totalSteps=28
 
   printf "${GREEN} > you will be guided through steps needed to create ${YELLOW}.env${GREEN} file with api keys for integration with external services${DEFAULT} \n\n"
-  printf "${LIGHT_BLUE}  >> to do it you will be prompted for the current these values:\n - ${YELLOW}SOUNDCLOUD_CLIENT_ID${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_API_KEY${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_AUTH_DOMAIN${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_DATABASE_URL${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_PROJECT_ID${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_STORAGE_BUCKET${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_MESSAGING_SENDER_ID${LIGHT_BLUE}\n - ${YELLOW}PRIVILEGED_ACCESS_FIREBASE_UID${LIGHT_BLUE} \n\n"
+  printf "${LIGHT_BLUE}  >> to do it you will be prompted for the current these values:\n - ${YELLOW}SOUNDCLOUD_CLIENT_ID${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_API_KEY${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_AUTH_DOMAIN${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_DATABASE_URL${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_PROJECT_ID${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_STORAGE_BUCKET${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_MESSAGING_SENDER_ID${LIGHT_BLUE}\n - ${YELLOW}FIREBASE_APP_ID${LIGHT_BLUE} \n\n"
 
   # client application .env
 
@@ -45,8 +47,8 @@ if [ 1 -gt $# ]; then
   printf "${LIGHT_BLUE}  >> step ${YELLOW}8/${totalSteps} ${LIGHT_BLUE}: Enter ${YELLOW}FIREBASE_DEPLOY_TOKEN${LIGHT_BLUE} ${DEFAULT} \n"
   read -p "   > input value :" firebaseDeployToken
 
-  # prompt user for variables one by one: PRIVILEGED_ACCESS_FIREBASE_UID
-  printf "${LIGHT_BLUE}  >> step ${YELLOW}9/${totalSteps} ${LIGHT_BLUE}: Enter ${YELLOW}PRIVILEGED_ACCESS_FIREBASE_UID${LIGHT_BLUE} ${DEFAULT} \n"
+  # prompt user for variables one by one: FIREBASE_APP_ID
+  printf "${LIGHT_BLUE}  >> step ${YELLOW}9/${totalSteps} ${LIGHT_BLUE}: Enter ${YELLOW}FIREBASE_APP_ID${LIGHT_BLUE} ${DEFAULT} \n"
   read -p "   > input value :" privilegedAccessFirebaseUid
 
   # prompt user for variables one by one: GOOGLE_APIS_BROWSER_KEY
@@ -67,7 +69,7 @@ if [ 1 -gt $# ]; then
     - ${YELLOW}FIREBASE_STORAGE_BUCKET${LIGHT_BLUE}=${LIGHT_GREEN}${firebaseStorageBucket}${LIGHT_BLUE}\n
     - ${YELLOW}FIREBASE_MESSAGING_SENDER_ID${LIGHT_BLUE}=${LIGHT_GREEN}${firebaseMessagingSenderId}${LIGHT_BLUE}\n
     - ${YELLOW}FIREBASE_DEPLOY_TOKEN${LIGHT_BLUE}=${LIGHT_GREEN}${firebaseDeployToken}${LIGHT_BLUE}\n
-    - ${YELLOW}PRIVILEGED_ACCESS_FIREBASE_UID${LIGHT_BLUE}=${LIGHT_GREEN}${privilegedAccessFirebaseUid}${LIGHT_BLUE}\n
+    - ${YELLOW}FIREBASE_APP_ID${LIGHT_BLUE}=${LIGHT_GREEN}${privilegedAccessFirebaseUid}${LIGHT_BLUE}\n
     - ${YELLOW}GOOGLE_APIS_BROWSER_KEY${LIGHT_BLUE}=${LIGHT_GREEN}${googleApisBrowserKey}${LIGHT_BLUE}\n
     - ${YELLOW}GOOGLE_APIS_CLIENT_ID${LIGHT_BLUE}=${LIGHT_GREEN}${googleApisClientId}${LIGHT_BLUE}\n"
 
@@ -79,32 +81,32 @@ if [ 1 -gt $# ]; then
   printf "\n${LIGHT_BLUE}  >> step ${YELLOW}14/${totalSteps} ${LIGHT_BLUE}: Continue and create/overwrite ${YELLOW}.env${LIGHT_BLUE} file${DEFAULT} \n"
   read -p "   > continue (y/n) :" userChoice
   case $userChoice in
-    y|Y )
-      # write file contents
-      echo "SOUNDCLOUD_CLIENT_ID=${soundcloudUserId}" > ./.env
-      echo "FIREBASE_API_KEY=${firebaseApiKey}" >> ./.env
-      echo "FIREBASE_AUTH_DOMAIN=${firebaseAuthDomain}" >> ./.env
-      echo "FIREBASE_DATABASE_URL=${firebaseDatabaseUrl}" >> ./.env
-      echo "FIREBASE_PROJECT_ID=${firebaseProjectId}" >> ./.env
-      echo "FIREBASE_STORAGE_BUCKET=${firebaseStorageBucket}" >> ./.env
-      echo "FIREBASE_MESSAGING_SENDER_ID=${firebaseMessagingSenderId}" >> ./.env
-      echo "FIREBASE_DEPLOY_TOKEN=${firebaseDeployToken}" >> ./.env
-      echo "PRIVILEGED_ACCESS_FIREBASE_UID=${privilegedAccessFirebaseUid}" >> ./.env
-      echo "GOOGLE_APIS_BROWSER_KEY=${googleApisBrowserKey}" >> ./.env
-      echo "GOOGLE_APIS_CLIENT_ID=${googleApisClientId}" >> ./.env
-      # notify user
-      printf "${YELLOW}  >> OK: ${GREEN}environment variables set in ${YELLOW}./.env${LIGHT_BLUE} file${DEFAULT} \n\n"
-      cat ./.env
-      printf "\n\n"
-      ;;
-    n|N )
-      # notify user
-      printf " ${GREEN}  >> cancelled by user, user choice: $userChoice ${DEFAULT} \n"
-      ;;
-    * )
-      # notify user
-      printf " ${LIGHT_BLUE}  >> invalid value, user choise: ${RED}$userChoice ${DEFAULT} \n"
-      ;;
+  y | Y)
+    # write file contents
+    echo "SOUNDCLOUD_CLIENT_ID=${soundcloudUserId}" >./.env
+    echo "FIREBASE_API_KEY=${firebaseApiKey}" >>./.env
+    echo "FIREBASE_AUTH_DOMAIN=${firebaseAuthDomain}" >>./.env
+    echo "FIREBASE_DATABASE_URL=${firebaseDatabaseUrl}" >>./.env
+    echo "FIREBASE_PROJECT_ID=${firebaseProjectId}" >>./.env
+    echo "FIREBASE_STORAGE_BUCKET=${firebaseStorageBucket}" >>./.env
+    echo "FIREBASE_MESSAGING_SENDER_ID=${firebaseMessagingSenderId}" >>./.env
+    echo "FIREBASE_DEPLOY_TOKEN=${firebaseDeployToken}" >>./.env
+    echo "FIREBASE_APP_ID=${privilegedAccessFirebaseUid}" >>./.env
+    echo "GOOGLE_APIS_BROWSER_KEY=${googleApisBrowserKey}" >>./.env
+    echo "GOOGLE_APIS_CLIENT_ID=${googleApisClientId}" >>./.env
+    # notify user
+    printf "${YELLOW}  >> OK: ${GREEN}environment variables set in ${YELLOW}./.env${LIGHT_BLUE} file${DEFAULT} \n\n"
+    cat ./.env
+    printf "\n\n"
+    ;;
+  n | N)
+    # notify user
+    printf " ${GREEN}  >> cancelled by user, user choice: $userChoice ${DEFAULT} \n"
+    ;;
+  *)
+    # notify user
+    printf " ${LIGHT_BLUE}  >> invalid value, user choise: ${RED}$userChoice ${DEFAULT} \n"
+    ;;
   esac
 
   # functions .env
@@ -175,34 +177,34 @@ if [ 1 -gt $# ]; then
   printf "\n${LIGHT_BLUE}  >> step ${YELLOW}28/${totalSteps} ${LIGHT_BLUE}: Continue and create/overwrite ${YELLOW}.env${LIGHT_BLUE} file${DEFAULT} \n"
   read -p "   > continue (y/n) :" userChoice
   case $userChoice in
-    y|Y )
-      # write file contents
-      echo "MAILER_HOST=${mailerHost}" > ./functions/.env
-      echo "MAILER_PORT=${mailerPort}" >> ./functions/.env
-      echo "MAILER_EMAIL=${mailerEmail}" >> ./functions/.env
-      echo "MAILER_CLIENT_ID=${mailerClientId}" >> ./functions/.env
-      echo "MAILER_CLIENT_SECRET=${mailerClientSecret}" >> ./functions/.env
-      echo "MAILER_REFRESH_TOKEN=${mailerRefreshToken}" >> ./functions/.env
-      echo "MAILER_ACCESS_TOKEN=${mailerAccessToken}" >> ./functions/.env
-      echo "MAILER_RECIPIENT_EMAIL_CONTACT=${mailerRecipientEmailContact}" >> ./functions/.env
-      echo "MAILER_RECIPIENT_EMAIL_DEMO=${mailerRecipientEmailDemo}" >> ./functions/.env
-      echo "MAILER_RECIPIENT_EMAIL_BOOKING=${mailerRecipientEmailBooking}" >> ./functions/.env
-      echo "MAILER_RECIPIENT_EMAIL_MASTERING=${mailerRecipientEmailMastering}" >> ./functions/.env
-      # notify user
-      printf "${YELLOW}  >> OK: ${GREEN}environment variables set in ${YELLOW}./functions/.env${LIGHT_BLUE} file${DEFAULT} \n\n"
-      cat ./functions/.env
-      printf "\n\n"
-      ;;
-    n|N )
-      # notify user
-      printf " ${GREEN}  >> cancelled by user, user choice: $userChoice ${DEFAULT} \n"
-      ;;
-    * )
-      # notify user
-      printf " ${LIGHT_BLUE}  >> invalid value, user choise: ${RED}$userChoice ${DEFAULT} \n"
-      ;;
+  y | Y)
+    # write file contents
+    echo "MAILER_HOST=${mailerHost}" >./functions/.env
+    echo "MAILER_PORT=${mailerPort}" >>./functions/.env
+    echo "MAILER_EMAIL=${mailerEmail}" >>./functions/.env
+    echo "MAILER_CLIENT_ID=${mailerClientId}" >>./functions/.env
+    echo "MAILER_CLIENT_SECRET=${mailerClientSecret}" >>./functions/.env
+    echo "MAILER_REFRESH_TOKEN=${mailerRefreshToken}" >>./functions/.env
+    echo "MAILER_ACCESS_TOKEN=${mailerAccessToken}" >>./functions/.env
+    echo "MAILER_RECIPIENT_EMAIL_CONTACT=${mailerRecipientEmailContact}" >>./functions/.env
+    echo "MAILER_RECIPIENT_EMAIL_DEMO=${mailerRecipientEmailDemo}" >>./functions/.env
+    echo "MAILER_RECIPIENT_EMAIL_BOOKING=${mailerRecipientEmailBooking}" >>./functions/.env
+    echo "MAILER_RECIPIENT_EMAIL_MASTERING=${mailerRecipientEmailMastering}" >>./functions/.env
+    # notify user
+    printf "${YELLOW}  >> OK: ${GREEN}environment variables set in ${YELLOW}./functions/.env${LIGHT_BLUE} file${DEFAULT} \n\n"
+    cat ./functions/.env
+    printf "\n\n"
+    ;;
+  n | N)
+    # notify user
+    printf " ${GREEN}  >> cancelled by user, user choice: $userChoice ${DEFAULT} \n"
+    ;;
+  *)
+    # notify user
+    printf " ${LIGHT_BLUE}  >> invalid value, user choise: ${RED}$userChoice ${DEFAULT} \n"
+    ;;
   esac
-elif [ 22 -eq $# ]
+elif [ 22 -eq $# ]; then
   # map arguments
   soundcloudUserId=$1
   firebaseApiKey=$2
@@ -213,19 +215,19 @@ elif [ 22 -eq $# ]
   firebaseMessagingSenderId=$7
   firebaseDeployToken=$8
   privilegedAccessFirebaseUid=$9
-  googleApisBrowserKey=$10
-  googleApisClientId=$11
-  mailerHost=$12
-  mailerPort=$13
-  mailerEmail=$14
-  mailerClientId=$15
-  mailerClientSecret=$16
-  mailerRefreshToken=$17
-  mailerAccessToken=$18
-  mailerRecipientEmailContact=$19
-  mailerRecipientEmailDemo=$20
-  mailerRecipientEmailBooking=$21
-  mailerRecipientEmailMastering=$22
+  googleApisBrowserKey=${10}
+  googleApisClientId=${11}
+  mailerHost=${12}
+  mailerPort=${13}
+  mailerEmail=${14}
+  mailerClientId=${15}
+  mailerClientSecret=${16}
+  mailerRefreshToken=${17}
+  mailerAccessToken=${18}
+  mailerRecipientEmailContact=${19}
+  mailerRecipientEmailDemo=${20}
+  mailerRecipientEmailBooking=${21}
+  mailerRecipientEmailMastering=${22}
 
   # summary check
   printf "${LIGHT_BLUE} >> You provided the following values:\n
@@ -238,7 +240,7 @@ elif [ 22 -eq $# ]
     - ${YELLOW}FIREBASE_STORAGE_BUCKET${LIGHT_BLUE}=${LIGHT_GREEN}${firebaseStorageBucket}${LIGHT_BLUE}\n
     - ${YELLOW}FIREBASE_MESSAGING_SENDER_ID${LIGHT_BLUE}=${LIGHT_GREEN}${firebaseMessagingSenderId}${LIGHT_BLUE}\n
     - ${YELLOW}FIREBASE_DEPLOY_TOKEN${LIGHT_BLUE}=${LIGHT_GREEN}${firebaseDeployToken}${LIGHT_BLUE}\n
-    - ${YELLOW}PRIVILEGED_ACCESS_FIREBASE_UID${LIGHT_BLUE}=${LIGHT_GREEN}${privilegedAccessFirebaseUid}${LIGHT_BLUE}\n
+    - ${YELLOW}FIREBASE_APP_ID${LIGHT_BLUE}=${LIGHT_GREEN}${privilegedAccessFirebaseUid}${LIGHT_BLUE}\n
     - ${YELLOW}GOOGLE_APIS_BROWSER_KEY${LIGHT_BLUE}=${LIGHT_GREEN}${googleApisBrowserKey}${LIGHT_BLUE}\n
     - ${YELLOW}GOOGLE_APIS_CLIENT_ID${LIGHT_BLUE}=${LIGHT_GREEN}${googleApisClientId}${LIGHT_BLUE}\n
     # functions variables:\n
@@ -255,34 +257,34 @@ elif [ 22 -eq $# ]
     - ${YELLOW}MAILER_RECIPIENT_EMAIL_MASTERING${LIGHT_BLUE}=${LIGHT_GREEN}${mailerRecipientEmailMastering}${LIGHT_BLUE}\n"
 
   # write client .env
-  echo "SOUNDCLOUD_CLIENT_ID=${soundcloudUserId}" > ./.env
-  echo "FIREBASE_API_KEY=${firebaseApiKey}" >> ./.env
-  echo "FIREBASE_AUTH_DOMAIN=${firebaseAuthDomain}" >> ./.env
-  echo "FIREBASE_DATABASE_URL=${firebaseDatabaseUrl}" >> ./.env
-  echo "FIREBASE_PROJECT_ID=${firebaseProjectId}" >> ./.env
-  echo "FIREBASE_STORAGE_BUCKET=${firebaseStorageBucket}" >> ./.env
-  echo "FIREBASE_MESSAGING_SENDER_ID=${firebaseMessagingSenderId}" >> ./.env
-  echo "FIREBASE_DEPLOY_TOKEN=${firebaseDeployToken}" >> ./.env
-  echo "PRIVILEGED_ACCESS_FIREBASE_UID=${privilegedAccessFirebaseUid}" >> ./.env
-  echo "GOOGLE_APIS_BROWSER_KEY=${googleApisBrowserKey}" >> ./.env
-  echo "GOOGLE_APIS_CLIENT_ID=${googleApisClientId}" >> ./.env
+  echo "SOUNDCLOUD_CLIENT_ID=${soundcloudUserId}" >./.env
+  echo "FIREBASE_API_KEY=${firebaseApiKey}" >>./.env
+  echo "FIREBASE_AUTH_DOMAIN=${firebaseAuthDomain}" >>./.env
+  echo "FIREBASE_DATABASE_URL=${firebaseDatabaseUrl}" >>./.env
+  echo "FIREBASE_PROJECT_ID=${firebaseProjectId}" >>./.env
+  echo "FIREBASE_STORAGE_BUCKET=${firebaseStorageBucket}" >>./.env
+  echo "FIREBASE_MESSAGING_SENDER_ID=${firebaseMessagingSenderId}" >>./.env
+  echo "FIREBASE_DEPLOY_TOKEN=${firebaseDeployToken}" >>./.env
+  echo "FIREBASE_APP_ID=${privilegedAccessFirebaseUid}" >>./.env
+  echo "GOOGLE_APIS_BROWSER_KEY=${googleApisBrowserKey}" >>./.env
+  echo "GOOGLE_APIS_CLIENT_ID=${googleApisClientId}" >>./.env
   # notify user
   printf "${YELLOW}  >> OK: ${GREEN}environment variables set in ${YELLOW}./.env${LIGHT_BLUE} file${DEFAULT} \n\n"
   cat ./.env
   printf "\n\n"
 
   # write functions .env
-  echo "MAILER_HOST=${mailerHost}" > ./functions/.env
-  echo "MAILER_PORT=${mailerPort}" >> ./functions/.env
-  echo "MAILER_EMAIL=${mailerEmail}" >> ./functions/.env
-  echo "MAILER_CLIENT_ID=${mailerClientId}" >> ./functions/.env
-  echo "MAILER_CLIENT_SECRET=${mailerClientSecret}" >> ./functions/.env
-  echo "MAILER_REFRESH_TOKEN=${mailerRefreshToken}" >> ./functions/.env
-  echo "MAILER_ACCESS_TOKEN=${mailerAccessToken}" >> ./functions/.env
-  echo "MAILER_RECIPIENT_EMAIL_CONTACT=${mailerRecipientEmailContact}" >> ./functions/.env
-  echo "MAILER_RECIPIENT_EMAIL_DEMO=${mailerRecipientEmailDemo}" >> ./functions/.env
-  echo "MAILER_RECIPIENT_EMAIL_BOOKING=${mailerRecipientEmailBooking}" >> ./functions/.env
-  echo "MAILER_RECIPIENT_EMAIL_MASTERING=${mailerRecipientEmailMastering}" >> ./functions/.env
+  echo "MAILER_HOST=${mailerHost}" >./functions/.env
+  echo "MAILER_PORT=${mailerPort}" >>./functions/.env
+  echo "MAILER_EMAIL=${mailerEmail}" >>./functions/.env
+  echo "MAILER_CLIENT_ID=${mailerClientId}" >>./functions/.env
+  echo "MAILER_CLIENT_SECRET=${mailerClientSecret}" >>./functions/.env
+  echo "MAILER_REFRESH_TOKEN=${mailerRefreshToken}" >>./functions/.env
+  echo "MAILER_ACCESS_TOKEN=${mailerAccessToken}" >>./functions/.env
+  echo "MAILER_RECIPIENT_EMAIL_CONTACT=${mailerRecipientEmailContact}" >>./functions/.env
+  echo "MAILER_RECIPIENT_EMAIL_DEMO=${mailerRecipientEmailDemo}" >>./functions/.env
+  echo "MAILER_RECIPIENT_EMAIL_BOOKING=${mailerRecipientEmailBooking}" >>./functions/.env
+  echo "MAILER_RECIPIENT_EMAIL_MASTERING=${mailerRecipientEmailMastering}" >>./functions/.env
   # notify user
   printf "${YELLOW}  >> OK: ${GREEN}environment variables set in ${YELLOW}./functions/.env${LIGHT_BLUE} file${DEFAULT} \n\n"
   cat ./functions/.env
@@ -298,7 +300,7 @@ else
     - ${YELLOW}FIREBASE_STORAGE_BUCKET${LIGHT_BLUE}\n
     - ${YELLOW}FIREBASE_MESSAGING_SENDER_ID${LIGHT_BLUE}\n
     - ${YELLOW}FIREBASE_DEPLOY_TOKEN${LIGHT_BLUE}\n
-    - ${YELLOW}PRIVILEGED_ACCESS_FIREBASE_UID${LIGHT_BLUE}\n
+    - ${YELLOW}FIREBASE_APP_ID${LIGHT_BLUE}\n
     - ${YELLOW}GOOGLE_APIS_BROWSER_KEY${LIGHT_BLUE}\n
     - ${YELLOW}GOOGLE_APIS_CLIENT_ID${LIGHT_BLUE}\n
     - ${YELLOW}MAILER_HOST${LIGHT_BLUE}\n

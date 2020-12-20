@@ -1,21 +1,21 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
+import { AppTranslatePipe } from './translate.pipe';
+import { AppTranslateService } from './translate.service';
 import { TRANSLATION_PROVIDERS } from './translations';
-import { TranslatePipe } from './translate.pipe';
-import { TranslateService } from './translate.service';
 
 /**
  * Translate module.
  */
 @NgModule({
-  declarations: [ TranslatePipe ],
-exports: [ TranslatePipe ]
+  declarations: [AppTranslatePipe],
+  exports: [AppTranslatePipe],
 })
-export class TranslateModule {
-  public static forRoot(): ModuleWithProviders {
+export class AppTranslateModule {
+  public static forRoot(): ModuleWithProviders<AppTranslateModule> {
     return {
-      ngModule: TranslateModule,
-      providers: [ TRANSLATION_PROVIDERS, TranslateService ]
+      ngModule: AppTranslateModule,
+      providers: [TRANSLATION_PROVIDERS, AppTranslateService],
     };
   }
 }

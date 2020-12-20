@@ -1,56 +1,53 @@
-import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-
+import { Inject, Injectable } from '@angular/core';
+import { catchError, map, take, timeout } from 'rxjs/operators';
 import { CustomHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
 
 import {
   IEnvironmentInterface,
-  IGoogleApiENVInterface
-} from 'src/app/interfaces';
+  IGoogleApiEnvInterface,
+} from '../../interfaces/app-environment/app-environment.interface';
 
-import { Observable } from 'rxjs';
-import { timeout, take, map, catchError } from 'rxjs/operators';
-
-@Injectable()
-export class GoogleApiService {
-
+@Injectable({
+  providedIn: 'root',
+})
+export class AppGoogleApiService {
   constructor(
-    private http: HttpClient,
-    private handlers: CustomHttpHandlersService,
-    @Inject('ENV') private environment: IEnvironmentInterface
-  ) {
-    console.log('GoogleApiService constructor');
-  }
+    private readonly http: HttpClient,
+    private readonly handlers: CustomHttpHandlersService,
+    @Inject('ENV') private readonly environment: IEnvironmentInterface,
+  ) {}
 
   /**
    * Google API endpoints.
    */
-  private endpoints: { youtube: { search: string } } = {
+  private readonly endpoints: { youtube: { search: string } } = {
     youtube: {
-      search: 'https://www.googleapis.com/youtube/v3/channels'
-    }
+      search: 'https://www.googleapis.com/youtube/v3/channels',
+    },
   };
 
   /**
    * Google API authentication data.
    */
-  private config: IGoogleApiENVInterface = this.environment.gapi;
+  private readonly config: IGoogleApiEnvInterface = this.environment.gapi;
 
   /**
    * Gets youtube channel data.
    */
-  public getChannelData(): Observable<any[]> {
+  public getChannelData() {
     let query: HttpParams = new HttpParams().set('key', this.config.browserKey);
     query = query.set('id', this.config.channelId);
     query = query.set('part', this.config.part);
     query = query.set('order', this.config.order);
     query = query.set('maxResults', this.config.maxResults);
-    return this.http.get(this.endpoints.youtube.search, { params: query, responseType: 'json' }).pipe(
-      timeout(this.handlers.timeoutValue()),
-      take(1),
-      map(this.handlers.extractObject),
-      catchError(this.handlers.handleError)
-    );
+    return this.http
+      .get(this.endpoints.youtube.search, { params: query, responseType: 'json' })
+      .pipe(
+        timeout(this.handlers.timeoutValue()),
+        take(1),
+        map(this.handlers.extractObject),
+        catchError(this.handlers.handleError),
+      );
   }
-
 }

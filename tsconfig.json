@@ -1,35 +1,54 @@
 {
-  "compileOnSave": false,
-	"compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": ["node", "jasmine", "hammerjs", "core-js"],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "suppressImplicitAnyIndexErrors": true
-  },
   "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "enableIvy": true,
+    "enableResourceInlining": true,
     "fullTemplateTypeCheck": true,
-    "preserveWhiteSpace": false,
-    "strictInjectionParameters": true
-  }
+    "skipTemplateCodegen": true,
+    "strictInjectionParameters": true,
+    "strictMetadataEmit": true,
+    "strictTemplates": true
+  },
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "outDir": "./dist/out-tsc",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": false,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "rootDir": ".",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es6",
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": [
+    "node_modules",
+    "tmp",
+    ".firebase",
+    ".github",
+    ".vscode",
+    "coverage",
+    "dist",
+    "documentation",
+    "functions",
+    "shell"
+  ]
 }

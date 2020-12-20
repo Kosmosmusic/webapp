@@ -1,51 +1,34 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-
-/*
-*	Some material components rely on hammerjs
-*	CustomMaterialModule loads exact material modules
-*/
-import 'node_modules/hammerjs/hammer.js';
-import { CustomMaterialModule } from 'src/app/modules/material/custom-material.module';
-
-import { AppRoutingModule } from 'src/app/app.routing.module';
-
-import { AppComponent } from 'src/app/components/app/app.component';
-import { AppNavComponent } from 'src/app/components/nav/app-nav.component';
-import { AppIndexComponent } from 'src/app/components/index/app-index.component';
-import { AppMasteringComponent } from 'src/app/components/mastering/app-mastering.component';
-import { AppReleasesComponent } from 'src/app/components/releases/app-releases.component';
-import { AppMixesComponent } from 'src/app/components/mixes/app-mixes.component';
-import { AppVideosComponent } from 'src/app/components/videos/app-videos.component';
-import { AppAboutComponent } from 'src/app/components/about/app-about.component';
-import { AppContactDialog } from 'src/app/components/contact-dialog/app-contact-dialog.component';
-import { AppDemoDialog } from 'src/app/components/demo-dialog/app-demo-dialog.component';
-import { AppBookingDialog } from 'src/app/components/booking-dialog/app-booking-dialog.component';
-import { AppMasteringDialog } from 'src/app/components/mastering-dialog/app-mastering-dialog.component';
-
-import { SoundcloudPlayerComponent } from 'src/app/components/soundcloud-player/soundcloud-player.component';
-import { BassdrivePlayerComponent } from 'src/app/components/bassdrive-player/bassdrive-player.component';
-
-import { TranslateModule } from 'src/app/modules/translate/index';
-
-import { AppServicesModule } from 'src/app/services/services.module';
-import { AppDirectivesModule } from 'src/app/directives/directives.module';
-
-import { ENV, AppEnvironmentConfig } from 'src/app/app.environment';
-import { AppEventsComponent } from './components/events/app-events.component';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
+import { AppEnvironmentConfig, ENV } from './app.environment';
+import { AppRoutingModule } from './app.routing.module';
+import { AppAboutComponent } from './components/about/about.component';
+import { AppComponent } from './components/app/app.component';
+import { AppBassdrivePlayerComponent } from './components/bassdrive-player/bassdrive-player.component';
+import { AppBookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
+import { AppContactDialogComponent } from './components/contact-dialog/contact-dialog.component';
+import { AppDemoDialogComponent } from './components/demo-dialog/demo-dialog.component';
+import { AppEventsComponent } from './components/events/events.component';
+import { AppIndexComponent } from './components/index/index.component';
+import { AppMasteringComponent } from './components/mastering/mastering.component';
+import { AppMasteringDialogComponent } from './components/mastering-dialog/mastering-dialog.component';
+import { AppMixesComponent } from './components/mixes/mixes.component';
+import { AppNavComponent } from './components/nav/nav.component';
+import { AppReleasesComponent } from './components/releases/releases.component';
+import { SoundcloudPlayerComponent } from './components/soundcloud-player/soundcloud-player.component';
+import { AppVideosComponent } from './components/videos/videos.component';
+import { AppDirectivesModule } from './directives/directives.module';
+import { AppMaterialModule } from './modules/material/custom-material.module';
+import { AppTranslateModule } from './modules/translate/translate.module';
 
 @NgModule({
   declarations: [
@@ -59,41 +42,41 @@ import { environment } from 'src/environments/environment';
     AppVideosComponent,
     AppAboutComponent,
     // dialogs
-    AppContactDialog,
-    AppDemoDialog,
-    AppBookingDialog,
-    AppMasteringDialog,
+    AppContactDialogComponent,
+    AppDemoDialogComponent,
+    AppBookingDialogComponent,
+    AppMasteringDialogComponent,
     // players
     SoundcloudPlayerComponent,
-    BassdrivePlayerComponent
+    AppBassdrivePlayerComponent,
   ],
   entryComponents: [
-    AppContactDialog, AppDemoDialog, AppBookingDialog, AppMasteringDialog
+    AppContactDialogComponent,
+    AppDemoDialogComponent,
+    AppBookingDialogComponent,
+    AppMasteringDialogComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    CustomMaterialModule,
+    AppMaterialModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TranslateModule.forRoot(),
+    AppTranslateModule.forRoot(),
     AngularFireModule.initializeApp(ENV.firebase, 'kosmosmusic'),
     AngularFireDatabaseModule,
-    AppServicesModule.forRoot(),
     AppDirectivesModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: environment.baseHref },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: 'Window', useValue: window },
-    { provide: 'ENV', useValue: new AppEnvironmentConfig() }
+    { provide: 'ENV', useValue: new AppEnvironmentConfig() },
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  bootstrap: [ AppComponent ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
