@@ -1,5 +1,7 @@
 # Kosmosmusic Webapp
 
+![Master](https://github.com/Kosmosmusic/webapp/workflows/Master/badge.svg) ![PR validation](https://github.com/Kosmosmusic/webapp/workflows/PR%20validation/badge.svg)
+
 ## Requirements
 
 - [`Node.js`](https://nodejs.org/)

@@ -6,7 +6,7 @@ import { filter, tap } from 'rxjs/operators';
 
 import { IEmailSubscriptionForm } from '../../interfaces/forms/email-subscription-form.interface';
 import { AppTranslateService } from '../../modules/translate/translate.service';
-import { EmailSubscriptionService } from '../../services/email-subscription/email-subscription.service';
+import { AppEmailSubscriptionService } from '../../services/email-subscription/email-subscription.service';
 import { AppFirebaseService } from '../../services/firebase/firebase.service';
 import { AppSpinnerService } from '../../services/spinner/spinner.service';
 import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
@@ -33,7 +33,7 @@ interface IAboutData {
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['about.component.scss'],
+  styleUrls: ['./about.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppAboutComponent {
@@ -44,7 +44,7 @@ export class AppAboutComponent {
     private readonly fb: FormBuilder,
     private readonly translateService: AppTranslateService,
     private readonly firebaseService: AppFirebaseService,
-    private readonly emailSubscriptionService: EmailSubscriptionService,
+    private readonly emailSubscriptionService: AppEmailSubscriptionService,
     private readonly spinner: AppSpinnerService,
     @Inject('Window') private readonly window: Window,
   ) {}
