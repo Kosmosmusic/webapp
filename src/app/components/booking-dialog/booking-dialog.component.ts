@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IBookingForm } from 'src/app/interfaces/forms/booking-form.interface';
 
 import { AppTranslateService } from '../../modules/translate/translate.service';
-import { SendBookingRequestService } from '../../services/send-booking-request/send-booking-request.service';
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { AppSendBookingRequestService } from '../../services/send-booking-request/send-booking-request.service';
+import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
-/**
- * Booking dialog.
- */
 @Component({
   selector: 'app-booking',
   templateUrl: './booking-dialog.component.html',
@@ -26,9 +25,9 @@ export class AppBookingDialogComponent {
     private readonly dialogRef: MatDialogRef<AppBookingDialogComponent>,
     private readonly fb: FormBuilder,
     private readonly translateService: AppTranslateService,
-    private readonly sendBookingRequestService: SendBookingRequestService,
-    private readonly spinner: AppSpinnerService,
-    @Inject('Window') private readonly window: Window,
+    private readonly sendBookingRequestService: AppSendBookingRequestService,
+    private readonly store: Store,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**
@@ -83,7 +82,7 @@ export class AppBookingDialogComponent {
    * Sends email.
    */
   public sendBookingRequest() {
-    this.spinner.startSpinner();
+    void this.store.dispatch(new httpProgressActions.startProgress({ mainView: true }));
     const formData: {
       date: string;
       venueName: string;
@@ -109,7 +108,7 @@ export class AppBookingDialogComponent {
     return this.sendBookingRequestService.sendBookingRequest(formData).pipe(
       tap(
         data => {
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
 
           this.feedback.next(this.translateService.instant('booking.result.success'));
           const timeout = 1500;
@@ -119,7 +118,7 @@ export class AppBookingDialogComponent {
         },
         error => {
           this.feedback.next(this.translateService.instant('booking.result.fail'));
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
         },
       ),
     );

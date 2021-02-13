@@ -4,7 +4,7 @@ import { Directive, ElementRef, OnInit } from '@angular/core';
  * Replaces image with app logo if its loading results in an error
  */
 @Directive({
-  selector: '[imageloaded]',
+  selector: '[appImageLoaded]',
 })
 export class AppImageLoadedDirective implements OnInit {
   constructor(private readonly el: ElementRef) {}

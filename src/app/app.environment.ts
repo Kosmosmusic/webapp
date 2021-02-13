@@ -4,6 +4,7 @@ import {
   IGoogleApiEnvInterface,
   ISoundcloudEnvInterface,
 } from './interfaces/app-environment/app-environment.interface';
+
 /**
  * Application environment as a constant.
  */

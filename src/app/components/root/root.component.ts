@@ -2,46 +2,32 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { SUPPORTED_LANGUAGE_KEY } from '../../modules/translate/translations.interface';
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { WINDOW } from '../../utils/injection-tokens';
 import { AppBookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { AppDemoDialogComponent } from '../demo-dialog/demo-dialog.component';
 import { AppMasteringDialogComponent } from '../mastering-dialog/mastering-dialog.component';
 
-/**
- * Application root component.
- */
 @UntilDestroy()
 @Component({
-  selector: 'app',
-  templateUrl: './app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-root',
+  templateUrl: './root.component.html',
+  styleUrls: ['./root.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppRootComponent implements OnInit {
   constructor(
-    private readonly matIconRegistry: MatIconRegistry,
     private readonly dateAdapter: DateAdapter<Date>,
     private readonly dialog: MatDialog,
-    private readonly domSanitizer: DomSanitizer,
     private readonly translate: AppTranslateService,
     private readonly media: MediaObserver,
-    private readonly spinner: AppSpinnerService,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
-
-  /**
-   * Show spinner observable.
-   */
-  public showSpinner$: Observable<boolean> = this.spinner.showSpinner$.pipe(untilDestroyed(this));
 
   public sidenavOpened = false;
 
@@ -219,29 +205,6 @@ export class AppComponent implements OnInit {
     const userPreference: string =
       nav.language === 'ru-RU' || nav.language === 'ru' || nav.languages[0] === 'ru' ? 'ru' : 'en';
     this.selectLanguage(userPreference as SUPPORTED_LANGUAGE_KEY); // set default language
-
-    /*
-     *	register fontawesome for usage in mat-icon by adding directives
-     *	fontSet="fab" fontIcon="fa-icon"
-     *	fontSet="fas" fontIcon="fa-icon"
-     *
-     *	note: free plan includes only fab (font-awesome-brands) and fas (font-awesome-solid) groups
-     *
-     *	icons reference: https://fontawesome.com/icons/
-     */
-    this.matIconRegistry.registerFontClassAlias('fontawesome-all');
-
-    /*
-     * add svgs
-     */
-    this.matIconRegistry.addSvgIcon(
-      'logo-round',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_circle.svg'),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'logo-square',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_square.svg'),
-    );
 
     // subscribe to media chage events
     void this.media

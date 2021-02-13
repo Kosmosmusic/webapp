@@ -21,7 +21,7 @@
         matInput
         type="text"
         name="email"
-        [formControl]="demoForm.controls.email"
+        formControlName="email"
         placeholder="{{ 'form.email' | translate }}"
       />
       <mat-error *ngIf="demoForm.controls.email.invalid" class="mat-body-1">
@@ -34,7 +34,7 @@
         matInput
         type="text"
         name="name"
-        [formControl]="demoForm.controls.link"
+        formControlName="link"
         placeholder="{{ 'form.link' | translate }}"
       />
       <mat-error *ngIf="demoForm.controls.link.invalid" class="mat-body-1">

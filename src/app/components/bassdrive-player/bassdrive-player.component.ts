@@ -8,11 +8,10 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-/**
- * Bassdrive player component.
- */
+import { WINDOW } from '../../utils/injection-tokens';
+
 @Component({
-  selector: 'bassdrive-player',
+  selector: 'app-bassdrive-player',
   templateUrl: './bassdrive-player.component.html',
   styleUrls: ['./bassdrive-player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +21,7 @@ export class AppBassdrivePlayerComponent {
 
   constructor(
     private readonly sanitizer: DomSanitizer,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**
@@ -36,18 +35,18 @@ export class AppBassdrivePlayerComponent {
   /**
    * Player view child reference.
    */
-  @ViewChild('player') private readonly player!: ElementRef;
+  @ViewChild('player') private readonly player?: ElementRef;
 
   /**
    * Starts playback.
    */
   public play(): void {
-    const nativeElement = this.player.nativeElement as HTMLElement & {
+    const nativeElement = this.player?.nativeElement as HTMLElement & {
       paused: boolean;
       play: () => unknown;
       pause: () => unknown;
     };
-    if (nativeElement.paused) {
+    if (typeof nativeElement !== 'undefined' && nativeElement.paused) {
       nativeElement.play();
     }
   }
@@ -56,12 +55,14 @@ export class AppBassdrivePlayerComponent {
    * Pauses playback.
    */
   public pause(): void {
-    const nativeElement = this.player.nativeElement as HTMLElement & {
-      paused: boolean;
-      play: () => unknown;
-      pause: () => unknown;
-    };
-    if (!nativeElement.paused) {
+    const nativeElement = this.player?.nativeElement as
+      | (HTMLElement & {
+          paused: boolean;
+          play: () => unknown;
+          pause: () => unknown;
+        })
+      | undefined;
+    if (typeof nativeElement !== 'undefined' && !nativeElement.paused) {
       nativeElement.pause();
     }
   }
@@ -70,11 +71,11 @@ export class AppBassdrivePlayerComponent {
    * Indicates is player is paused.
    */
   public isPaused(): boolean {
-    const nativeElement = this.player.nativeElement as HTMLElement & {
+    const nativeElement = this.player?.nativeElement as HTMLElement & {
       paused: boolean;
       play: () => unknown;
       pause: () => unknown;
     };
-    return nativeElement.paused;
+    return typeof nativeElement !== 'undefined' ? nativeElement.paused : true;
   }
 }

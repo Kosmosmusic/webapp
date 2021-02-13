@@ -4,8 +4,6 @@ import { LANG_EN_NAME, LANG_EN_TRANSLATIONS } from './lang-en';
 import { LANG_RU_NAME, LANG_RU_TRANSLATIONS } from './lang-ru';
 import { ISupportedLanguage, SUPPORTED_LANGUAGE_KEY } from './translations.interface';
 
-export const TRANSLATIONS = new InjectionToken('translations');
-
 /**
  * Translate module dictionaries.
  */
@@ -13,6 +11,11 @@ export const dictionary = {
   [LANG_EN_NAME]: LANG_EN_TRANSLATIONS,
   [LANG_RU_NAME]: LANG_RU_TRANSLATIONS,
 };
+
+export const TRANSLATIONS = new InjectionToken<typeof dictionary>('translations', {
+  providedIn: 'root',
+  factory: () => ({ ...dictionary }),
+});
 
 /**
  * Translate module providers.

@@ -11,7 +11,7 @@ export class AppTranslatePipe implements PipeTransform {
 
   public transform(value: string) {
     if (!value) {
-      return 'no_value';
+      return 'no value';
     }
     return this.translate.instant(value);
   }

@@ -19,7 +19,7 @@
         matInput
         type="text"
         name="email"
-        [formControl]="emailForm.controls.email"
+        formControlName="email"
         placeholder="{{ 'form.email' | translate }}"
       />
       <mat-error *ngIf="emailForm.controls.email.invalid" class="mat-body-1">
@@ -32,7 +32,7 @@
         matInput
         type="text"
         name="name"
-        [formControl]="emailForm.controls.name"
+        formControlName="name"
         placeholder="{{ 'form.name' | translate }}"
       />
       <mat-error *ngIf="emailForm.controls.name.invalid" class="mat-body-1">
@@ -45,7 +45,7 @@
         matInput
         type="text"
         name="header"
-        [formControl]="emailForm.controls.header"
+        formControlName="header"
         placeholder="{{ 'form.header' | translate }}"
       />
       <mat-error *ngIf="emailForm.controls.header.invalid" class="mat-body-1">
@@ -58,7 +58,7 @@
         matInput
         type="text"
         name="message"
-        [formControl]="emailForm.controls.message"
+        formControlName="message"
         placeholder="{{ 'form.message' | translate }}"
       ></textarea>
       <mat-error *ngIf="emailForm.controls.message.invalid" class="mat-body-1">

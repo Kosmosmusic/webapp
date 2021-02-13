@@ -5,6 +5,6 @@
   frameborder="0"
   *ngIf="playlistSrc"
   [src]="playlistSrc"
-  [contentLoaded]
+  appContentLoaded
   (loadedCallback)="widgetLoaded($event)"
 ></iframe>

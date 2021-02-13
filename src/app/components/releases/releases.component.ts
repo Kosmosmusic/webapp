@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
-/**
- * Application releases component.
- */
 @Component({
   selector: 'app-releases',
   templateUrl: './releases.component.html',

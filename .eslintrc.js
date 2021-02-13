@@ -18,19 +18,30 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
     'plugin:@angular-eslint/recommended',
+    'plugin:eslint-comments/recommended',
   ],
   plugins: [
     'prettier',
     '@typescript-eslint', // https://github.com/typescript-eslint/typescript-eslint
     '@angular-eslint', // https://github.com/angular-eslint/angular-eslint
-    'deprecation', // https://github.com/gund/eslint-plugin-deprecation
     'simple-import-sort', // https://github.com/lydell/eslint-plugin-simple-import-sort
     'rxjs', // https://github.com/cartant/eslint-plugin-rxjs
     'compat', // https://www.npmjs.com/package/eslint-plugin-compat
+    'eslint-comments', // https://mysticatea.github.io/eslint-plugin-eslint-comments/rules/
   ],
   ignorePatterns: ['*.min.js', 'node_modules/'],
 
   rules: {
+    'eslint-comments/no-unused-disable': 'error',
+    'eslint-comments/no-use': [
+      'error',
+      {
+        allow: ['eslint-disable-next-line'],
+      },
+    ],
+    'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: false }],
+    'eslint-comments/require-description': ['error', { ignore: [] }],
+    'eslint-comments/no-restricted-disable': ['warn', '*'],
     '@typescript-eslint/await-thenable': 'error',
     '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/ban-types': [
@@ -229,7 +240,6 @@ module.exports = {
     'constructor-super': 'error',
     complexity: ['error', 10],
     'default-param-last': 'off', // handled by @typescript-eslint rule
-    'deprecation/deprecation': 'off', // TODO: turn on, and switch to error
     eqeqeq: 'error',
     'func-name-matching': ['error', 'always'],
     'guard-for-in': 'error',
@@ -384,6 +394,119 @@ module.exports = {
       files: '**/*.patch.ts',
       rules: {
         'compat/compat': 'off',
+      },
+    },
+    {
+      files: [
+        '**/soundcloud-me.config.ts',
+        '**/soundcloud-api-options.interface.ts',
+        '**/soundcloud-tracks-linked-partitioning.config.ts',
+        '**/soundcloud-api.service.ts',
+        '**/soundcloud-track.config.ts',
+        '**/soundcloud-playlist.config.ts',
+        '**/soundcloud-options.config.ts',
+      ],
+      rules: {
+        '@typescript-eslint/naming-convention': [
+          'error', // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md
+          {
+            selector: 'default',
+            format: ['camelCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'variable',
+            format: ['camelCase', 'UPPER_CASE', 'StrictPascalCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'parameter',
+            format: ['camelCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'property',
+            format: ['camelCase', 'snake_case'], // Soundcloud api has snake case
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'objectLiteralProperty',
+            format: ['camelCase', 'snake_case'], // Soundcloud api has snake case
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'function',
+            format: ['camelCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'enum',
+            format: ['UPPER_CASE'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'enumMember',
+            format: ['UPPER_CASE'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'memberLike',
+            modifiers: ['private'],
+            format: ['camelCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'typeAlias',
+            prefix: ['T'],
+            format: ['StrictPascalCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'typeParameter',
+            format: ['StrictPascalCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'interface',
+            prefix: ['I'],
+            format: ['StrictPascalCase'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+          {
+            selector: 'class',
+            format: ['StrictPascalCase'],
+            prefix: ['App'],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid',
+          },
+        ],
+      },
+    },
+    {
+      files: ['**/soundcloud-player.component.ts'],
+      rules: {
+        'rxjs/no-nested-subscribe': 'off',
+      },
+    },
+    {
+      files: '**/set-env.ts',
+      rules: {
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        'no-console': ['error', { allow: ['log', 'warn', 'error'] }],
       },
     },
   ],

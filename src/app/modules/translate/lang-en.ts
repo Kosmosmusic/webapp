@@ -107,8 +107,7 @@ export const LANG_EN_TRANSLATIONS = {
     title: 'Mastering order',
     open: 'Order mastering',
     paragraph1:
-      // eslint-disable-next-line prettier/prettier
-      'Kos.Mos.Music.Lab is an offshoot of Moscow based independent electronic music label Kos.Mos.Music, co-owned by Andrey Burtaev, better known as Electrosoul System. Since digital media started to become more and more popular, the label decided to do mastering by itself due to low mastering quality from other engineers and, therefore, release delays. That\'s how Kos.Mos.Music.Lab was born.',
+      "Kos.Mos.Music.Lab is an offshoot of Moscow based independent electronic music label Kos.Mos.Music, co-owned by Andrey Burtaev, better known as Electrosoul System. Since digital media started to become more and more popular, the label decided to do mastering by itself due to low mastering quality from other engineers and, therefore, release delays. That's how Kos.Mos.Music.Lab was born.",
     paragraph2:
       'At the moment, having solid experience of cooperation with such producers as Subwave, Future Engineers, Roygreen & Protone and Electrosoul System (no, Andrey doesn’t do mastering of his own tracks) Kos.Mos.Music.Lab team is proud to provide you with mastering and mixing services for your musical content. Almost all releases of Kos.Mos.Music, beginning from 11th, were mastered by our crew and the tracks from Kos.Mos.Music are played by such dnb guru as London Elektricity and others from Med School and Hospital labels, to name a few.',
     paragraph3:

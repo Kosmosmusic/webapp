@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IMasteringOrderForm } from 'src/app/interfaces/forms/mastering-order-form.interface';
 
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppSendDemoService } from '../../services/send-demo/send-demo.service';
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
-/**
- * Demo dialog.
- */
 @Component({
   selector: 'app-demo',
   templateUrl: './demo-dialog.component.html',
@@ -27,8 +26,8 @@ export class AppDemoDialogComponent {
     private readonly fb: FormBuilder,
     private readonly translateService: AppTranslateService,
     private readonly sendDemoService: AppSendDemoService,
-    private readonly spinner: AppSpinnerService,
-    @Inject('Window') private readonly window: Window,
+    private readonly store: Store,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**
@@ -60,7 +59,7 @@ export class AppDemoDialogComponent {
    * Sends demo.
    */
   public sendDemo() {
-    this.spinner.startSpinner();
+    void this.store.dispatch(new httpProgressActions.startProgress({ mainView: true }));
     const formData: {
       email: string;
       link: string;
@@ -69,7 +68,7 @@ export class AppDemoDialogComponent {
     return this.sendDemoService.sendDemo(formData).pipe(
       tap(
         data => {
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
           this.feedback.next(this.translateService.instant('demo.result.success'));
           const timeout = 15000;
           setTimeout(() => {
@@ -78,7 +77,7 @@ export class AppDemoDialogComponent {
         },
         error => {
           this.feedback.next(this.translateService.instant('demo.result.fail'));
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
         },
       ),
     );
