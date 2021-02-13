@@ -1,4 +1,3 @@
-/* eslint-disable no-undefined */
 /**
  * Local storage mock for unit tests.
  */
@@ -12,11 +11,11 @@ export class LocalStorageMock {
   }
 
   public removeItem(key: string): void {
-    this[key] = undefined;
+    this[key] = void 0;
   }
 }
 
-export function setUpLocalStorageMock(): LocalStorageMock {
+export function setupLocalStorageMock(): LocalStorageMock {
   Object.defineProperty(window, 'localStorage', {
     value: new LocalStorageMock(),
     writable: true,

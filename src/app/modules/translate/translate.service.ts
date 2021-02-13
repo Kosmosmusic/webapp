@@ -3,7 +3,9 @@ import { Inject, Injectable } from '@angular/core';
 import { TRANSLATIONS } from './translations';
 import { IDictionaryObject, IUiDictionary, SUPPORTED_LANGUAGE_KEY } from './translations.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AppTranslateService {
   constructor(@Inject(TRANSLATIONS) private readonly translations: IUiDictionary) {}
 

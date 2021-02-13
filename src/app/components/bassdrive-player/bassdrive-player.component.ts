@@ -8,11 +8,8 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-/**
- * Bassdrive player component.
- */
 @Component({
-  selector: 'bassdrive-player',
+  selector: 'app-bassdrive-player',
   templateUrl: './bassdrive-player.component.html',
   styleUrls: ['./bassdrive-player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

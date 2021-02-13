@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, map, take, timeout } from 'rxjs/operators';
-import { CustomHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
+import { catchError, timeout } from 'rxjs/operators';
+import { AppHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { CustomHttpHandlersService } from 'src/app/services/http-handlers/custom
 export class AppSendMasteringOrderService {
   constructor(
     private readonly http: HttpClient,
-    private readonly handlers: CustomHttpHandlersService,
+    private readonly handlers: AppHttpHandlersService,
     @Inject('Window') private readonly window: Window,
   ) {}
 
@@ -24,11 +24,6 @@ export class AppSendMasteringOrderService {
   public sendOrder(formData: { email: string; link: string; domain: string }) {
     return this.http
       .post(this.endpoint, formData)
-      .pipe(
-        timeout(this.handlers.timeoutValue()),
-        take(1),
-        map(this.handlers.extractObject),
-        catchError(this.handlers.handleError),
-      );
+      .pipe(timeout(this.handlers.defaultHttpTimeout), catchError(this.handlers.handleError));
   }
 }

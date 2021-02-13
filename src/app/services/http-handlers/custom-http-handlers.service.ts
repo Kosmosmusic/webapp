@@ -1,47 +1,55 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { concat, Observable, throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, throwError } from 'rxjs';
+import { catchError, timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CustomHttpHandlersService {
-  /**
-   * Extracts object from response.
-   */
-  public extractObject(res: object): any {
-    return res || {};
+export class AppHttpHandlersService {
+  public readonly defaultHttpTimeout = 10000;
+
+  constructor(private readonly snackBar: MatSnackBar) {}
+
+  private displayErrorToast(error: string): void {
+    this.snackBar.open(error, void 0, {
+      duration: 7000,
+    });
   }
 
-  /**
-   * Extracts array from response.
-   */
-  public extractArray(res: any[]): any {
-    return res || [];
-  }
-
-  /**
-   * Handles error on response.
-   */
-  public handleError(error: any): Observable<any> {
-    console.log('error', error);
-    const errMsg = error.message
+  public getErrorMessage(error: HttpErrorResponse & firebase.default.FirebaseError): string {
+    const msg: string = Boolean(error.message)
       ? error.message
-      : error.status
+      : Boolean(error.code)
+      ? error.code
+      : error.error;
+    const errorMessage: string = Boolean(msg)
+      ? msg
+      : Boolean(error.status)
       ? `${error.status} - ${error.statusText}`
       : 'Server error';
-    console.log('errMsg', errMsg);
-    return concat(throwError(errMsg));
+    return errorMessage;
   }
 
   /**
-   * Timeout value for all requests in milliseconds.
+   * Handles error.
+   * @param error error object
    */
-  private readonly timeout = 10000;
+  public handleError(error: HttpErrorResponse & firebase.default.FirebaseError): Observable<never> {
+    const errorMessage = this.getErrorMessage(error);
+    this.displayErrorToast(errorMessage);
+    return throwError(errorMessage);
+  }
 
   /**
-   * Public method to get request timeout value.
+   * Pipes request with object response.
+   * @param observable request observable
    */
-  public timeoutValue(): number {
-    return this.timeout;
+  public pipeHttpRequest<T>(observable: Observable<T>): Observable<T> {
+    return observable.pipe(
+      timeout(this.defaultHttpTimeout),
+      catchError(error => this.handleError(error)),
+    );
   }
 }

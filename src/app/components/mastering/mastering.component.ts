@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 import { take, tap } from 'rxjs/operators';
 
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { httpProgressActions } from '../../state/http-progress/http-progress.store';
 import { AppMasteringDialogComponent } from '../mastering-dialog/mastering-dialog.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class AppMasteringComponent implements OnInit {
 
   @HostBinding('fxLayoutAlign') public fxLayoutAlign = 'start stretch';
 
-  constructor(private readonly spinner: AppSpinnerService, private readonly dialog: MatDialog) {}
+  constructor(private readonly store: Store, private readonly dialog: MatDialog) {}
 
   /**
    * Component details object.
@@ -34,7 +35,7 @@ export class AppMasteringComponent implements OnInit {
    * Should be called once iframe content finished loading.
    */
   public contentLoaded(): void {
-    this.spinner.stopSpinner();
+    void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
   }
 
   /**
@@ -62,6 +63,6 @@ export class AppMasteringComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.spinner.startSpinner();
+    void this.store.dispatch(new httpProgressActions.startProgress({ mainView: true }));
   }
 }

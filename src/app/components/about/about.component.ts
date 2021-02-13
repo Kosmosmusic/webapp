@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
@@ -8,7 +9,7 @@ import { IEmailSubscriptionForm } from '../../interfaces/forms/email-subscriptio
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppEmailSubscriptionService } from '../../services/email-subscription/email-subscription.service';
 import { AppFirebaseService } from '../../services/firebase/firebase.service';
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { httpProgressActions } from '../../state/http-progress/http-progress.store';
 import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 
 interface IAboutData {
@@ -45,7 +46,7 @@ export class AppAboutComponent {
     private readonly translateService: AppTranslateService,
     private readonly firebaseService: AppFirebaseService,
     private readonly emailSubscriptionService: AppEmailSubscriptionService,
-    private readonly spinner: AppSpinnerService,
+    private readonly store: Store,
     @Inject('Window') private readonly window: Window,
   ) {}
 
@@ -68,7 +69,7 @@ export class AppAboutComponent {
       this.window.location.origin,
       Validators.compose([Validators.required, Validators.pattern(/.+/)]),
     ],
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- TODO: pass the value without disabling naming convention filewide
     b_3eeba7cfe8388b91c662bdf95_8cca3229c8: [''],
   }) as IEmailSubscriptionForm;
 
@@ -106,11 +107,11 @@ export class AppAboutComponent {
    * Subscribes user to mailing list.
    */
   public subscribeToMailingList() {
-    this.spinner.startSpinner();
+    void this.store.dispatch(new httpProgressActions.startProgress({ mainView: true }));
     const formData: {
       email: string;
       domain: string;
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- TODO: pass the value without disabling naming convention filewide
       b_3eeba7cfe8388b91c662bdf95_8cca3229c8: '';
     } = this.subscriptionForm.value;
     void this.emailSubscriptionService
@@ -118,11 +119,11 @@ export class AppAboutComponent {
       .pipe(
         tap(
           () => {
-            this.spinner.stopSpinner();
+            void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
             this.feedback.next(this.translateService.instant('subscribe.result.success'));
           },
           error => {
-            this.spinner.stopSpinner();
+            void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
             this.feedback.next(
               `${this.translateService.instant('subscribe.result.fail')}: ${error}`,
             );

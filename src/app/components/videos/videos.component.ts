@@ -7,9 +7,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Store } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { AppSpinnerService } from 'src/app/services';
-import { GoogleApiService } from 'src/app/services/google-api/google-api.service';
+
+import { AppGoogleApiService } from '../../services/google-api/google-api.service';
+import { httpProgressActions } from '../../state/http-progress/http-progress.store';
 
 @Component({
   selector: 'app-videos',
@@ -26,20 +28,21 @@ export class AppVideosComponent implements OnInit {
 
   constructor(
     private readonly sanitizer: DomSanitizer,
-    private readonly spinner: AppSpinnerService,
-    private readonly googleAPI: GoogleApiService,
+    private readonly store: Store,
+    private readonly googleAPI: AppGoogleApiService,
     @Inject('Window') private readonly window: Window,
   ) {}
 
   /**
    * Channel data.
    */
-  public channelData?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- add youtube channel data interface
+  public channelData?: Record<string, any>;
 
   /**
    * Channel uploads.
    */
-  private uploads: any;
+  private uploads = '';
 
   /**
    * Playlist source url.
@@ -50,11 +53,13 @@ export class AppVideosComponent implements OnInit {
    * Gets channel data.
    */
   private getChannelData() {
-    this.spinner.startSpinner();
+    void this.store.dispatch(new httpProgressActions.startProgress({ mainView: true }));
     return this.googleAPI.getChannelData().pipe(
       tap(
-        (data: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- add youtube channel data interface
+        (data: Record<string, any>) => {
           this.channelData = data;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- add youtube channel data interface
           this.uploads = data.items[0].contentDetails.relatedPlaylists.uploads;
           this.playlistSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
             'https://www.youtube.com/embed/?listType=playlist&list=' +
@@ -68,7 +73,7 @@ export class AppVideosComponent implements OnInit {
            */
         },
         (error: string) => {
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
         },
       ),
     );
@@ -80,7 +85,7 @@ export class AppVideosComponent implements OnInit {
    * @param event iframe widget loaded callback event - iframe ElementRef
    */
   public widgetLoaded(event: ElementRef): void {
-    this.spinner.stopSpinner();
+    void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
   }
 
   public ngOnInit(): void {

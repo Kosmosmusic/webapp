@@ -5,28 +5,23 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { SUPPORTED_LANGUAGE_KEY } from '../../modules/translate/translations.interface';
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
 import { AppBookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { AppDemoDialogComponent } from '../demo-dialog/demo-dialog.component';
 import { AppMasteringDialogComponent } from '../mastering-dialog/mastering-dialog.component';
 
-/**
- * Application root component.
- */
 @UntilDestroy()
 @Component({
-  selector: 'app',
-  templateUrl: './app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-root',
+  templateUrl: './root.component.html',
+  styleUrls: ['./root.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppRootComponent implements OnInit {
   constructor(
     private readonly matIconRegistry: MatIconRegistry,
     private readonly dateAdapter: DateAdapter<Date>,
@@ -34,14 +29,8 @@ export class AppComponent implements OnInit {
     private readonly domSanitizer: DomSanitizer,
     private readonly translate: AppTranslateService,
     private readonly media: MediaObserver,
-    private readonly spinner: AppSpinnerService,
     @Inject('Window') private readonly window: Window,
   ) {}
-
-  /**
-   * Show spinner observable.
-   */
-  public showSpinner$: Observable<boolean> = this.spinner.showSpinner$.pipe(untilDestroyed(this));
 
   public sidenavOpened = false;
 

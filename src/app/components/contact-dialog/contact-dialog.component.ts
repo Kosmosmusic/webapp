@@ -1,17 +1,15 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { IEmailForm } from '../../interfaces/forms/email-form.interface';
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppSendEmailService } from '../../services/send-email/send-email.service';
-import { AppSpinnerService } from '../../services/spinner/spinner.service';
+import { httpProgressActions } from '../../state/http-progress/http-progress.store';
 
-/**
- * Contact dialog.
- */
 @Component({
   selector: 'app-contact',
   templateUrl: './contact-dialog.component.html',
@@ -27,7 +25,7 @@ export class AppContactDialogComponent {
     private readonly fb: FormBuilder,
     private readonly translateService: AppTranslateService,
     private readonly sendEmailService: AppSendEmailService,
-    private readonly spinner: AppSpinnerService,
+    private readonly store: Store,
     @Inject('Window') private readonly window: Window,
   ) {}
 
@@ -62,7 +60,7 @@ export class AppContactDialogComponent {
    * Sends email.
    */
   public sendEmail() {
-    this.spinner.startSpinner();
+    void this.store.dispatch(new httpProgressActions.startProgress({ mainView: true }));
     const formData: {
       name: string;
       email: string;
@@ -73,7 +71,7 @@ export class AppContactDialogComponent {
     return this.sendEmailService.sendEmail(formData).pipe(
       tap(
         data => {
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
           this.feedback.next(this.translateService.instant('contact.result.success'));
           const timeout = 1500;
           setTimeout(() => {
@@ -82,7 +80,7 @@ export class AppContactDialogComponent {
         },
         error => {
           this.feedback.next(this.translateService.instant('contact.result.fail'));
-          this.spinner.stopSpinner();
+          void this.store.dispatch(new httpProgressActions.stopProgress({ mainView: false }));
         },
       ),
     );

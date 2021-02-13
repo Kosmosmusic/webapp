@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, map, take, timeout } from 'rxjs/operators';
-import { CustomHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
+import { catchError, take, timeout } from 'rxjs/operators';
+import { AppHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
 
 import {
   IEnvironmentInterface,
@@ -14,7 +14,7 @@ import {
 export class AppGoogleApiService {
   constructor(
     private readonly http: HttpClient,
-    private readonly handlers: CustomHttpHandlersService,
+    private readonly handlers: AppHttpHandlersService,
     @Inject('ENV') private readonly environment: IEnvironmentInterface,
   ) {}
 
@@ -44,9 +44,8 @@ export class AppGoogleApiService {
     return this.http
       .get(this.endpoints.youtube.search, { params: query, responseType: 'json' })
       .pipe(
-        timeout(this.handlers.timeoutValue()),
+        timeout(this.handlers.defaultHttpTimeout),
         take(1),
-        map(this.handlers.extractObject),
         catchError(this.handlers.handleError),
       );
   }

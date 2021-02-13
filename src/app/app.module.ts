@@ -7,12 +7,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { NgxsLoggerPluginModule, NgxsLoggerPluginOptions } from '@ngxs/logger-plugin';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { NgxsModule } from '@ngxs/store';
 
 import { environment } from '../environments/environment';
 import { AppEnvironmentConfig, ENV } from './app.environment';
 import { AppRoutingModule } from './app.routing.module';
 import { AppAboutComponent } from './components/about/about.component';
-import { AppComponent } from './components/app/app.component';
 import { AppBassdrivePlayerComponent } from './components/bassdrive-player/bassdrive-player.component';
 import { AppBookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
 import { AppContactDialogComponent } from './components/contact-dialog/contact-dialog.component';
@@ -23,16 +26,25 @@ import { AppMasteringComponent } from './components/mastering/mastering.componen
 import { AppMasteringDialogComponent } from './components/mastering-dialog/mastering-dialog.component';
 import { AppMixesComponent } from './components/mixes/mixes.component';
 import { AppNavComponent } from './components/nav/nav.component';
+import { AppProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { AppReleasesComponent } from './components/releases/releases.component';
-import { SoundcloudPlayerComponent } from './components/soundcloud-player/soundcloud-player.component';
+import { AppRootComponent } from './components/root/root.component';
+import { AppSoundcloudPlayerComponent } from './components/soundcloud-player/soundcloud-player.component';
 import { AppVideosComponent } from './components/videos/videos.component';
 import { AppDirectivesModule } from './directives/directives.module';
 import { AppMaterialModule } from './modules/material/custom-material.module';
 import { AppTranslateModule } from './modules/translate/translate.module';
+import { AppHttpProgressStoreModule } from './state/http-progress/http-progress.module';
+import { AppSoundcloudStoreModule } from './state/soundcloud/soundcloud.module';
+
+const ngxsLoggerPluginOptions: NgxsLoggerPluginOptions = {
+  collapsed: true,
+  disabled: environment.production,
+};
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppRootComponent,
     AppNavComponent,
     AppIndexComponent,
     AppMasteringComponent,
@@ -41,20 +53,20 @@ import { AppTranslateModule } from './modules/translate/translate.module';
     AppMixesComponent,
     AppVideosComponent,
     AppAboutComponent,
-    // dialogs
     AppContactDialogComponent,
     AppDemoDialogComponent,
     AppBookingDialogComponent,
     AppMasteringDialogComponent,
-    // players
-    SoundcloudPlayerComponent,
+    AppSoundcloudPlayerComponent,
     AppBassdrivePlayerComponent,
+    AppProgressBarComponent,
   ],
   entryComponents: [
     AppContactDialogComponent,
     AppDemoDialogComponent,
     AppBookingDialogComponent,
     AppMasteringDialogComponent,
+    AppProgressBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,10 +76,16 @@ import { AppTranslateModule } from './modules/translate/translate.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppTranslateModule.forRoot(),
+    AppTranslateModule,
     AngularFireModule.initializeApp(ENV.firebase, 'kosmosmusic'),
     AngularFireDatabaseModule,
     AppDirectivesModule,
+    NgxsModule.forRoot([], { developmentMode: !environment.production }),
+    NgxsRouterPluginModule.forRoot(),
+    NgxsFormPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(ngxsLoggerPluginOptions),
+    AppSoundcloudStoreModule,
+    AppHttpProgressStoreModule,
     AppRoutingModule,
   ],
   providers: [
@@ -77,6 +95,6 @@ import { AppTranslateModule } from './modules/translate/translate.module';
     { provide: 'ENV', useValue: new AppEnvironmentConfig() },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  bootstrap: [AppComponent],
+  bootstrap: [AppRootComponent],
 })
 export class AppModule {}

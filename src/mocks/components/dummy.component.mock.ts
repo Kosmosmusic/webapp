@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
  * input with autofocus attribute is needed for Autofocus directive testing
  */
 @Component({
-  selector: 'dnbhub-dummy-component',
+  selector: 'app-dummy-component',
   template: '<div appAutoscroll class="scrollable"><input autofocus="true" appAutofocus /></div>',
   styles: [
     `
