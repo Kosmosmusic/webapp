@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
+import { WINDOW } from '../../utils/injection-tokens';
+
 /**
  * Controls Facebook JavaScript SDK.
  */
@@ -7,7 +9,7 @@ import { Inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AppFacebookService {
-  constructor(@Inject('Window') private readonly window: Window) {
+  constructor(@Inject(WINDOW) private readonly window: Window) {
     this.initFacebookJsSDK();
   }
 

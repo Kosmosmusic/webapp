@@ -9,6 +9,7 @@ import { IBookingForm } from 'src/app/interfaces/forms/booking-form.interface';
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppSendBookingRequestService } from '../../services/send-booking-request/send-booking-request.service';
 import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
 @Component({
   selector: 'app-booking',
@@ -26,7 +27,7 @@ export class AppBookingDialogComponent {
     private readonly translateService: AppTranslateService,
     private readonly sendBookingRequestService: AppSendBookingRequestService,
     private readonly store: Store,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**

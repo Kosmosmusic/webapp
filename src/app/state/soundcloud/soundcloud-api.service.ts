@@ -19,7 +19,8 @@ import {
   ISoundcloudTracksLinkedPartitioning,
   linkedPartitioningDefaultValues,
 } from '../../interfaces/soundcloud/soundcloud-tracks-linked-partitioning.config';
-import { AppHttpHandlersService } from '../../services/http-handlers/custom-http-handlers.service';
+import { AppHttpHandlersService } from '../../services/http-handlers/http-handlers.service';
+import { APP_ENV } from '../../utils/injection-tokens';
 import { soundcloudActions } from './soundcloud.store';
 
 /**
@@ -81,7 +82,7 @@ export class AppSoundcloudApiService implements OnDestroy {
     private readonly handlers: AppHttpHandlersService,
     public readonly sanitizer: DomSanitizer,
     private readonly store: Store,
-    @Inject('ENV') private readonly env: IEnvironmentInterface,
+    @Inject(APP_ENV) private readonly env: IEnvironmentInterface,
   ) {
     this.init();
   }

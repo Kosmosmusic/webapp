@@ -24,6 +24,7 @@ import { IEventTargetWithPosition, IEventWithPosition } from '../../interfaces/u
 import { AppHttpProgressState } from '../../state/http-progress/http-progress.store';
 import { AppSoundcloudService } from '../../state/soundcloud/soundcloud.service';
 import { AppSoundcloudState } from '../../state/soundcloud/soundcloud.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
 const waveformProgressTimeout = 500;
 
@@ -102,7 +103,7 @@ export class AppSoundcloudPlayerComponent implements OnDestroy, OnChanges {
   constructor(
     private readonly store: Store,
     private readonly soundcloud: AppSoundcloudService,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   private readonly renderPlaylistTracks = new BehaviorSubject<number>(renderPlaylistTracksDefault);

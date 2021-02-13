@@ -27,14 +27,14 @@ describe('AppTranslatePipe', () => {
   });
 
   it('instant() should return provided key if no translation is available', () => {
-    expect(pipe.transform('title')).toEqual('title');
+    expect(pipe.transform('title')).toEqual(dictionary[LANG_EN_NAME].title);
   });
 
   it('transform() should return instant translation of a dictionary key', () => {
-    expect(pipe.transform('')).toBeUndefined();
+    expect(pipe.transform('')).toEqual('no value');
     service.use(SUPPORTED_LANGUAGE_KEY.RUSSIAN);
-    expect(pipe.transform('releases')).toEqual('Саундклауд');
+    expect(pipe.transform('releases')).toEqual(dictionary[LANG_RU_NAME].releases);
     service.use(SUPPORTED_LANGUAGE_KEY.ENGLISH);
-    expect(pipe.transform('releases')).toEqual('Soundcloud');
+    expect(pipe.transform('releases')).toEqual(dictionary[LANG_EN_NAME].releases);
   });
 });

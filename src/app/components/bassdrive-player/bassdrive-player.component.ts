@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+import { WINDOW } from '../../utils/injection-tokens';
+
 @Component({
   selector: 'app-bassdrive-player',
   templateUrl: './bassdrive-player.component.html',
@@ -19,7 +21,7 @@ export class AppBassdrivePlayerComponent {
 
   constructor(
     private readonly sanitizer: DomSanitizer,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**

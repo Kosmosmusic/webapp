@@ -9,6 +9,7 @@ import { take, tap } from 'rxjs/operators';
 
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { SUPPORTED_LANGUAGE_KEY } from '../../modules/translate/translations.interface';
+import { WINDOW } from '../../utils/injection-tokens';
 import { AppBookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { AppDemoDialogComponent } from '../demo-dialog/demo-dialog.component';
@@ -29,7 +30,7 @@ export class AppRootComponent implements OnInit {
     private readonly domSanitizer: DomSanitizer,
     private readonly translate: AppTranslateService,
     private readonly media: MediaObserver,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   public sidenavOpened = false;

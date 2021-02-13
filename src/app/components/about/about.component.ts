@@ -10,6 +10,7 @@ import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppEmailSubscriptionService } from '../../services/email-subscription/email-subscription.service';
 import { AppFirebaseService } from '../../services/firebase/firebase.service';
 import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 import { AppContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 
 interface IAboutData {
@@ -47,7 +48,7 @@ export class AppAboutComponent {
     private readonly firebaseService: AppFirebaseService,
     private readonly emailSubscriptionService: AppEmailSubscriptionService,
     private readonly store: Store,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   public readonly details$ = this.firebaseService

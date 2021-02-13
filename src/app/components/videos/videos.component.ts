@@ -12,6 +12,7 @@ import { tap } from 'rxjs/operators';
 
 import { AppGoogleApiService } from '../../services/google-api/google-api.service';
 import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
 @Component({
   selector: 'app-videos',
@@ -30,7 +31,7 @@ export class AppVideosComponent implements OnInit {
     private readonly sanitizer: DomSanitizer,
     private readonly store: Store,
     private readonly googleAPI: AppGoogleApiService,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**

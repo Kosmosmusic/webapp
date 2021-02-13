@@ -19,12 +19,6 @@ describe('AppTranslateService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should have variables and methods defined', () => {
-    expect(service.currentLanguage).toBeUndefined(); // because _currentLanguage is undefined initially
-    expect(service.use).toBeDefined();
-    expect(service.instant).toBeDefined();
-  });
-
   it('use() should set current language, currentLanguage() should return current language', () => {
     service.use(SUPPORTED_LANGUAGE_KEY.RUSSIAN);
     expect(service.currentLanguage).toBeDefined();
@@ -39,10 +33,10 @@ describe('AppTranslateService', () => {
 
   it('instant() should return instant translation of a dictionary key', () => {
     service.use(SUPPORTED_LANGUAGE_KEY.RUSSIAN);
-    expect(service.instant('title')).toEqual('KOS.MOS.MUSIC');
+    expect(service.instant('title')).toEqual(dictionary[LANG_RU_NAME].title);
     service.use(SUPPORTED_LANGUAGE_KEY.ENGLISH);
-    expect(service.instant('releases')).toEqual('Soundcloud');
+    expect(service.instant('releases')).toEqual(dictionary[LANG_EN_NAME].releases);
     service.use(SUPPORTED_LANGUAGE_KEY.ENGLISH);
-    expect(service.instant('mastering')).toEqual('Mastering');
+    expect(service.instant('mastering')).toEqual(dictionary[LANG_EN_NAME].mastering);
   });
 });

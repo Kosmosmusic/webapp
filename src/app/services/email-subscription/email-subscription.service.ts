@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, take, timeout } from 'rxjs/operators';
-import { AppHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
+import { AppHttpHandlersService } from 'src/app/services/http-handlers/http-handlers.service';
+
+import { WINDOW } from '../../utils/injection-tokens';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ export class AppEmailSubscriptionService {
   constructor(
     private readonly http: HttpClient,
     private readonly handlers: AppHttpHandlersService,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**

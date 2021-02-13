@@ -4,7 +4,7 @@
     "allowJs": true,
     "module": "commonjs",
     "outDir": "../dist/out-tsc/spec",
-    "types": ["node", "jest"]
+    "types": ["node", "jest", "firebase"]
   },
   "files": ["test-setup.ts"],
   "include": ["**/*.spec.ts"]

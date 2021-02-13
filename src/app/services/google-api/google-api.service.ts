@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, take, timeout } from 'rxjs/operators';
-import { AppHttpHandlersService } from 'src/app/services/http-handlers/custom-http-handlers.service';
+import { AppHttpHandlersService } from 'src/app/services/http-handlers/http-handlers.service';
 
 import {
   IEnvironmentInterface,
   IGoogleApiEnvInterface,
 } from '../../interfaces/app-environment/app-environment.interface';
+import { APP_ENV } from '../../utils/injection-tokens';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AppGoogleApiService {
   constructor(
     private readonly http: HttpClient,
     private readonly handlers: AppHttpHandlersService,
-    @Inject('ENV') private readonly environment: IEnvironmentInterface,
+    @Inject(APP_ENV) private readonly environment: IEnvironmentInterface,
   ) {}
 
   /**

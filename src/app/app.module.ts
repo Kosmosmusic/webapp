@@ -36,6 +36,7 @@ import { AppMaterialModule } from './modules/material/custom-material.module';
 import { AppTranslateModule } from './modules/translate/translate.module';
 import { AppHttpProgressStoreModule } from './state/http-progress/http-progress.module';
 import { AppSoundcloudStoreModule } from './state/soundcloud/soundcloud.module';
+import { APP_ENV, WINDOW } from './utils/injection-tokens';
 
 const ngxsLoggerPluginOptions: NgxsLoggerPluginOptions = {
   collapsed: true,
@@ -91,8 +92,8 @@ const ngxsLoggerPluginOptions: NgxsLoggerPluginOptions = {
   providers: [
     { provide: APP_BASE_HREF, useValue: environment.baseHref },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
-    { provide: 'Window', useValue: window },
-    { provide: 'ENV', useValue: new AppEnvironmentConfig() },
+    { provide: WINDOW, useValue: window },
+    { provide: APP_ENV, useValue: new AppEnvironmentConfig() },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppRootComponent],

@@ -9,6 +9,7 @@ import { IMasteringOrderForm } from '../../interfaces/forms/mastering-order-form
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppSendMasteringOrderService } from '../../services/send-mastering-order/send-mastering-order.service';
 import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
 @Component({
   selector: 'app-mastering-dialog',
@@ -26,7 +27,7 @@ export class AppMasteringDialogComponent {
     private readonly translateService: AppTranslateService,
     private readonly sendMasteringOrderService: AppSendMasteringOrderService,
     private readonly store: Store,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**

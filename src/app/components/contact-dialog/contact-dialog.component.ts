@@ -9,6 +9,7 @@ import { IEmailForm } from '../../interfaces/forms/email-form.interface';
 import { AppTranslateService } from '../../modules/translate/translate.service';
 import { AppSendEmailService } from '../../services/send-email/send-email.service';
 import { httpProgressActions } from '../../state/http-progress/http-progress.store';
+import { WINDOW } from '../../utils/injection-tokens';
 
 @Component({
   selector: 'app-contact',
@@ -26,7 +27,7 @@ export class AppContactDialogComponent {
     private readonly translateService: AppTranslateService,
     private readonly sendEmailService: AppSendEmailService,
     private readonly store: Store,
-    @Inject('Window') private readonly window: Window,
+    @Inject(WINDOW) private readonly window: Window,
   ) {}
 
   /**
