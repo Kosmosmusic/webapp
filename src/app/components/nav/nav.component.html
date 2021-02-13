@@ -9,6 +9,8 @@
     </mat-icon>
   </span>
 
+  <span fxFlex="1 1 auto"></span>
+
   <span
     class="mat-toolbar-tools"
     fxFlex="0 1 auto"
@@ -30,6 +32,7 @@
       <mat-icon fontSet="fas" fontIcon="fa-home" class="material-icons-fas"></mat-icon>
       {{ 'home' | translate }}
     </button>
+
     <button
       mat-button
       [routerLink]="['mastering']"
@@ -44,6 +47,7 @@
       <mat-icon fontSet="fas" fontIcon="fa-file-audio" class="material-icons-fas"></mat-icon>
       {{ 'mastering' | translate }}
     </button>
+
     <button
       mat-button
       [routerLink]="['releases']"
@@ -58,6 +62,7 @@
       <mat-icon fontSet="fas" fontIcon="fa-file-audio" class="material-icons-fas"></mat-icon>
       {{ 'releases' | translate }}
     </button>
+
     <button
       mat-button
       [routerLink]="['events']"
@@ -72,6 +77,7 @@
       <mat-icon fontSet="fas" fontIcon="fa-calendar" class="material-icons-fas"></mat-icon>
       {{ 'events' | translate }}
     </button>
+
     <button
       mat-button
       [routerLink]="['mixes']"
@@ -86,6 +92,7 @@
       <mat-icon fontSet="fab" fontIcon="fa-mixcloud" class="material-icons-fab"></mat-icon>
       {{ 'mixes' | translate }}
     </button>
+
     <button
       mat-button
       [routerLink]="['videos']"
@@ -100,12 +107,13 @@
       <mat-icon fontSet="fab" fontIcon="fa-youtube" class="material-icons-fab"></mat-icon>
       {{ 'videos' | translate }}
     </button>
+
     <button
       mat-button
       [routerLink]="['about']"
       routerLinkActive
       #rlaAbout="routerLinkActive"
-      [disabled]="rlaVideos.isActive"
+      [disabled]="rlaAbout.isActive"
       [fxHide.xs]="true"
       [fxHide.sm]="true"
       matTooltip="{{ 'about' | translate }}"
@@ -114,6 +122,7 @@
       <mat-icon fontSet="fas" fontIcon="fa-info" class="material-icons-fas"></mat-icon>
       {{ 'about' | translate }}
     </button>
+
     <button
       mat-button
       [matMenuTriggerFor]="languageMenu"
@@ -125,6 +134,7 @@
       <mat-icon fontSet="fas" fontIcon="fa-globe" class="material-icons-fas"></mat-icon>
       {{ 'language.title' | translate }}
     </button>
+
     <mat-menu #languageMenu="matMenu" [fxHide.xs]="true" [fxHide.sm]="true">
       <button
         mat-menu-item
@@ -134,6 +144,8 @@
         {{ 'language.' + lang.key | translate }}
       </button>
     </mat-menu>
+
+    <span fxFlex="1 1 auto"></span>
 
     <button
       mat-icon-button

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, take, timeout } from 'rxjs/operators';
+import { catchError, timeout } from 'rxjs/operators';
 import { AppHttpHandlersService } from 'src/app/services/http-handlers/http-handlers.service';
 
 import {
@@ -46,8 +46,7 @@ export class AppGoogleApiService {
       .get(this.endpoints.youtube.search, { params: query, responseType: 'json' })
       .pipe(
         timeout(this.handlers.defaultHttpTimeout),
-        take(1),
-        catchError(this.handlers.handleError),
+        catchError(error => this.handlers.handleError(error)),
       );
   }
 }

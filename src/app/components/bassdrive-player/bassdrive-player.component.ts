@@ -76,6 +76,6 @@ export class AppBassdrivePlayerComponent {
       play: () => unknown;
       pause: () => unknown;
     };
-    return typeof nativeElement !== 'undefined' ? nativeElement.paused : false;
+    return typeof nativeElement !== 'undefined' ? nativeElement.paused : true;
   }
 }
