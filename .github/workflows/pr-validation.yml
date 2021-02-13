@@ -59,7 +59,7 @@ jobs:
         run: ng lint
 
       - name: Unit test
-        run: ng test --passWithNoTests --coverage=false --watch=false --maxWorkers=2 --ci --updateSnapshot
+        run: ng test --passWithNoTests --coverage=false --watch=false --runInBand --ci --updateSnapshot
 
       - name: Build
         run: ng build
