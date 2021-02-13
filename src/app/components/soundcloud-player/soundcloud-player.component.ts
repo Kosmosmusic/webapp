@@ -58,8 +58,8 @@ export type TSoundcloudPlayerMode =
  */
 @Component({
   selector: 'app-soundcloud-player',
-  templateUrl: './soundcloud-player.html',
-  styleUrls: ['./soundcloud-player.scss'],
+  templateUrl: './soundcloud-player.component.html',
+  styleUrls: ['./soundcloud-player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppSoundcloudPlayerComponent implements OnDestroy, OnChanges {

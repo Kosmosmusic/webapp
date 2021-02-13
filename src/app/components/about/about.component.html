@@ -118,7 +118,7 @@
             matInput
             type="email"
             name="email"
-            [formControl]="subscriptionForm.controls.email"
+            formControlName="email"
             placeholder="{{ 'form.email' | translate }}"
           />
           <mat-error *ngIf="subscriptionForm.controls.email.invalid" class="mat-body-1">
@@ -130,7 +130,7 @@
             matInput
             type="string"
             name="b_3eeba7cfe8388b91c662bdf95_8cca3229c8"
-            [formControl]="subscriptionForm.controls.b_3eeba7cfe8388b91c662bdf95_8cca3229c8"
+            formControlName="b_3eeba7cfe8388b91c662bdf95_8cca3229c8"
             placeholder="{{ 'form.name' | translate }}"
           />
         </mat-form-field>

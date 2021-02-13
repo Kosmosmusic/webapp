@@ -5,7 +5,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsLoggerPluginModule, NgxsLoggerPluginOptions } from '@ngxs/logger-plugin';
@@ -98,4 +99,36 @@ const ngxsLoggerPluginOptions: NgxsLoggerPluginOptions = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppRootComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private readonly matIconRegistry: MatIconRegistry,
+    private readonly domSanitizer: DomSanitizer,
+  ) {
+    this.addIconsToRegistry();
+  }
+
+  /**
+   * Adds icons to material icons registry.
+   */
+  private addIconsToRegistry(): void {
+    /**
+     * register fontawesome for usage in mat-icon by adding directives
+     * fontSet="fab" fontIcon="fa-icon"
+     * fontSet="fas" fontIcon="fa-icon"
+     *
+     * note: free plan includes only fab (font-awesome-brands) and fas (font-awesome-solid) groups
+     *
+     * icons reference: https://fontawesome.com/icons/
+     */
+    this.matIconRegistry.registerFontClassAlias('fontawesome');
+
+    this.matIconRegistry.addSvgIcon(
+      'logo-round',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_circle.svg'),
+    );
+    this.matIconRegistry.addSvgIcon(
+      'logo-square',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/img/kosmos_square.svg'),
+    );
+  }
+}

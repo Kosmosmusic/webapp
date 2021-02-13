@@ -25,7 +25,7 @@
         matInput
         type="text"
         name="venueName"
-        [formControl]="bookingForm.controls.venueName"
+        formControlName="venueName"
         placeholder="{{ 'booking.form.venue.name' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.venueName.invalid" class="mat-body-1">
@@ -40,7 +40,7 @@
         readonly
         (click)="picker.open()"
         placeholder="{{ 'booking.form.date' | translate }}"
-        [formControl]="bookingForm.controls.date"
+        formControlName="date"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -54,7 +54,7 @@
         matInput
         type="number"
         name="venueCapasity"
-        [formControl]="bookingForm.controls.venueCapacity"
+        formControlName="venueCapacity"
         placeholder="{{ 'booking.form.venue.capacity' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.venueCapacity.invalid" class="mat-body-1">
@@ -67,7 +67,7 @@
         matInput
         type="text"
         name="venueAddress"
-        [formControl]="bookingForm.controls.venueAddress"
+        formControlName="venueAddress"
         placeholder="{{ 'booking.form.venue.address' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.venueAddress.invalid" class="mat-body-1">
@@ -80,7 +80,7 @@
         matInput
         type="text"
         name="message"
-        [formControl]="bookingForm.controls.venueWebsite"
+        formControlName="venueWebsite"
         placeholder="{{ 'booking.form.venue.website' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.venueWebsite.invalid" class="mat-body-1">
@@ -99,7 +99,7 @@
         matInput
         type="text"
         name="eventName"
-        [formControl]="bookingForm.controls.eventName"
+        formControlName="eventName"
         placeholder="{{ 'booking.form.event.name' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.eventName.invalid" class="mat-body-1">
@@ -112,7 +112,7 @@
         matInput
         type="text"
         name="eventWebsite"
-        [formControl]="bookingForm.controls.eventWebsite"
+        formControlName="eventWebsite"
         placeholder="{{ 'booking.form.event.website' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.eventWebsite.invalid" class="mat-body-1">
@@ -125,7 +125,7 @@
         matInput
         type="text"
         name="ticketCost"
-        [formControl]="bookingForm.controls.ticketCost"
+        formControlName="ticketCost"
         placeholder="{{ 'booking.form.event.ticket' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.ticketCost.invalid" class="mat-body-1">
@@ -138,7 +138,7 @@
         matInput
         type="text"
         name="ticketCost"
-        [formControl]="bookingForm.controls.lineup"
+        formControlName="lineup"
         placeholder="{{ 'booking.form.event.lineup' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.lineup.invalid" class="mat-body-1">
@@ -151,7 +151,7 @@
         matInput
         type="text"
         name="start"
-        [formControl]="bookingForm.controls.start"
+        formControlName="start"
         placeholder="{{ 'booking.form.time.start' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.start.invalid" class="mat-body-1">
@@ -164,7 +164,7 @@
         matInput
         type="text"
         name="end"
-        [formControl]="bookingForm.controls.end"
+        formControlName="end"
         placeholder="{{ 'booking.form.time.end' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.end.invalid" class="mat-body-1">
@@ -177,7 +177,7 @@
         matInput
         type="text"
         name="stageTime"
-        [formControl]="bookingForm.controls.stageTime"
+        formControlName="stageTime"
         placeholder="{{ 'booking.form.time.stage' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.stageTime.invalid" class="mat-body-1">
@@ -190,7 +190,7 @@
         matInput
         type="text"
         name="fee"
-        [formControl]="bookingForm.controls.fee"
+        formControlName="fee"
         placeholder="{{ 'booking.form.fee' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.fee.invalid" class="mat-body-1">
@@ -203,7 +203,7 @@
         matInput
         type="text"
         name="artistsBookedEarlier"
-        [formControl]="bookingForm.controls.artistsBookedEarlier"
+        formControlName="artistsBookedEarlier"
         placeholder="{{ 'booking.form.booked' | translate }}"
       ></textarea>
     </mat-form-field>
@@ -219,7 +219,7 @@
         matInput
         type="text"
         name="company"
-        [formControl]="bookingForm.controls.company"
+        formControlName="company"
         placeholder="{{ 'booking.form.promoter.company' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.company.invalid" class="mat-body-1">
@@ -232,7 +232,7 @@
         matInput
         type="text"
         name="contact"
-        [formControl]="bookingForm.controls.contact"
+        formControlName="contact"
         placeholder="{{ 'booking.form.promoter.contact' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.contact.invalid" class="mat-body-1">
@@ -245,7 +245,7 @@
         matInput
         type="text"
         name="email"
-        [formControl]="bookingForm.controls.email"
+        formControlName="email"
         placeholder="{{ 'booking.form.promoter.email' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.email.invalid" class="mat-body-1">
@@ -258,7 +258,7 @@
         matInput
         type="text"
         name="phone"
-        [formControl]="bookingForm.controls.phone"
+        formControlName="phone"
         placeholder="{{ 'booking.form.promoter.phone' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.phone.invalid" class="mat-body-1">
@@ -271,7 +271,7 @@
         matInput
         type="text"
         name="website"
-        [formControl]="bookingForm.controls.website"
+        formControlName="website"
         placeholder="{{ 'booking.form.promoter.website' | translate }}"
       />
       <mat-error *ngIf="bookingForm.controls.website.invalid" class="mat-body-1">
