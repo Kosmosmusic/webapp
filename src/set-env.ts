@@ -17,10 +17,10 @@ const targetPath = `./src/app/app.environment.ts`;
  */
 let envConfigFile = `import {
   IEnvironmentInterface,
-  ISoundcloudEnvInterface,
   IFirebaseEnvInterface,
-  IGoogleApiEnvInterface
-} from 'src/app/interfaces/index';
+  IGoogleApiEnvInterface,
+  ISoundcloudEnvInterface,
+} from './interfaces/app-environment/app-environment.interface';
 
 /**
  * Application environment as a constant.
@@ -90,10 +90,10 @@ if (!Boolean(reset)) {
    */
   envConfigFile = `import {
   IEnvironmentInterface,
-  ISoundcloudEnvInterface,
   IFirebaseEnvInterface,
-  IGoogleApiEnvInterface
-} from 'src/app/interfaces/index';
+  IGoogleApiEnvInterface,
+  ISoundcloudEnvInterface,
+} from './interfaces/app-environment/app-environment.interface';
 
 /**
  * Application environment as a constant.
