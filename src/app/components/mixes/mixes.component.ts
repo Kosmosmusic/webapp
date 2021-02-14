@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-mixes',
@@ -6,8 +6,4 @@ import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
   styleUrls: ['./mixes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppMixesComponent {
-  @HostBinding('fxLayout') public fxLayout = 'row';
-
-  @HostBinding('fxLayoutAlign') public fxLayoutAlign = 'start stretch';
-}
+export class AppMixesComponent {}

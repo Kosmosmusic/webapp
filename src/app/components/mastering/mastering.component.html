@@ -1,10 +1,9 @@
-<span fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start start">
+<span fxFlex="100" fxLayout="row wrap" class="container">
   <div
     fxFlex="50"
     fxFlex.xs="100"
     fxFlex.sm="100"
     fxLayout="row wrap"
-    fxLayoutAlign="start start"
     class="mat-body-1"
     [ngStyle]="{ padding: '5px' }"
   >
@@ -26,10 +25,11 @@
     </p>
   </div>
 
-  <app-soundcloud-player fxFlex="50" fxFlex.lt-md="100" [mode]="'kosmoslab'">
-  </app-soundcloud-player>
+  <div fxFlex="50" fxFlex.lt-md="100">
+    <app-soundcloud-player [mode]="'kosmoslab'"> </app-soundcloud-player>
+  </div>
 
-  <p fxFlex="100">
+  <p fxFlex="100" [ngStyle]="{ padding: '5px' }">
     <a mat-button fxFlex="100" color="primary" (click)="showMasteringDialog()">
       <mat-icon class="material-icons">equalizer</mat-icon> {{ 'services.open' | translate }}
     </a>

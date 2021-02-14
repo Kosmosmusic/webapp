@@ -15,10 +15,6 @@ import { AppMasteringDialogComponent } from '../mastering-dialog/mastering-dialo
 export class AppMasteringComponent implements OnInit {
   @HostBinding('class.mat-body-1') public readonly matBody1 = true;
 
-  @HostBinding('fxLayout') public fxLayout = 'row';
-
-  @HostBinding('fxLayoutAlign') public fxLayoutAlign = 'start stretch';
-
   constructor(private readonly store: Store, private readonly dialog: MatDialog) {}
 
   /**

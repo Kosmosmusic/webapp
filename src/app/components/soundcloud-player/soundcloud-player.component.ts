@@ -45,13 +45,7 @@ export interface ISoundcloudPlayerChanges extends SimpleChanges {
   playlistId: SimpleChange;
 }
 
-export type TSoundcloudPlayerMode =
-  | 'kosmosmusic'
-  | 'kosmoslab'
-  | 'playlist'
-  | 'user'
-  | 'pl-mixes'
-  | 'playlist';
+export type TSoundcloudPlayerMode = 'kosmosmusic' | 'kosmoslab' | 'user' | 'pl-mixes' | 'playlist';
 
 /**
  * Soundcloud player component.
@@ -142,7 +136,7 @@ export class AppSoundcloudPlayerComponent implements OnDestroy, OnChanges {
 
   public readonly renderTracks$ = this.playerMode$.pipe(
     concatMap(mode => {
-      return mode === 'kosmosmusic' || mode === 'user' ? this.tracks$ : this.playlistTracks$;
+      return /(kosmosmusic|kosmoslab|user)/.test(mode) ? this.tracks$ : this.playlistTracks$;
     }),
   );
 
@@ -181,7 +175,7 @@ export class AppSoundcloudPlayerComponent implements OnDestroy, OnChanges {
         first(),
         concatMap(loading => {
           if (!this.noMoreTracks.value) {
-            if (/(komosmusic|kosmoslab|user)/.test(this.mode)) {
+            if (/(kosmosmusic|kosmoslab|user)/.test(this.mode)) {
               return this.soundcloud.getTracks(this.userId).pipe(
                 tap(data => {
                   if (!Boolean(data.next_href)) {
@@ -198,9 +192,9 @@ export class AppSoundcloudPlayerComponent implements OnDestroy, OnChanges {
             }
           } else if (/(pl-|playlist)/.test(this.mode)) {
             this.renderMorePlaylistTracks();
-            return of();
+            return of(null);
           }
-          return of();
+          return of(null);
         }),
       )
       .subscribe();
@@ -369,7 +363,7 @@ export class AppSoundcloudPlayerComponent implements OnDestroy, OnChanges {
   }
 
   public ngOnChanges(changes: ISoundcloudPlayerChanges): void {
-    if (Boolean(changes.mode)) {
+    if (Boolean(changes.mode.currentValue)) {
       this.playerMode.next(changes.mode.currentValue);
     }
     if (Boolean(changes.mode) && !Boolean(changes.playlistId) && !Boolean(changes.userId)) {
